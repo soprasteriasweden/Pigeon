@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<users>
+    <user>
+        <id>sampleid</id>
+        <role>user</role>
+        <username>sampleuser</username>
+        <password>abc123</password>
+        <pin></pin>
+    </user>
+</users>

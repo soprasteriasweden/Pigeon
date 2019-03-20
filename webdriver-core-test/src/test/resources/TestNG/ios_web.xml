@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name='IOS Web API testsuite' verbose='1' >
+
+    <!--Includes tests that contains the groups ios or mobile-->
+    <method-selectors>
+        <method-selector>
+            <script language="beanshell"><![CDATA[
+                    groups.containsKey("ios") ||
+                    groups.containsKey("mobile")
+                 ]]></script>
+        </method-selector>
+    </method-selectors>
+
+    <test name='API tests for ios web'>
+        <parameter name='configurationId' value='ios_web'></parameter>
+        <parameter name='propertiesFile' value='config.xml'></parameter>
+        <parameter name="debugLevel" value="IMAGES_FAIL"/>
+        <parameter name="config.appium.automated" value="true" />
+
+        <packages>
+            <package name="se.soprasteria.automatedtesting.webdriver.web.*"/>
+        </packages>
+
+    </test>
+</suite>

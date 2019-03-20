@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="config" type="configType"/>
+  <xs:complexType name="driversType">
+    <xs:sequence>
+      <xs:element type="driverType" name="driver" maxOccurs="unbounded" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="userType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="id"/>
+        <xs:attribute type="xs:string" name="pin"/>
+        <xs:attribute type="xs:string" name="role"/>
+        <xs:attribute type="xs:string" name="username"/>
+        <xs:attribute type="xs:string" name="password"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="emailsType">
+    <xs:sequence>
+      <xs:element type="emailType" name="email" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="propertyType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="value"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="optionType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="type" use="optional"/>
+        <xs:attribute type="xs:string" name="value"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="usersType">
+    <xs:sequence>
+      <xs:element type="userType" name="user" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="configType">
+    <xs:sequence>
+      <xs:element type="propertiesType" name="properties" maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Properties</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="emailsType" name="emails" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Email</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="usersType" name="users" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Users</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="driversType" name="drivers" maxOccurs="unbounded" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>Drivers</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="emailType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="host"/>
+        <xs:attribute name="port">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[0-9]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="socketFactoryPort">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="[0-9]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="socketFactory"/>
+        <xs:attribute name="auth">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:pattern value="true|false"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="capabilityType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="type"/>
+        <xs:attribute type="xs:string" name="alternateValue"/>
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="value"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="driverType">
+    <xs:sequence>
+      <xs:element type="capabilityType" name="capability" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="optionType" name="option" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="type">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FirefoxDriver"/>
+          <xs:enumeration value="MarionetteDriver"/>
+          <xs:enumeration value="InternetExplorerDriver"/>
+          <xs:enumeration value="ChromeDriver"/>
+          <xs:enumeration value="AndroidDriver"/>
+          <xs:enumeration value="RemoteWebDriver"/>
+          <xs:enumeration value="SafariDriver"/>
+          <xs:enumeration value="EdgeDriver"/>
+          <xs:enumeration value="IOSDriver"/>
+          <xs:enumeration value="WindowsDriver"/>
+          <xs:enumeration value="OperaDriver"/>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="url" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[hH][tT]{2}[pP][s]*:\/\/.*"/>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="implicit" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="pageLoad" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9]+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+    <xs:attribute type="xs:string" name="version" use="optional"/>
+    <xs:attribute type="xs:string" name="runtimeEnvironment" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="propertiesType">
+    <xs:sequence>
+      <xs:element type="propertyType" name="property" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

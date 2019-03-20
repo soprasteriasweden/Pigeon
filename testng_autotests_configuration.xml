@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Auto Tests: Run tests from "@auto.test.package@" On Demand, on @configurationId@">
+
+    <test name="Test" parallel="methods" thread-count="1">
+        <!-- Browser configuration to run the tests on -->
+        <parameter name="configurationId" value="@configurationId@"/>
+        <parameter name="propertiesFile" value="@propertiesFile@"/>
+        <parameter name="debugLevel" value="IMAGES_FAIL" />
+
+        <groups>
+            <run>
+                <include name="smoke"/>
+                <include name="smoke_chrome"/>
+                <exclude name="under_dev"/>
+                <exclude name="under_dev_chrome"/>
+                <exclude name="no_parallel"/>
+                <exclude name="finland"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="@auto.test.package@" />
+        </packages>
+
+    </test>
+</suite>

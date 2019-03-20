@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <properties>
+        <property name="url.mainpage" value="https://pigeon-apitest.github.io/pages/index.html"/>
+        <property name="url.absolutepositionpage" value="https://pigeon-apitest.github.io/pages/absoluteposition.html" />
+        <property name="url.elementscreenshotpage" value="https://pigeon-apitest.github.io/pages/elementscreenshot.html" />
+        <property name="url.scrollpage" value="https://pigeon-apitest.github.io/pages/scroll.html" />
+        <property name="config.appium.automated" value="true" />
+        <property name="config.video.record" value="true"/>
+    </properties>
+
+    <drivers>
+        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" id="firefox_grid" runtimeEnvironment="seleniumgrid">
+            <capability name="deviceName" value="deprecated" />
+            <capability name="browserName" value="firefox" />
+            <capability name="version" value="" />
+        </driver>
+        <driver id="chromedriver" type="ChromeDriver" version="73.0.3"/>
+        <driver id="chromedriver_headless" type="ChromeDriver">
+            <option name="runHeadless" value="true" />
+        </driver>
+        <driver id="internetexplorerdriver" type="InternetExplorerDriver" version="3.9.0" />
+        <driver id="marionettedriver" type="MarionetteDriver" version="0.14.0" />
+        <driver id="safaridriver" type="SafariDriver" >
+            <option name="useTechnologyPreview" value="false"/>
+        </driver>
+        <driver id="operadriver" type="OperaDriver">
+        </driver>
+        <driver id="edgedriver" type="EdgeDriver" version="4.15063"/>
+        <!-- sample firefoxdriver configuration which works with FF 52 and selenium 3. for FF latest must verify compatibility with geckodriver -->
+        <driver id="firefoxdriver" type="FirefoxDriver" />
+        <driver id="android" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub" >
+            <capability name="deviceName" value="Android Phone" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="app" type="resource" value="API-test.apk" />
+        </driver>
+
+        <driver id="android_web" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub" >
+            <capability name="deviceName" value="Android Phone" />
+            <capability name="udid" value="9886743647314d385a" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="browserName" value="Chrome" />
+        </driver>
+
+        <driver id="macincloud_ios_web" type="IOSDriver" url="http://127.0.0.1:4724/wd/hub" >
+            <capability name="deviceName" value="iPhone 7" />
+            <capability name="udid" value="6F019AD3-B8E8-45E5-BAEE-0E83B52BF369" />
+            <capability name="browserName" value="Safari" />
+            <capability name="automationName" value="XCUITest" />
+        </driver>
+
+        <!-- labclient configuration -->
+        <driver id="labclient" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub" >
+            <capability name="deviceType" value="phone" />
+            <capability name="device" value="Android" />
+            <capability name="deviceName" value="labclient" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="appWaitPackage" value="com.google.android.packageinstaller" />
+            <capability name="appWaitActivity" value="com.android.packageinstaller.permission.ui.GrantPermissionsActivity" />
+            <capability name="app" type="resource" value="yahoo/com.yahoo.mobile.client.android.weather_1.7.6.apk" />
+            <capability name="locationServicesAuthorized" value="true" />
+            <capability name="autoAcceptAlerts" value="true" />
+            <capability name="autoDismissAlerts" value="true" />
+            <capability name="nativeWebScreenshot" value="true" />
+        </driver>
+
+    </drivers>
+
+</config>

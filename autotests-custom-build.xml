@@ -1,0 +1,73 @@
+<project name="Auto Testing On Demand Execution" default="autoTestingOnDemandPackage" basedir=".">
+    <description>
+        Auto Testing On Demand Execution
+    </description>
+    <!-- set global properties for this build -->
+    <property file="autotests-custom-build.properties"/>
+
+    <!-- verify platform this script is running on -->
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <target name="init">
+        <tstamp/>
+        <!-- Verify that the source code from master exists-->
+        <echo message="Verify that the source code is available" />
+    </target>
+
+    <target name="setAutoTestPackage" depends="init"
+            description="fill in test package to be executed">
+        <echo message="Set Auto Test Package to be executed" />
+        <replace file="${testng.file}" token="@auto.test.package@"
+                 value="${auto.test.package}"/>
+        <replace file="${testng.file}" token="@propertiesFile@"
+                 value="${propertiesFile}"/>
+        <replace file="${testng.file}" token="@configurationId@"
+                 value="${configurationId}"/>
+        <replace file="webdriver-core-test/pom.xml" token="@release.version@"
+                 value="${release.version}"/>
+    </target>
+
+    <target name="copyResources" description="copy needed resources into desired location">
+        <echo message="Copy the TestNg file to be used for auto test execution into auto tests folder before running the tests" />
+        <copy file="${testng.file}" todir="${auto.tests.dir}"/>
+    </target>
+
+    <target name="autoTesting_windows" if="isWindows" depends="copyResources">
+        <echo message="Maven run autotests on Windows"/>
+        <exec dir="${auto.tests.dir}" executable="cmd">
+            <arg line="/c mvn clean test -DsuiteXmlFile=${testng.file}"/>
+        </exec>
+    </target>
+
+    <target name="autoTesting_unix" if="isUnix" depends="copyResources">
+        <echo message="Maven run autotests on Unix/Linus/Mac"/>
+        <exec dir="${auto.tests.dir}" executable="/bin/bash">
+            <arg line="-c '/usr/local/bin/mvn clean test -DsuiteXmlFile=${testng.file}'"/>
+        </exec>
+    </target>
+
+    <target name="restoreAutoTestPackageAfterTesting" description="restore Default project Auto Test Package after executing the auto tests">
+
+        <echo message="restore Default project Auto Test Package after executing the auto tests" />
+        <replace file="${testng.file}" token="${auto.test.package}"
+                 value="@auto.test.package@"/>
+        <replace file="${testng.file}" token="${propertiesFile}"
+                 value="@propertiesFile@"/>
+        <replace file="${testng.file}" token="${configurationId}"
+                 value="@configurationId@"/>
+    </target>
+
+    <target name="deleteResources">
+        <echo message="Delete resources after test execution" />
+        <delete file="${auto.tests.dir}/${testng.file}" />
+    </target>
+
+    <target name="autoTestingOnDemandPackage" depends="setAutoTestPackage, autoTesting_unix, autoTesting_windows, deleteResources, restoreAutoTestPackageAfterTesting"/>
+
+</project>

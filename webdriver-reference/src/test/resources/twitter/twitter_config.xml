@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <!-- Users -->
+    <users>
+        <user id="exampleUser" pin="" role="user" username="sampleuser" password="abc123" />
+    </users>
+
+    <!-- Drivers -->
+    <drivers>
+        <driver id="chromedriver" type="ChromeDriver" version="73.0.3"/>
+    </drivers>
+    
+</config>

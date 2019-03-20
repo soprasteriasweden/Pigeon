@@ -1,0 +1,36 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name='Yahoo testsuite' verbose='1' >
+
+    <method-selectors>
+        <method-selector>
+            <script language="beanshell"><![CDATA[
+                    groups.containsKey("smoke") &&
+                    groups.containsKey("yahoo") &&
+                    (groups.containsKey("browser") ||
+                    groups.containsKey("chrome"))
+                 ]]></script>
+        </method-selector>
+    </method-selectors>
+
+    <test name='Test yahoo locations'>
+        <parameter name='configurationId' value='chromedriver'></parameter>
+        <parameter name='propertiesFile' value='yahoo/yahoo_config.xml'></parameter>
+        <parameter name="debugLevel" value="IMAGES_RESULT"/>
+
+        <!--Includes tests that contains the groups "smoke" AND "yahoo"
+        but does not contain the group "android" or have the name "switchValidLocation"-->
+
+
+        <!--<classes>-->
+            <!--<class name='se.soprasteria.automatedtesting.webdriver.yahooweather.AddingLocations' />-->
+            <!--&lt;!&ndash;<class name="se.soprasteria.automatedtesting.webdriver.yahooweather.AssertContent" />&ndash;&gt;-->
+        <!--</classes>-->
+
+
+        <packages>
+            <package name="se.soprasteria.automatedtesting.webdriver.yahooweather.*"/>
+        </packages>
+
+    </test>
+
+</suite>

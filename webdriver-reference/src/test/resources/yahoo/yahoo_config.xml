@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <!-- Properties -->
+    <properties>
+        <property name="config.appium.automated" value="true" />
+        <property name="config.video.record" value="true"/>
+    </properties>
+
+    <!-- Email -->
+    <emails>
+        <email name="gmail" host="smtp.gmail.com" port="465" socketFactoryPort="465"
+               socketFactory="javax.net.ssl.SSLSocketFactory" auth="true" />
+    </emails>
+
+
+    <!-- Users -->
+    <users>
+        <user id="" pin="" role="user" username="sampleuser" password="abc123" />
+    </users>
+
+    <!-- Drivers -->
+    <drivers>
+        <driver id="android_web" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub" >
+            <capability name="deviceName" value="Android Phone" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="browserName" value="Chrome" />
+        </driver>
+
+        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" id="firefox_grid" runtimeEnvironment="seleniumgrid">
+            <capability name="deviceName" value="deprecated" />
+            <capability name="browserName" value="firefox" />
+            <capability name="version" value="" />
+        </driver>
+        <!-- sample chromedriver configuration -->
+        <driver id="chromedriver" type="ChromeDriver" version="73.0.3"/>
+        <!-- sample internetexplorerdriver configuration -->
+        <driver id="internetexplorerdriver" type="InternetExplorerDriver" />
+        <!-- sample marionettedriver configuration -->
+        <driver id="marionettedriver" type="MarionetteDriver" version="0.14.0" />
+        <!-- sample safaridriver configuration -->
+        <driver id="safaridriver" type="SafariDriver" >
+            <option name="useTechnologyPreview" value="false"/>
+        </driver>
+        <!-- sample edgedriver configuration -->
+        <driver id="edgedriver" type="EdgeDriver"/>
+        <!-- sample firefoxdriver configuration which works with FF 52 and selenium 3. for FF latest must verify compatibility with geckodriver -->
+        <driver id="firefoxdriver" type="FirefoxDriver" />
+        <!-- sample android configuration -->
+        <driver id="android" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub" >
+            <capability name="platformName" value="Android" />
+            <capability name="deviceName" value="Android phone" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="appWaitPackage" value="com.google.android.packageinstaller" />
+            <capability name="appWaitActivity" value="com.android.packageinstaller.permission.ui.GrantPermissionsActivity" />
+            <capability name="app" type="resource" value="yahoo/com.yahoo.mobile.client.android.weather_1.7.6.apk" />
+            <capability name="locationServicesAuthorized" value="true" />
+            <capability name="autoAcceptAlerts" value="true" />
+            <capability name="autoDismissAlerts" value="true" />
+            <capability name="nativeWebScreenshot" value="true" />
+        </driver>
+
+        <!-- sample ios iphone configuration -->
+        <driver id="ios" type="IOSDriver" url="http://127.0.0.1:4724/wd/hub" >
+            <capability name="deviceType" value="phone" />
+            <capability name="deviceName" value="iPhone 8 Plus" />
+            <capability name="udid" value="BB34AFE9-3CF0-41A8-BC67-0E70FC3C29FA" />
+            <capability name="platformName" value="iOS" />
+            <capability name="platformVersion" value="11.4" />
+            <capability name="browserName" value="Safari" />
+            <capability name="automationName" value="XCUITest" />
+            <capability name="sendKeyStrategy" value="oneByOne" />
+        </driver>
+
+        <!-- labclient configuration -->
+        <driver id="labclient" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub" >
+            <capability name="deviceType" value="phone" />
+            <capability name="device" value="Android" />
+            <capability name="deviceName" value="labclient" />
+            <capability name="automationName" value="uiautomator2" />
+            <capability name="appWaitPackage" value="com.google.android.packageinstaller" />
+            <capability name="appWaitActivity" value="com.android.packageinstaller.permission.ui.GrantPermissionsActivity" />
+            <capability name="app" type="resource" value="yahoo/com.yahoo.mobile.client.android.weather_1.7.6.apk" />
+            <capability name="locationServicesAuthorized" value="true" />
+            <capability name="autoAcceptAlerts" value="true" />
+            <capability name="autoDismissAlerts" value="true" />
+            <capability name="nativeWebScreenshot" value="true" />
+        </driver>
+
+        <!-- sample browserstack configuration for Web Browsers(https://www.browserstack.com/automate/java) -->
+        <driver id="my_browserstack_windows" runtimeEnvironment="browserstack" type="RemoteWebDriver" url="http://nickpavel2:9ExSz13gUqkqQATkibzE@hub.browserstack.com/wd/hub" >
+            <capability name="os" value="Windows" />
+            <capability name="os_version" value="7" />
+            <capability name="browser" value="IE" />
+            <capability name="browser_version" value="10.0" />
+            <capability name="resolution" value="1920x1080" />
+            <capability name="browserstack.video" value="false" />
+            <capability name="browserstack.debug" value="true" />
+        </driver>
+
+    </drivers>
+
+
+</config>

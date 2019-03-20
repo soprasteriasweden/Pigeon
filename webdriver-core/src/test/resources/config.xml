@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <!-- Properties -->
+    <properties>
+        <property name="" value="" />
+    </properties>
+
+    <!-- Email -->
+    <emails>
+        <email name="gmail" host="smtp.gmail.com" port="465" socketFactoryPort="465"
+               socketFactory="javax.net.ssl.SSLSocketFactory" auth="true" />
+    </emails>
+
+    <!-- Users -->
+    <users>
+        <user id="" pin="" role="user" username="sampleuser" password="abc123" />
+    </users>
+
+    <!-- Drivers -->
+    <drivers>
+        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" implicit="1000" pageLoad="20000" id="firefox_grid" runtimeEnvironment="seleniumgrid">
+            <capability name="deviceName" value="deprecated" />
+            <capability name="browserName" value="firefox" />
+            <capability name="version" value="" />
+            <option name="" type="" value=""></option>
+        </driver>
+        <driver id="internetexplorerdriver" type="InternetExplorerDriver" implicit="1000" pageLoad="20000"  />
+        <driver id="marionettedriver" type="MarionetteDriver" implicit="1000" pageLoad="20000" />
+        <driver id="safaridriver" type="SafariDriver" implicit="1000" pageLoad="20000" />
+        <driver id="chromedriver" type="ChromeDriver" implicit="1000" pageLoad="20000" />
+        <driver id="windowsdriver" type="WindowsDriver" implicit="1000" pageLoad="20000" />
+    </drivers>
+
+</config>

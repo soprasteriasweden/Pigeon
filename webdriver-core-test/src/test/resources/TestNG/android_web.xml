@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name='Android Web API testsuite' verbose='1' >
+
+    <!--Includes tests that contains the groups android or mobile-->
+    <method-selectors>
+        <method-selector>
+            <script language="beanshell"><![CDATA[
+                    groups.containsKey("android") ||
+                    groups.containsKey("mobile")
+                 ]]></script>
+        </method-selector>
+    </method-selectors>
+
+    <test name='API tests for andrid web'>
+        <parameter name='configurationId' value='android_web'></parameter>
+        <parameter name='propertiesFile' value='config.xml'></parameter>
+        <parameter name="debugLevel" value="IMAGES_FAIL"/>
+        <parameter name="config.appium.automated" value="true" />
+
+        <packages>
+            <package name="se.soprasteria.automatedtesting.webdriver.web.*"/>
+        </packages>
+
+    </test>
+</suite>

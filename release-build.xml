@@ -1,0 +1,213 @@
+<project name="SSATFWReleaseVersioningProject" default="gitTagRelease" basedir=".">
+    <description>
+        release SSATFW from master branch
+    </description>
+    <!-- set global properties for this build -->
+    <property file="release.properties"/>
+
+    <!-- verify platform this script is running on -->
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+
+    <condition property="isUnix">
+        <os family="unix" />
+    </condition>
+
+    <!-- define these macros to support GIT commands -->
+    <macrodef name="git">
+        <attribute name="command"/>
+        <attribute name="dir" default="."/>
+        <element name="args" optional="true"/>
+        <sequential>
+            <echo message="git @{command}"/>
+            <exec executable="git" dir="@{dir}">
+                <arg value="@{command}"/>
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="git-checkout-branch">
+        <attribute name="branch"/>
+        <sequential>
+            <git command="checkout">
+                <args>
+                    <arg value="@{branch}"/>
+                </args>
+            </git>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="git-clone-pull">
+        <attribute name="repository"/>
+        <attribute name="dest"/>
+        <sequential>
+            <git command="clone">
+                <args>
+                    <arg value="@{repository}"/>
+                    <arg value="@{dest}"/>
+                </args>
+            </git>
+            <git command="pull" dir="@{dest}"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="git-tag-push">
+        <attribute name="annotation.tag" default="-a"/>
+        <attribute name="tag.name"/>
+        <attribute name="commit.tag" default="-m"/>
+        <attribute name="commit.message" default="new SSATFW release"/>
+        <attribute name="git.remote.origin" default="origin"/>
+        <element name="args" optional="true"/>
+        <sequential>
+            <git command="tag">
+                <args>
+                    <arg value="@{annotation.tag}"/>
+                    <arg value="@{tag.name}"/>
+                    <arg value="@{commit.tag}"/>
+                    <arg value="@{commit.message}"/>
+                </args>
+            </git>
+            <git command="push">
+                <args>
+                    <arg value="@{git.remote.origin}"/>
+                    <arg value="@{tag.name}"/>
+                </args>
+            </git>
+        </sequential>
+    </macrodef>
+    <!-- END define these macros to support GIT commands -->
+
+    <target name="init">
+        <tstamp/>
+        <!-- Verify that the source code from master exists-->
+        <echo message="Verify that the source code is already cloned" />
+        <available file="${common-internal.dir}" type="dir"
+                   property="common-internal.dir.present"/>
+        <available file="${webdriver-core.dir}" type="dir"
+                   property="webdriver-core.dir.present"/>
+    </target>
+
+    <target name="gitPull" depends="init" if="common-internal.dir.present">
+        <echo message="Git - retrieve the latest changes from MASTER branch"/>
+        <git command="checkout">
+            <args>
+                <arg value="${git.branch.release}"/>
+            </args>
+        </git>
+        <git command="pull" dir="." />
+    </target>
+
+    <target name="setReleaseVersion" depends="gitPull"
+            description="update Release version before creating the artifacts">
+        <echo message="Set Release Version for all modules to be released" />
+        <replace file="common-internal/pom.xml" token="@release.version@"
+                 value="${release.version}"/>
+        <replace file="webdriver-core/pom.xml" token="@release.version@"
+                 value="${release.version}"/>
+    </target>
+
+    <target name="unitTesting" depends="setReleaseVersion, unitTesting_windows, unitTesting_unix, restoreDefaultVersionAfterUnitTesting"/>
+
+    <target name="unitTesting_windows" if="isWindows">
+        <echo message="Maven compile and deploy Artifacts to Nexus"/>
+        <exec dir="${common-internal.dir}" executable="cmd">
+            <arg line="/c mvn clean test"/>
+        </exec>
+        <exec dir="${webdriver-core.dir}" executable="cmd">
+            <arg line="/c mvn clean test"/>
+        </exec>
+    </target>
+
+    <target name="unitTesting_unix" if="isUnix">
+        <echo message="Maven compile and deploy Artifacts to Nexus"/>
+        <exec dir="${common-internal.dir}" executable="/bin/bash">
+            <arg line="-c '/usr/local/bin/mvn clean test'"/>
+        </exec>
+        <exec dir="${webdriver-core.dir}" executable="/bin/bash">
+            <arg line="-c '/usr/local/bin/mvn clean test'"/>
+        </exec>
+    </target>
+
+    <target name="restoreDefaultVersionAfterUnitTesting" description="restore Default project versions after executing the unit tests">
+
+        <echo message="Set Default Version for all modules that were just released" />
+        <replace file="common-internal/pom.xml" token="${release.version}"
+                 value="@release.version@"/>
+        <replace file="webdriver-core/pom.xml" token="${release.version}"
+                 value="@release.version@"/>
+    </target>
+
+    <target name="deployArtifactsToNexus" depends="setReleaseVersion, deployArtifactsToNexus_windows, deployArtifactsToNexus_unix"/>
+
+    <target name="deployArtifactsToNexus_windows" if="isWindows">
+        <echo message="Maven compile and deploy Artifacts to Nexus"/>
+        <exec dir="${common-internal.dir}" executable="cmd">
+            <arg line="/c mvn deploy -DskipTests=true"/>
+        </exec>
+        <exec dir="${webdriver-core.dir}" executable="cmd">
+            <arg line="/c mvn deploy -DskipTests=true"/>
+        </exec>
+    </target>
+
+    <target name="deployArtifactsToNexus_unix" if="isUnix">
+        <echo message="Maven compile and deploy Artifacts to Nexus"/>
+        <exec dir="${common-internal.dir}" executable="/bin/bash">
+            <arg line="-c '/usr/local/bin/mvn deploy -DskipTests=true'"/>
+        </exec>
+        <exec dir="${webdriver-core.dir}" executable="/bin/bash">
+            <arg line="-c '/usr/local/bin/mvn deploy -DskipTests=true'"/>
+        </exec>
+    </target>
+
+    <target name="restoreDefaultVersion" depends="deployArtifactsToNexus"
+            description="restore Default project versions after creating the artifacts">
+
+        <echo message="Set Default Version for all modules that were just released" />
+        <replace file="common-internal/pom.xml" token="${release.version}"
+                 value="@release.version@"/>
+        <replace file="webdriver-core/pom.xml" token="${release.version}"
+                 value="@release.version@"/>
+    </target>
+
+    <target name="gitTagRelease" depends="restoreDefaultVersion">
+        <echo message="Create a tag on the last commit and push it to REMOTE"/>
+        <git command="tag">
+            <args>
+                <arg value="-a"/>
+                <arg value="${git.tag.release.version}"/>
+                <arg value="-m"/>
+                <arg value="${git.tag.release.version}"/>
+            </args>
+        </git>
+        <git command="push">
+            <args>
+                <arg value="origin"/>
+                <arg value="${git.tag.release.version}"/>
+            </args>
+        </git>
+    </target>
+
+    <target name="releaseSSATFWOnMaster" depends="gitTagRelease" description="Create a new RELEASE for SSATFW"/>
+
+    <target name="snapshotSSATFWOnDev" depends="gitTagRelease" description="Create a new SNAPSHOT for SSATFW"/>
+
+    <!-- delete a tag locally and remotely -->
+    <target name="gitDeleteTag">
+        <echo message="Delete a tag and push deletion to REMOTE"/>
+        <git command="tag">
+            <args>
+                <arg value="-d"/>
+                <arg value="${git.tag.release.version}"/>
+            </args>
+        </git>
+        <git command="push">
+            <args>
+                <arg value="origin"/>
+                <arg value=":refs/tags/${git.tag.release.version}"/>
+            </args>
+        </git>
+    </target>
+
+</project>
