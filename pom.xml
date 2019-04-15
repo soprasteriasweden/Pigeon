@@ -10,7 +10,6 @@
     <version>1.0</version>
     <modules>
         <module>webdriver-core</module>
-        <module>webdriver-reference</module>
         <module>webdriver-core-test</module>
     </modules>
     <name>Pigeon</name>
