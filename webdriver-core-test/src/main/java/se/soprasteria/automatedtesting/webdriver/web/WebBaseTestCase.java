@@ -43,9 +43,6 @@ public abstract class WebBaseTestCase extends BaseTestCase {
 
     @Override
     protected void initializeDriver(AutomationDriver driver) {
-        if (driver.isWeb()){
-            driver.manage().window().maximize();
-        }
         initPages(driver);
     }
 
