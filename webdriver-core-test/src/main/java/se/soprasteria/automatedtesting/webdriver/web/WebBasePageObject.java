@@ -1,9 +1,7 @@
 package se.soprasteria.automatedtesting.webdriver.web;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import se.soprasteria.automatedtesting.webdriver.APIBasePageObject;
 import se.soprasteria.automatedtesting.webdriver.api.base.BasePageObject;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
