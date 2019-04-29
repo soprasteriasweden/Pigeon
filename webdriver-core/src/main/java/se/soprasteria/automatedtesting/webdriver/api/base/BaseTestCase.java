@@ -151,10 +151,10 @@ public abstract class BaseTestCase extends BaseClass {
     protected void initSuite(final ITestContext testContext,
                              @Optional("") String propertiesFile,
                              @Optional("") String configurationId) {
-        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getDefaultPropertyFile()), testContext);
+        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
         BaseTestSuite.initializeRuntimeEnvironment(
                 BTCHelper.getDriverConfigurations(
-                        logger,Data.ifEmptyOverride(logger, configurationId, getDefaultDriverConfig())));
+                        logger,Data.ifEmptyOverride(logger, configurationId, getDriverConfig())));
         setConfigurationOptions();
         MockedData.initServerPorts(logger);
     }
@@ -182,11 +182,11 @@ public abstract class BaseTestCase extends BaseClass {
                                  @Optional("") String configurationId,
                                  @Optional("") String debugLevel) {
         logger.info("INIT CLASS: " + this.getClass().getSimpleName());
-        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getDefaultPropertyFile()));
-        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDefaultDriverConfig());
+        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()));
+        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfig());
         this.testSuiteName = testContext.getName();
         if (BaseTestConfig.getInstance().getConfig().users != null) this.credentials = new Credentials();
-        DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDefaultDebugLevel()));
+        DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
         Session.setCurrentConfigurationId(this.configurationId);
         startAppium();
     }
@@ -256,25 +256,16 @@ public abstract class BaseTestCase extends BaseClass {
     }
 
     /**
-     * Get the default configuration ID for which webdriver to use. This is only used if no valid parameter was found
-     * in the TestNG XML file. Override this in the testcase in the project specific basetestcase if you prefer a
-     * different webdriver to be used by default.
-     *
-     * @return configuration id.
+     * Abstract method that must always be implemented to specify what webdriver that should be used.
+     * @return driver config id.
      */
-    protected String getDefaultDriverConfig() {
-        return "chromedriver";
-    }
+    protected abstract String getDriverConfig();
 
     /**
-     * Get the default path to the properties file. This is only used if no valid parameter was found in the TestNG XML
-     * file. Override this method in the project specific basetestcase if you prefer another default path.
-     *
+     * Abstract method that must be implemented to specify the path to the config xml file.
      * @return path to property file.
      */
-    protected String getDefaultPropertyFile() {
-        return "reference/config.xml";
-    }
+    protected abstract String getConfigFile();
 
     /**
      * Override this function to specify if a generated appium log should be printed. If not overridden
@@ -346,7 +337,7 @@ public abstract class BaseTestCase extends BaseClass {
      *
      * @return - Default debugtype
      */
-    protected String getDefaultDebugLevel() {
+    protected String getDebugLevel() {
         return DebugLevel.DEFAULT_LEVEL.name();
     }
 
