@@ -113,8 +113,8 @@ public class BDDFactory extends BaseTestCase {
                                   @Optional("") String baseTestCase,
                                   @Optional("unspecified") String bddResultPackageName) {
 
-        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDefaultDriverConfig());
-        this.propertiesFile = Data.ifEmptyOverride(logger, propertiesFile, getDefaultPropertyFile());
+        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfig());
+        this.propertiesFile = Data.ifEmptyOverride(logger, propertiesFile, getConfigFile());
         this.config = BaseTestConfig.getInstance(this.propertiesFile);
 
         featureFolder = Data.ifEmptyOverride(logger, featureFolder, getDefaultFolderContainingFeatureFiles());
@@ -239,4 +239,13 @@ public class BDDFactory extends BaseTestCase {
         return generatedScenarios;
     }
 
+    @Override
+    protected String getDriverConfig() {
+        return "chromedriver";
+    }
+
+    @Override
+    protected String getConfigFile() {
+        return "resources/config.xml";
+    }
 }
