@@ -124,4 +124,5 @@ public abstract class BasePageObject extends BaseClass {
             waitForAndroidPermissionPopupAndClickPast(buttonId, buttonName);
         }
     }
+
 }

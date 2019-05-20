@@ -12,6 +12,7 @@ import se.soprasteria.automatedtesting.webdriver.api.datastructures.Configuratio
 import se.soprasteria.automatedtesting.webdriver.api.datastructures.DebugLevel;
 import se.soprasteria.automatedtesting.webdriver.api.utility.Credentials;
 import se.soprasteria.automatedtesting.webdriver.api.utility.Data;
+import se.soprasteria.automatedtesting.webdriver.helpers.base.baseconfig.config.DriverConfig;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.basetestcase.BTCHelper;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.basetestcase.BaseTestSuite;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
@@ -24,6 +25,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.utility.session.Session
 import se.soprasteria.automatedtesting.webdriver.helpers.video.VideoRecording;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,6 +73,10 @@ public abstract class BaseTestCase extends BaseClass {
      * The current test name
      */
     public String testname;
+    /**
+     * The current driver configurations
+     */
+    public List<DriverConfig> driverConfigs;
 
 
     protected BaseTestCase() {
@@ -92,9 +98,9 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @DataProvider(name="getDriver")
     public Object[][] getDriver(Method testMethod) throws Exception {
+        driverConfigs = BTCHelper.getDriverConfigurations(logger, configurationId);
         Object[][] dataToProvide =
-                BTCHelper.getWebDriversForDataProvider(
-                        BTCHelper.getDriverConfigurations(logger, configurationId),
+                BTCHelper.getWebDriversForDataProvider(driverConfigs,
                         testSuiteName, testMethod.getName());
         if (getTestDataKey() != null) {
             Object[][] updatedList = BTCHelper.addTestData(logger,
@@ -109,8 +115,10 @@ public abstract class BaseTestCase extends BaseClass {
 
         for (Object[] objects : dataToProvide) {
             try {
-                initializeDriver((AutomationDriver)objects[0]);
                 driver = ((AutomationDriver) objects[0]);
+                initializeDriver(driver);
+                initPages(driver);
+                goToPageURL(driver);
             } catch(Exception e) {
                 logger.debug("Conditions for test initialization could not be met. Please verify that the pre-steps are correctly executed. Closing WebDriver and skipping test.");
                 ((AutomationDriver) objects[0]).quit();
@@ -157,6 +165,17 @@ public abstract class BaseTestCase extends BaseClass {
                         logger,Data.ifEmptyOverride(logger, configurationId, getDriverConfig())));
         setConfigurationOptions();
         MockedData.initServerPorts(logger);
+    }
+
+    public boolean isTestTargetMobileApp() {
+        if(driverConfigs.get(0).capabilities != null) {
+            for (DriverConfig.Capability capability: driverConfigs.get(0).capabilities) {
+                if (capability.name.contentEquals("app")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -266,6 +285,22 @@ public abstract class BaseTestCase extends BaseClass {
      * @return path to property file.
      */
     protected abstract String getConfigFile();
+
+
+    /**
+     * Abstract method that must be implemented for initialization of the page objects.
+     * @return path to property file.
+     */
+    protected abstract void initPages(AutomationDriver driver);
+
+    protected void goToPageURL(AutomationDriver driver) {
+        if (!isTestTargetMobileApp()) {
+            if (!BaseTestConfig.getConfigurationOption("mainpage.url").equalsIgnoreCase("")) {
+                driver.navigate().to(BaseTestConfig.getConfigurationOption("mainpage.url"));
+            }
+        }
+    }
+
 
     /**
      * Override this function to specify if a generated appium log should be printed. If not overridden

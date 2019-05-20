@@ -22,6 +22,11 @@ public class AndroidBaseTestCase extends BaseTestCase {
     }
 
     @Override
+    protected void initPages(AutomationDriver driver) {
+
+    }
+
+    @Override
     protected void initializeDriver(AutomationDriver driver) {
         if (driver.isAndroid()) {
             buttonPageObject = new ButtonPageObject(driver);

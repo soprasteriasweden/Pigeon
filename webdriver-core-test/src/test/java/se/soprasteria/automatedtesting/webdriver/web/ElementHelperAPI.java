@@ -2,6 +2,7 @@ package se.soprasteria.automatedtesting.webdriver.web;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import se.soprasteria.automatedtesting.webdriver.api.base.BasePageObject;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
 import java.io.IOException;

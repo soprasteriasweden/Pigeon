@@ -18,6 +18,7 @@ import se.soprasteria.automatedtesting.webdriver.api.utility.Errors;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.baseconfig.config.DriverConfig;
 import se.soprasteria.automatedtesting.webdriver.helpers.bdd.BDDHelper;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.basetestcase.BTCHelper;
+import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -247,5 +248,10 @@ public class BDDFactory extends BaseTestCase {
     @Override
     protected String getConfigFile() {
         return "resources/config.xml";
+    }
+
+    @Override
+    protected void initPages(AutomationDriver driver) {
+
     }
 }

@@ -40,6 +40,7 @@ public class ButtonPageObject extends BasePageObject {
         return elementHelper.isElementDisplayedWithinTime(buttonResetAllElements, 60000);
     }
 
+
     public void switchToSwipeScreen() {
         elementHelper.clickWithinTime(buttonSwitchToSwipeScreen, 2000);
     }

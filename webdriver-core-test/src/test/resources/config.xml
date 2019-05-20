@@ -7,6 +7,7 @@
         <property name="url.elementscreenshotpage" value="https://pigeon-apitest.github.io/pages/elementscreenshot.html" />
         <property name="url.scrollpage" value="https://pigeon-apitest.github.io/pages/scroll.html" />
         <property name="config.appium.automated" value="true" />
+        <property name="config.appium.keep-alive" value="true" />
         <property name="config.video.record" value="true"/>
     </properties>
 
@@ -36,11 +37,14 @@
             <capability name="app" type="resource" value="API-test.apk" />
         </driver>
 
-        <driver id="android_web" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub" >
-            <capability name="deviceName" value="Android Phone" />
-            <capability name="udid" value="9886743647314d385a" />
-            <capability name="automationName" value="uiautomator2" />
-            <capability name="browserName" value="Chrome" />
+        <driver id="android_web" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub">
+            <capability name="deviceType" value="phone"/>
+            <capability name="device" value="Android"/>
+            <capability name="deviceName" value="Samsung Galaxy S8"/>
+            <capability name="browserName" value="Chrome"/>
+            <capability name="locationServicesAuthorized" value="true"/>
+            <capability name="autoAcceptAlerts" value="true"/>
+            <capability name="autoDismissAlerts" value="true"/>
         </driver>
 
         <driver id="macincloud_ios_web" type="IOSDriver" url="http://127.0.0.1:4724/wd/hub" >
