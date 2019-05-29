@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Cross Platform QA API-Test page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Social Buttons CSS -->
+    <link href="../vendor/bootstrap-social/bootstrap-social.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="../dist/css/flickity.css" media="screen">
+	
+	<script src="../vendor/jquery/jquery.js"></script>
+	
+	<script src="../vendor/jquery/jquery.min.js"></script>
+		
+    <script src="../js/elementHelper.js"></script>
+    <script src="../js/cookieHelper.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="../js/flickity.pkgd.min.js"></script>
+	
+	
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>        
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav id="headernav" class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Cross Platform QA API-test</a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                    <li title="ID: loggedinmessage" id="loggedinmessage" class="dropdown">
+                            <a href="#">
+                            <i>LOGGED IN</i>
+                            </a>
+                        </a>
+                        <!-- /.dropdown-messages -->
+                    </li>
+                    <li class="dropdown">
+                            <a title="ID: loginlink" onclick="logIn()" id="loginlink" href="#">
+                            <i class="glyphicon glyphicon-log-in"></i>
+                            </a>
+                        </a>
+                        <!-- /.dropdown-messages -->
+                    </li>
+
+
+                </ul>
+            
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="row">
+                    <div class="col-lg-2">
+                        </div>
+                <div class="col-lg-8">
+                    <h1 class="page-header"  onclick="setWhiteBackground();">Element screenshot</h1>
+                    <div id="navcontainer">
+                            <ul id="navlist">
+                                <li><a href="../pages/index.html" id="mainpagelink" title="ID: mainpagelink">Main</a></li>
+                                <li><a href="../pages/absoluteposition.html" id="absolutepagelink" title="ID: absolutepagelink">Absolute position</a></li>
+                                <li id="active"><a href="../pages/elementscreenshot.html" id="screenshotpagelink" title="ID: screenshotpagelink">Element screenshot</a></li>
+                                <li><a href="../pages/scroll.html" id="scrollpagelink" title="ID: scrollpagelink">Scroll</a></li>
+                        
+                            
+                            </ul>
+                            </div><br>
+
+                            <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                    
+
+
+                            <img id="rect" title="ID: rect" onclick="setTimeout(setBlackBackground,1000);" src="../img/rect3_3black.png"> 
+                            <div class="row" style="margin-top:5px;">
+                                <div id="imagefilled0-3" onclick="setTimeout(function(){$('#rect').attr('src','../img/rect0_3black.png')},1000)" title="ID: imagefilled0-3" class="col-md-3 col-xs-3 description"><b>0/3</b></div>
+                                <div id="imagefilled1-3" onclick="setTimeout(function(){$('#rect').attr('src','../img/rect1_3black.png')},1000)" title="ID: imagefilled1-3" class="col-md-3 col-xs-3 description"><b>1/3</b></div>
+                                <div id="imagefilled2-3" onclick="setTimeout(function(){$('#rect').attr('src','../img/rect2_3black.png')},1000)" title="ID: imagefilled2-3" class="col-md-3 col-xs-3 description"><b>2/3</b></div>
+                                <div id="imagefilled3-3" onclick="setTimeout(function(){$('#rect').attr('src','../img/rect3_3black.png')},0)" title="ID: imagefilled3-3" class="col-md-3 col-xs-3 description"><b>3  /3</b></div>
+                            </div>  
+                            </div>
+                                            
+                            <div class="col-md-6  col-xs-12">
+                                    <div id="colors" class="description row col-md-12 col-xs-12">
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">TOT SIM (%)</div>
+                                                <div class="col-md-2 col-xs-2">RED SIM (%)</div>
+                                                <div class="col-md-2 col-xs-2">GREEN  SIM (%)</div>
+                                                <div class="col-md-2 col-xs-2">BLUE  SIM (%)</div>
+                                                <div class="col-md-4 col-xs-4"></div>
+                                        </div>
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">52</div>
+                                                <div class="col-md-2 col-xs-2">20</div>
+                                                <div class="col-md-2 col-xs-2">64</div>
+                                                <div class="col-md-2 col-xs-2">73</div>
+                                                <div id="color1" title="ID: color1" onclick="setTimeout(function(){$('#color1').css('background-color','rgb(80%,36%,27%)');},1000);" class="colorexample col-md-4 col-xs-4"></div>
+                                        </div>
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">85</div>
+                                                <div class="col-md-2 col-xs-2">73</div>
+                                                <div class="col-md-2 col-xs-2">88</div>
+                                                <div class="col-md-2 col-xs-2">95</div>
+                                                <div id="color2" title="ID: color2" class="colorexample col-md-4  col-xs-4"  onclick="setTimeout(function(){$('#color2').css('background-color','rgb(27%,12%,5%)');},1000);"></div>
+                                        </div>
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">28</div>
+                                                <div class="col-md-2 col-xs-2">73</div>
+                                                <div class="col-md-2 col-xs-2">11</div>
+                                                <div class="col-md-2 col-xs-2">0</div>
+                                                <div id="color3" title="ID: color3" class="colorexample col-md-4  col-xs-4"  onclick="setTimeout(function(){$('#color3').css('background-color','rgb(27%,89%,100%)');},1000);"></div>
+                                        </div>
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">67</div>
+                                                <div class="col-md-2 col-xs-2">95</div>
+                                                <div class="col-md-2 col-xs-2">97</div>
+                                                <div class="col-md-2 col-xs-2">10</div>
+                                                <div id="color4" title="ID: color4" class="colorexample col-md-4 col-xs-4"  onclick="setTimeout(function(){$('#color4').css('background-color','rgb(5%,3%,90%)');},1000);"></div>
+                                        </div>
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2">54</div>
+                                                <div class="col-md-2 col-xs-2">10</div>
+                                                <div class="col-md-2 col-xs-2">54</div>
+                                                <div class="col-md-2 col-xs-2">100</div>
+                                                <div id="color5" title="ID: color5" class="colorexample col-md-4 col-xs-4"  onclick="setTimeout(function(){$('#color5').css('background-color','rgb(90%,46%,0%)');},1000);"></div>
+                                        </div> 
+                                        <div class="colorcolumn row col-md-12 col-xs-12">
+                                                <div class="col-md-2 col-xs-2"></div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                                <div class="col-md-2 col-xs-2"></div>
+                                                <div id="resetcolors" title="ID: resetcolors" class="ol-md-4 col-xs-4"  onclick="resetColors()">RESET COLORS</div>
+                                        </div> 
+                                </div>
+                                <div class="colorcolumn row col-md-12 col-xs-12">
+                                <div id="rotationdiv" class="row col-xs-6" title="ID: rotationdiv" style="cursor:pointer;" type="button" onclick="setTimeout(startRotation,0);">
+                                    <img id="rotatingimage" class="col-xs-12" src="..\img\soprasterialogo.jpg" alt="" width="220" height="30">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                <div class="row">
+                                            <div class="col-md-6">
+                                   
+                                
+                                </div>
+                                
+                                <div class="col-md-6">
+                                   
+                                        
+                                    </div>
+
+                                    </div>
+
+
+
+                                
+
+                          </div>
+                          
+                     
+                   
+                            
+                </div>
+                <div class="col-lg-2">
+                        
+                    </div>
+
+
+            </div>
+
+           
+            </div>
+ 
+            
+          
+        <!-- /#page-wrapper -->
+        
+    <!-- /#wrapper -->
+
+  
+    
+    
+</body>
+
+</html>
