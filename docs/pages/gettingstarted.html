@@ -82,12 +82,37 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="content-main">
                         <!-- /.panel-heading -->
-                        <div class="content-title"></p>Overview</p></div>   
+                        <div class="content-title"></p>Getting Started</p></div>   
                         <!-- /.panel-body -->
-                        <div class="content-text"><p>Pigeon is an Open Source test automation framework powered by Sopra Steria Sweden. 
-                        It provides the functionality for writing and running automated tests on multiple platforms (Android & iOS-devices, Web and Windows applications) and on all major browsers. 
-It can also easily be used for testing the API-layer of the application.
-It is a java-based framework and built upon the existing open-source automation-frameworks Selenium and Appium.</p>
+                        <div class="content-text">
+                            <h3>Requirements</h3>
+                                <ul>
+                                    <li><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">JDK 1.8</a></li>
+                                    <li><a href="https://www.jetbrains.com/idea/">Intellij</a></li>
+                                    <li><a href="https://maven.apache.org/">Maven</a></li>
+                                </ul>
+                                <p>For running tests on mobile devices</p>
+                                <ul>
+                                    <li><a href="http://appium.io/">Appium</a><span> (Install via <a href="https://nodejs.org/en/">npm</a> or <a href="https://github.com/appium/appium-desktop/releases/">Appium Desktop</a>)</span></li>
+                                    <li>iOS-specific: MacOSX. XCode w/ Command Line Tools</li>
+                                    <li>Android-specific: Mac OSX or Windows or Linux.
+                                            Android SDK ≥ 16</li>
+                                </ul>
+                                   
+                            <h3>Setting up the project</h3>        
+                            <p>Clone repo from terminal/cmd:</p>
+                            <p><code>git clone https://github.com/soprasteriasweden/Pigeon.git</code></p>
+                            <p>Navigate to project directory in terminal or cmd. Run command: </p>
+                            <p><code>mvn clean install</code></p>
+                            <p>Start new maven project in preferred IDE.</p>
+                            <p>Add dependency for the pigeon library in pom.xml:</p><xmp><dependencies>
+    <dependency>
+        <groupId>se.soprasteria.automatedtesting.webdriver</groupId>
+        <artifactId>pigeon</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies></xmp>
+<p>If maven project is not automatically imported, do it manually.</p>
 </div>
                     </div>
                     <!-- /.panel -->
