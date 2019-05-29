@@ -236,6 +236,12 @@ cursor:pointer;
   font-size: 15px;
 }
 
+.content-text {
+  font-size: 1.6rem;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+}
+
 #navlist li {
   list-style-type: none;
 
