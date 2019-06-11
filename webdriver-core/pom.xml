@@ -131,7 +131,7 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.0.0-beta1</version>
+            <version>6.14.3</version>
         </dependency>
         <dependency>
             <groupId>org.beanshell</groupId>
@@ -227,6 +227,16 @@
             <groupId>com.googlecode.plist</groupId>
             <artifactId>dd-plist</artifactId>
             <version>1.21</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.paulhammant</groupId>
