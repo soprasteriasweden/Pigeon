@@ -33,7 +33,7 @@ public class WebBaseTestCase extends BaseTestCase {
 
     @Override
     protected String getDriverConfigId() {
-        return "android";
+        return "chromedriver";
     }
 
     @Override
