@@ -7,8 +7,8 @@
 
     <!-- Just metadata and basic configuration about this artifact -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.soprasteria.automatedtesting.webdriver</groupId>
-    <artifactId>webdriver-core-test</artifactId>
+    <groupId>se.soprasteria</groupId>
+    <artifactId>pigeon-test</artifactId>
     <packaging>jar</packaging>
     <version>@release.version@</version>
     <name>Pigeon - WebDriver Core Test</name>
@@ -114,9 +114,9 @@
     <!-- All the dependencies needed in the source -->
     <dependencies>
         <dependency>
-            <groupId>se.soprasteria.automatedtesting.webdriver</groupId>
-            <artifactId>webdriver-core</artifactId>
-            <version>local</version>
+            <groupId>se.soprasteria</groupId>
+            <artifactId>pigeon</artifactId>
+            <version>@release.version@</version>
         </dependency>
     </dependencies>
 
