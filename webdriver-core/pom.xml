@@ -7,10 +7,10 @@
 
     <!-- Just metadata and basic configuration about this artifact -->
     <modelVersion>4.0.0</modelVersion>
-    <groupId>se.soprasteria.automatedtesting.webdriver</groupId>
-    <artifactId>webdriver-core</artifactId>
+    <groupId>se.soprasteria</groupId>
+    <artifactId>pigeon</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>@release.version@</version>
     <name>Pigeon - WebDriver Core</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
