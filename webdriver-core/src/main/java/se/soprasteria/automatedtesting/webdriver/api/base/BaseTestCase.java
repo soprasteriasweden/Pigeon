@@ -162,7 +162,7 @@ public abstract class BaseTestCase extends BaseClass {
         config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
         BaseTestSuite.initializeRuntimeEnvironment(
                 BTCHelper.getDriverConfigurations(
-                        logger,Data.ifEmptyOverride(logger, configurationId, getDriverConfig())));
+                        logger,Data.ifEmptyOverride(logger, configurationId, getDriverConfigId())));
         setConfigurationOptions();
         MockedData.initServerPorts(logger);
     }
@@ -202,7 +202,7 @@ public abstract class BaseTestCase extends BaseClass {
                                  @Optional("") String debugLevel) {
         logger.info("INIT CLASS: " + this.getClass().getSimpleName());
         config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()));
-        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfig());
+        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
         this.testSuiteName = testContext.getName();
         if (BaseTestConfig.getInstance().getConfig().users != null) this.credentials = new Credentials();
         DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
@@ -278,7 +278,7 @@ public abstract class BaseTestCase extends BaseClass {
      * Abstract method that must always be implemented to specify what webdriver that should be used.
      * @return driver config id.
      */
-    protected abstract String getDriverConfig();
+    protected abstract String getDriverConfigId();
 
     /**
      * Abstract method that must be implemented to specify the path to the config xml file.

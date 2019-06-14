@@ -23,17 +23,6 @@
         </license>
     </licenses>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>soprasteria-pigeon-snapshots</id>
-            <url>s3://soprasteria-pigeon-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>soprasteria-pigeon-releases</id>
-            <url>s3://soprasteria-pigeon-snapshots/</url>
-        </repository>
-    </distributionManagement>
-
     <!-- Plugins related to the build -->
     <build>
         <plugins>
@@ -60,13 +49,6 @@
                 <version>2.5.3</version>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.kuali.maven.wagons</groupId>
-                <artifactId>maven-s3-wagon</artifactId>
-                <version>1.2.1</version>
-            </extension>
-        </extensions>
     </build>
 
     <!-- Plugins related to reporting -->

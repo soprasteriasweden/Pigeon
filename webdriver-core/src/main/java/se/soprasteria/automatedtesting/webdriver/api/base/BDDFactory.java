@@ -114,7 +114,7 @@ public class BDDFactory extends BaseTestCase {
                                   @Optional("") String baseTestCase,
                                   @Optional("unspecified") String bddResultPackageName) {
 
-        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfig());
+        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
         this.propertiesFile = Data.ifEmptyOverride(logger, propertiesFile, getConfigFile());
         this.config = BaseTestConfig.getInstance(this.propertiesFile);
 
@@ -241,7 +241,7 @@ public class BDDFactory extends BaseTestCase {
     }
 
     @Override
-    protected String getDriverConfig() {
+    protected String getDriverConfigId() {
         return "chromedriver";
     }
 

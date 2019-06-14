@@ -12,7 +12,7 @@ public class AndroidBaseTestCase extends BaseTestCase {
     protected SwipePageObject swipePage;
 
     @Override
-    protected String getDriverConfig() {
+    protected String getDriverConfigId() {
         return "android";
     }
 

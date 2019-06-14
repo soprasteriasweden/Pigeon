@@ -1,7 +1,6 @@
 package se.soprasteria.automatedtesting.webdriver.web;
 
 import org.testng.Assert;
-import se.soprasteria.automatedtesting.webdriver.api.base.BasePageObject;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestCase;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 import se.soprasteria.automatedtesting.webdriver.web.datastructure.Page;
@@ -33,7 +32,7 @@ public class WebBaseTestCase extends BaseTestCase {
     }
 
     @Override
-    protected String getDriverConfig() {
+    protected String getDriverConfigId() {
         return "android";
     }
 
@@ -43,7 +42,7 @@ public class WebBaseTestCase extends BaseTestCase {
     }
 
     @Override
-    protected void initPages(AutomationDriver driver){
+    protected void initPages(AutomationDriver driver) {
         logger.info("Initializing pages");
         mainPage = new MainPage(driver);
         absoluteElementPage = new AbsoluteElementPage(driver);
@@ -51,6 +50,7 @@ public class WebBaseTestCase extends BaseTestCase {
         elementScreenshotPage = new ElementScreenshotPage(driver);
         initTestMethods(driver);
     }
+
 
     private void initTestMethods(AutomationDriver driver){
         driverMethods = new DriverMethods(driver);
