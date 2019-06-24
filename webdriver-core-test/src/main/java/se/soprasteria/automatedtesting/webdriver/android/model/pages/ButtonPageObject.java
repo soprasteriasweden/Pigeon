@@ -3,10 +3,10 @@ package se.soprasteria.automatedtesting.webdriver.android.model.pages;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import se.soprasteria.automatedtesting.webdriver.APIBasePageObject;
+import se.soprasteria.automatedtesting.webdriver.api.base.BasePageObject;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
-public class ButtonPageObject extends APIBasePageObject {
+public class ButtonPageObject extends BasePageObject {
 
     @FindBy(id = "resetButton")
     WebElement buttonResetAllElements;
@@ -39,6 +39,7 @@ public class ButtonPageObject extends APIBasePageObject {
     public boolean isPageLoaded() {
         return elementHelper.isElementDisplayedWithinTime(buttonResetAllElements, 60000);
     }
+
 
     public void switchToSwipeScreen() {
         elementHelper.clickWithinTime(buttonSwitchToSwipeScreen, 2000);

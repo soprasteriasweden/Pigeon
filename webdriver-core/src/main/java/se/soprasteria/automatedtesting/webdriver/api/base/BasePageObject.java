@@ -37,7 +37,17 @@ public abstract class BasePageObject extends BaseClass {
         this.driver = driver;
         this.elementHelper = new ElementHelper(logger, driver);
         this.navigationHelper = new NavigationHelper(logger,driver);
+        this.setElementLocator(driver);
+    }
 
+    public void setElementLocator(AutomationDriver driver){
+        if(driver.isWeb()) {
+            defaultWebpageElementLocator(driver);
+        } else if(driver.isAndroid()) {
+            defaultAndroidElementLocator(driver);
+        } else if(driver.isIos()) {
+            defaultIOSElementLocator(driver);
+        }
     }
 
     /**
@@ -114,4 +124,5 @@ public abstract class BasePageObject extends BaseClass {
             waitForAndroidPermissionPopupAndClickPast(buttonId, buttonName);
         }
     }
+
 }

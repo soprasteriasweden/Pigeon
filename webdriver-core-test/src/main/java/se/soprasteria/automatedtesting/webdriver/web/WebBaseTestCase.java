@@ -12,7 +12,7 @@ import se.soprasteria.automatedtesting.webdriver.web.model.pages.ScrollPage;
 
 import java.awt.*;
 
-public abstract class WebBaseTestCase extends BaseTestCase {
+public class WebBaseTestCase extends BaseTestCase {
 
     protected DriverMethods driverMethods;
     protected WaitForElementMethods waitForElementMethods;
@@ -27,26 +27,22 @@ public abstract class WebBaseTestCase extends BaseTestCase {
 
 
     @Override
-    protected String getDefaultDriverConfig() {
-        return "chromedriver";
-    }
-
-    @Override
-    protected String getDefaultPropertyFile() {
-        return "config.xml";
-    }
-
-    @Override
-    protected String getDefaultDebugLevel() {
+    protected String getDebugLevel() {
         return "IMAGES_FAIL";
     }
 
     @Override
-    protected void initializeDriver(AutomationDriver driver) {
-        initPages(driver);
+    protected String getDriverConfigId() {
+        return "chromedriver";
     }
 
-    private void initPages(AutomationDriver driver){
+    @Override
+    protected String getConfigFile() {
+        return "config.xml";
+    }
+
+    @Override
+    protected void initPages(AutomationDriver driver) {
         logger.info("Initializing pages");
         mainPage = new MainPage(driver);
         absoluteElementPage = new AbsoluteElementPage(driver);
@@ -54,6 +50,7 @@ public abstract class WebBaseTestCase extends BaseTestCase {
         elementScreenshotPage = new ElementScreenshotPage(driver);
         initTestMethods(driver);
     }
+
 
     private void initTestMethods(AutomationDriver driver){
         driverMethods = new DriverMethods(driver);

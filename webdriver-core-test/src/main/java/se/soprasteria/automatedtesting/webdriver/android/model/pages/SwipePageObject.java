@@ -2,11 +2,11 @@ package se.soprasteria.automatedtesting.webdriver.android.model.pages;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import se.soprasteria.automatedtesting.webdriver.APIBasePageObject;
+import se.soprasteria.automatedtesting.webdriver.api.base.BasePageObject;
 import se.soprasteria.automatedtesting.webdriver.api.datastructures.Speed;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
-public class SwipePageObject extends APIBasePageObject {
+public class SwipePageObject extends BasePageObject {
 
     @FindBy(id = "switchToButtons")
     WebElement buttonSwitchToButtonsScreen;

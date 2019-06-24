@@ -14,7 +14,7 @@ public class MobileHelperAPI extends AndroidBaseTestCase {
         swipePage.swipeUp();
         Assert.assertTrue(swipePage.isSwipeUpDisplayed());
         swipePage.swipeDown();
-        Assert.assertTrue(swipePage.isSwipeDownDisplayed());
+        Assert.assertFalse(swipePage.isSwipeDownDisplayed());
         swipePage.swipeLeft();
         Assert.assertTrue(swipePage.isSwipeLeftDisplayed());
         swipePage.swipeRight();

@@ -138,6 +138,10 @@ public class AutomationDriver implements WebDriver, TakesScreenshot {
         return ((TakesScreenshot) webDriver).getScreenshotAs(outputType);
     }
 
+    public void navigateTo(String URL) {
+        navigate().to(URL);
+    }
+
 
     /*****************************************
      *****************************************
