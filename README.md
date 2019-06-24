@@ -6,16 +6,6 @@ It can also easily be used for testing the API-layer of the application.
 It is a java-based framework and built upon the existing open-source automation-frameworks Selenium and Appium.
 
 ## Getting started
-Congratulations! You are only a few steps from have written and run your first automated browser test with Pigeon!
-
-This guide will take you through the following steps: 
-* Setting up 
-
-
-of setting up the framework on your computer
-
-
-
 #### Requirements
 * [JDK 1.8+](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 * [Maven](https://maven.apache.org/)
