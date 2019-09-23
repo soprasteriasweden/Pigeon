@@ -17,7 +17,7 @@
             <capability name="browserName" value="firefox" />
             <capability name="version" value="" />
         </driver>
-        <driver id="chromedriver" type="ChromeDriver" version="74"/>
+        <driver id="chromedriver" type="ChromeDriver" version="75"/>
         <driver id="chromedriver_headless" type="ChromeDriver">
             <option name="runHeadless" value="true" />
         </driver>
