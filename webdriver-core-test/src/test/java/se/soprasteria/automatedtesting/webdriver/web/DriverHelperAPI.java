@@ -8,7 +8,7 @@ import static se.soprasteria.automatedtesting.webdriver.api.datastructures.WebDr
 import static se.soprasteria.automatedtesting.webdriver.web.datastructure.Page.MAIN_PAGE;
 
 public class DriverHelperAPI extends WebBaseTestCase {
-    
+
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     public void getCapabilityTest(AutomationDriver driver) {
         initialize(MAIN_PAGE);
@@ -35,8 +35,8 @@ public class DriverHelperAPI extends WebBaseTestCase {
     public void didScreenChangeDuringIntervalTest(AutomationDriver driver) {
         initialize(MAIN_PAGE);
         obviateMouse();
-        Assert.assertTrue(mainPage.isPageLoaded(),"Page was not loaded correctly");
-        if(driver.isAndroid()) sleep(2000); //Sleep to give android scroll bar time to fade out
+        Assert.assertTrue(mainPage.isLoaded(), "Page was not loaded correctly");
+        if (driver.isAndroid()) sleep(2000); //Sleep to give android scroll bar time to fade out
         Assert.assertFalse(driverMethods.didScreenChange(), "Screen changed when it shouldn't have");
         clickElementMethods.clickTimerShowButton();
         Assert.assertTrue(driverMethods.didScreenChange(), "Screen did not change when it should have");
@@ -265,7 +265,7 @@ public class DriverHelperAPI extends WebBaseTestCase {
     public void executeJavaScriptTest(AutomationDriver driver) {
         initialize(MAIN_PAGE);
         driverMethods.clickShowElementWithJavascript();
-        Assert.assertTrue(isElementMethods.isClickableElementDisplayed(),"Element not displayed when it should have been");
+        Assert.assertTrue(isElementMethods.isClickableElementDisplayed(), "Element not displayed when it should have been");
     }
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"browser", "mobile"})

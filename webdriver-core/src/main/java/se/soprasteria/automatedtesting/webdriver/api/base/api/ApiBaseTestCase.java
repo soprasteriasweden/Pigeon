@@ -1,31 +1,18 @@
-package se.soprasteria.automatedtesting.webdriver.api.base;
+package se.soprasteria.automatedtesting.webdriver.api.base.api;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.config.Configurator;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import org.testng.xml.XmlTest;
-import se.soprasteria.automatedtesting.webdriver.api.datastructures.ConfigurationOption;
-import se.soprasteria.automatedtesting.webdriver.api.datastructures.DebugLevel;
+import se.soprasteria.automatedtesting.webdriver.api.base.BaseClass;
+import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestConfig;
 import se.soprasteria.automatedtesting.webdriver.api.utility.Credentials;
 import se.soprasteria.automatedtesting.webdriver.api.utility.Data;
-import se.soprasteria.automatedtesting.webdriver.helpers.base.baseconfig.config.DriverConfig;
-import se.soprasteria.automatedtesting.webdriver.helpers.base.basetestcase.BTCHelper;
-import se.soprasteria.automatedtesting.webdriver.helpers.base.basetestcase.BaseTestSuite;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
-import se.soprasteria.automatedtesting.webdriver.helpers.driver.WebDriverLog;
-import se.soprasteria.automatedtesting.webdriver.helpers.utility.AppiumHelper;
-import se.soprasteria.automatedtesting.webdriver.helpers.utility.AppiumLog;
 import se.soprasteria.automatedtesting.webdriver.helpers.utility.data.MockedData;
-import se.soprasteria.automatedtesting.webdriver.helpers.utility.debugimage.ImageEditor;
 import se.soprasteria.automatedtesting.webdriver.helpers.utility.session.Session;
-import se.soprasteria.automatedtesting.webdriver.helpers.video.VideoRecording;
 
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,8 +24,8 @@ import java.util.Map;
  * and the ID of the webdriver configuration to be used.
  */
 
-@Listeners({BaseTestListener.class})
-public abstract class BaseTestCase extends BaseClass {
+@Listeners({ApiBaseTestListener.class})
+public abstract class ApiBaseTestCase extends BaseClass {
     /**
      * Main properties file of the project, specified in TestNG XML as a parameter named 'config'
      */
@@ -54,7 +41,7 @@ public abstract class BaseTestCase extends BaseClass {
     /**
      * The configuration ID for the webdriver used in the test, specified in TestNG XML as parameter named 'configurationId'
      */
-    public String configurationId;
+    public String configId;
     /**
      * The propertiesfile path
      **/
@@ -73,59 +60,15 @@ public abstract class BaseTestCase extends BaseClass {
      * The current test name
      */
     public String testname;
-    /**
-     * The current driver configurations
-     */
-    public List<DriverConfig> driverConfigs;
 
 
-    protected BaseTestCase() {
-        // Needed to get rid of a warning message related to Selenium logging
+    protected ApiBaseTestCase() {
+      /*  // Needed to get rid of a warning message related to Selenium logging
         System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.Jdk14Logger");
         // Needed to get rid of debug messages related to HttpClient logging
         Configurator.setLevel("org.apache.http", Level.WARN);
         // Needed to get rid of debug messages related to spring framework logging
-        Configurator.setLevel("org.springframework", Level.WARN);
-    }
-
-    /**
-     * Automatically generates the webdriver used by the tests. You import this by specifying the dataprovider for the
-     * annotated test to 'getWebDriver'. For more info about usage please refer to reference testcase.
-     *
-     * @param testMethod Provided by TestNG. Provides information about the testmethod.
-     * @return Array with the AutomationDriver object that is being used for the test.
-     * @throws java.lang.Exception
-     */
-    @DataProvider(name = "getDriver")
-    public Object[][] getDriver(Method testMethod) throws Exception {
-        driverConfigs = BTCHelper.getDriverConfigurations(logger, configurationId);
-        Object[][] dataToProvide =
-                BTCHelper.getWebDriversForDataProvider(driverConfigs,
-                        testSuiteName, testMethod.getName());
-        if (getTestDataKey() != null) {
-            Object[][] updatedList = BTCHelper.addTestData(logger,
-                    dataToProvide,
-                    data.get(getTestDataKey()));
-            if (updatedList != null) {
-                dataToProvide = updatedList;
-            }
-        }
-
-        data = BTCHelper.getData(logger);
-
-        for (Object[] objects : dataToProvide) {
-            try {
-                driver = ((AutomationDriver) objects[0]);
-                initializeDriver(driver);
-                initPages(driver);
-                goToPageURL(driver);
-            } catch (Exception e) {
-                logger.debug("Conditions for test initialization could not be met. Please verify that the pre-steps are correctly executed. Closing WebDriver and skipping test.");
-                ((AutomationDriver) objects[0]).quit();
-                throw e;
-            }
-        }
-        return dataToProvide;
+        Configurator.setLevel("org.springframework", Level.WARN);*/
     }
 
     /**
@@ -159,25 +102,7 @@ public abstract class BaseTestCase extends BaseClass {
     protected void initSuite(final ITestContext testContext,
                              @Optional("") String propertiesFile,
                              @Optional("") String configurationId) {
-        this.config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
-        String configId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
-        if (!configId.equalsIgnoreCase("api")) {
-            BaseTestSuite.initializeRuntimeEnvironment(
-                    BTCHelper.getDriverConfigurations(logger, configId));
-            setConfigurationOptions();
-            MockedData.initServerPorts(logger);
-        }
-    }
-
-    public boolean isTestTargetMobileApp() {
-        if (driverConfigs.get(0).capabilities != null) {
-            for (DriverConfig.Capability capability : driverConfigs.get(0).capabilities) {
-                if (capability.name.contentEquals("app")) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
     }
 
     /**
@@ -204,15 +129,12 @@ public abstract class BaseTestCase extends BaseClass {
                                  @Optional("") String debugLevel) {
         logger.info("INIT CLASS: " + this.getClass().getSimpleName());
         this.config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()));
-        this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
+        this.configId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
 
         this.testSuiteName = testContext.getName();
         if (BaseTestConfig.getInstance().getConfig().users != null) this.credentials = new Credentials();
-        DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
-        Session.setCurrentConfigurationId(this.configurationId);
-        if (!this.configurationId.equalsIgnoreCase("api")) {
-            startAppium();
-        }
+        Session.setCurrentConfigurationId(this.configId);
+        // DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
     }
 
     /**
@@ -225,18 +147,14 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod(ITestContext context, XmlTest xml, Method method, Object[] providerData) {
-        if (driver != null) {
-            if (!driver.isMobile()) driver.manage().window().maximize();
-            startVideoRecording();
-            testname = method.getName();
-            WebDriverLog.printLogFile(logger);
-            getDriverWithoutDataProvider(method);
-        }
+        initPages(driver);
+        initializeTest(driver);
     }
 
-    public void startVideoRecording() {
-        VideoRecording.getInstance().startRecording(driver);
+    protected void initializeTest(AutomationDriver driver) {
     }
+
+    ;
 
     /**
      * Automatically runs after each method and tears down the webdriver.
@@ -245,24 +163,6 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @AfterMethod(alwaysRun = true)
     protected void closeWebDriver(ITestResult testResult) {
-        if (this.driver != null) {
-            AutomationDriver driver = this.driver;
-            if (testResult.getParameters().length > 0) {
-                driver = (AutomationDriver) testResult.getParameters()[0];
-            } else if (driver == null) {
-                throw new WebDriverException("Could not find a WebDriver to close!");
-            }
-            closeWebDriversOpenedByID();
-            logger.info("CLOSING " + driver.getWebDriverName().toUpperCase() + ": " + testResult.getName());
-            driver.quit();
-            if (driver.isMobile() || driver.isWindowsDriver()) {
-                sleep(2000);
-                AppiumLog.printAppiumLogForCurrentTest(testResult, logger);
-            }
-            WebDriverLog.printLogFile(logger);
-            MockedData.releasePort(testname);
-            WebDriverLog.clearWebDriverLog(logger);
-        }
     }
 
     /**
@@ -271,7 +171,6 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @AfterTest(alwaysRun = true)
     protected void closeSuite() {
-        stopAppium();
     }
 
     /**
@@ -305,25 +204,9 @@ public abstract class BaseTestCase extends BaseClass {
     protected abstract void initPages(AutomationDriver driver);
 
     protected void goToPageURL(AutomationDriver driver) {
-        if (!isTestTargetMobileApp()) {
-            if (!BaseTestConfig.getConfigurationOption("mainpage.url").equalsIgnoreCase("")) {
-                driver.navigate().to(BaseTestConfig.getConfigurationOption("mainpage.url"));
-            }
+        if (!BaseTestConfig.getConfigurationOption("mainpage.url").equalsIgnoreCase("")) {
+            driver.navigate().to(BaseTestConfig.getConfigurationOption("mainpage.url"));
         }
-    }
-
-
-    /**
-     * Override this function to specify if a generated appium log should be printed. If not overridden
-     * no log file wil be printed. To generate and print a appium log, turn on appium logging by sending appium server
-     * argument --log with the path to the root of the project and specify the appium log filename to start with "appium_log"
-     * when starting appium.
-     * Example: "--log c://projectDirectory/appium_log_MyAppiumLog.log"
-     *
-     * @return
-     */
-    protected boolean printAppiumLog() {
-        return false;
     }
 
     /**
@@ -334,17 +217,6 @@ public abstract class BaseTestCase extends BaseClass {
      */
     protected String getTestDataKey() {
         return null;
-    }
-
-    /**
-     * Get a webdriver using a configuration id. NOTE: These webdrivers will automatically close after each test
-     * method.
-     *
-     * @param configurationId specifying which configuration to use from the driverconfiguration XML
-     * @return webdriver
-     */
-    protected WebDriver getWebDriverById(String configurationId) {
-        return BTCHelper.getDriver(logger, configurationId);
     }
 
     /**
@@ -378,71 +250,4 @@ public abstract class BaseTestCase extends BaseClass {
     protected void performAfterLoadingMockedData(AutomationDriver driver) {
     }
 
-    /**
-     * Sets the default debuglevel for the project. This debuglevel is used by the debugger but can be overridden.
-     *
-     * @return - Default debugtype
-     */
-    protected String getDebugLevel() {
-        return DebugLevel.DEFAULT_LEVEL.name();
-    }
-
-    private void setConfigurationOptions() {
-        AppiumLog.set(logger, Data.ifEmptyOverrideBoolean(BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_LOG),
-                printAppiumLog()));
-        ImageEditor.setScreenshotFileFormat(logger, Data.ifEmptyOverride(logger,
-                BaseTestConfig.getConfigurationOption(ConfigurationOption.SCREENSHOT_FORMAT), "jpg"));
-        try {
-            ImageEditor.setScreenshotSizeFactor(logger,
-                    Data.ifEmptyOverrideDouble(BaseTestConfig.getConfigurationOption(ConfigurationOption.SCREENSHOT_SIZE),
-                            1.0));
-        } catch (NumberFormatException e) {
-            logger.warn("Screenshot size configuration option value illegal format, needs to be set as a double value");
-            throw e;
-        }
-    }
-
-    private void startAppium() {
-        if (Boolean.valueOf(BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_AUTOMATIC)) &&
-                BTCHelper.doesConfigurationTypeSupportAppium(this.configurationId)) {
-            String port;
-            try {
-                port = BTCHelper.getConfigurationUrlPort(this.configurationId);
-            } catch (RuntimeException e) {
-                logger.trace("Failed to extract port from configuration id " + this.configurationId
-                        + " when starting Appium, choose a " +
-                        "configuration id with a url and port");
-                throw e;
-            }
-            AppiumHelper.startAppium(logger, port);
-        }
-    }
-
-    private void stopAppium() {
-        if (Boolean.valueOf(BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_AUTOMATIC)) &&
-                !Boolean.valueOf(BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_KEEP_ALIVE))) {
-            AppiumHelper.stopAppium(logger);
-        }
-    }
-
-    private void closeWebDriversOpenedByID() {
-        BTCHelper.closeWebDriversOpenedDuringSession(logger);
-    }
-
-    private void getDriverWithoutDataProvider(Method testMethod) {
-        boolean noDataProvider = true;
-        for (Class<?> parameter : testMethod.getParameterTypes()) {
-            if (parameter == AutomationDriver.class) noDataProvider = false;
-        }
-        if (noDataProvider) {
-            logger.warn("WARNING! EXPERIMENTAL FEATURE: Initializing WebDriver without using a DataProvider is an experimental " +
-                    "feature and may cause issues. It is recommended to use a DataProvider annotation and WebDriver parameter " +
-                    "with your test method.");
-            try {
-                getDriver(testMethod);
-            } catch (Exception e) {
-                throw new RuntimeException("Could not initialize a WebDriver without a DataProvider: " + e.getMessage());
-            }
-        }
-    }
 }

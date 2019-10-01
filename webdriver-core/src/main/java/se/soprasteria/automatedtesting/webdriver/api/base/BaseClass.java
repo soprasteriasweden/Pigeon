@@ -5,13 +5,13 @@ import org.apache.logging.log4j.Logger;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.baseclass.Execution;
 
 /**
- *
  * Base function that provides base functionality that is used in all of the base functions.
  * The logger within this function will initialise with the class of the inheriting functions.
- *
  */
 public abstract class BaseClass {
-    /** Logger initialized in the constructor, outputs log with classname and timestamp */
+    /**
+     * Logger initialized in the constructor, outputs log with classname and timestamp
+     */
     public Logger logger;
 
     protected BaseClass() {
@@ -30,7 +30,7 @@ public abstract class BaseClass {
     /**
      * Suspends execution for specified time, you can specify a message
      *
-     * @param millis time to sleep in milliseconds
+     * @param millis  time to sleep in milliseconds
      * @param message message to throw if sleep is interrupted
      */
     public void sleep(int millis, String message) {
