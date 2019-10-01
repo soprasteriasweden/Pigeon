@@ -18,7 +18,7 @@
             <capability name="version" value="" />
         </driver>
         <!-- Driver for WEB -->
-        <driver id="chromedriver" type="ChromeDriver" version="76"/>
+        <driver id="chromedriver" type="ChromeDriver"/>
         <driver id="chromedriver_headless" type="ChromeDriver">
             <option name="runHeadless" value="true" />
         </driver>
