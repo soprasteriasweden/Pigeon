@@ -10,6 +10,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.element.Interaction;
 import se.soprasteria.automatedtesting.webdriver.helpers.element.Presence;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -279,6 +280,10 @@ public class ElementHelper {
      */
     public void sendKeysWithControlledSpeed(WebElement element, String searchString, int millisBetweenKeypress) {
         interaction.sendKeysWithControlledSpeed(element, searchString, millisBetweenKeypress);
+    }
+
+    public void sendKeysWithControlledSpeed2(WebElement element, String searchString, int millisBetweenKeypress) {
+        interaction.sendKeysWithControlledSpeed2(element, searchString, millisBetweenKeypress);
     }
 
     /**

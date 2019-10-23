@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <properties>
+        <property name="url.mainpage" value="https://pigeon-apitest.github.io/pages/index.html"/>
+        <property name="url.absolutepositionpage" value="https://pigeon-apitest.github.io/pages/absoluteposition.html" />
+        <property name="url.elementscreenshotpage" value="https://pigeon-apitest.github.io/pages/elementscreenshot.html" />
+        <property name="url.scrollpage" value="https://pigeon-apitest.github.io/pages/scroll.html" />
+        <property name="config.appium.automated" value="true" />
+        <property name="config.appium.keep-alive" value="true" />
+<!--        <property name="config.video.record" value="true"/>-->
+    </properties>
+
+    <drivers>
+        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" id="firefox_grid" runtimeEnvironment="seleniumgrid">
+            <capability name="deviceName" value="deprecated" />
+            <capability name="browserName" value="firefox" />
+            <capability name="version" value="" />
+        </driver>
+        <!-- Driver for WEB -->
+        <driver id="chromedriver" type="ChromeDriver"/>
+        <driver id="chromedriver_headless" type="ChromeDriver">
+            <option name="runHeadless" value="true" />
+        </driver>
+        <driver id="internetexplorerdriver" type="InternetExplorerDriver" version="3.9.0" />
+        <driver id="marionettedriver" type="MarionetteDriver" version="0.14.0" />
+        <driver id="safaridriver" type="SafariDriver" >
+            <option name="useTechnologyPreview" value="false"/>
+        </driver>
+        <driver id="operadriver" type="OperaDriver"/>
+        <driver id="edgedriver" type="EdgeDriver" version="4.15063"/>
+        <driver id="firefoxdriver" type="FirefoxDriver" />
+
+        <!-- Driver for API -->
+        <driver id="api"/>
+
+        <!-- Driver for ANDROID -->
+        <driver id="android_pixel3_emulator_app" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
+            <capability name="deviceType" value="phone" />
+            <capability name="platformName" value="Android" />
+            <capability name="deviceName" value="emulator-5554" />
+            <capability name="automationName" value="uiautomator2"/>
+            <capability name="autoGrantPermissions" value="true"/>
+            <capability name="appPackage" value="com.imdb.mobile"/>
+            <capability name="appActivity" value=".HomeActivity"/>
+        </driver>
+
+        <driver id="android_pixel3_textapp" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
+            <capability name="deviceType" value="phone" />
+            <capability name="platformName" value="Android" />
+            <capability name="deviceName" value="emulator-5554" />
+            <capability name="automationName" value="uiautomator2"/>
+            <capability name="autoGrantPermissions" value="true"/>
+            <capability name="appPackage" value="com.example.textboxtest"/>
+            <capability name="appActivity" value=".MainActivity"/>
+        </driver>
+
+
+        <driver id="android_real_Device_web" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub">
+            <capability name="deviceType" value="phone"/>
+            <capability name="device" value="Android"/>
+            <capability name="deviceName" value="OnePlus"/>
+            <capability name="browserName" value="Chrome"/>
+            <capability name="locationServicesAuthorized" value="true"/>
+            <capability name="autoAcceptAlerts" value="true"/>
+            <capability name="autoDismissAlerts" value="true"/>
+        </driver>
+
+        <!-- Driver for IOS -->
+        <driver id="ios_simulator_web" type="IOSDriver" url="http://127.0.0.1:4725/wd/hub">
+            <capability name="deviceType" value="phone"/>
+            <capability name="deviceName" value="iPhone 8 Plus"/>
+            <capability name="platformVersion" value="12.2"/>
+            <capability name="udid" value="E20FD67C-32B0-4D90-9677-C6EB81F62DAD"/>
+            <capability name="browserName" value="safari"/>
+            <capability name="automationName" value="XCUITest"/>
+        </driver>
+
+    </drivers>
+
+</config>
