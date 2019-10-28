@@ -16,7 +16,7 @@ public class DebugImage {
      * Append a new image into the debugimage. A new image will be appended below the previous one. You can specify a
      * text to write on the image as well as dimensions for a box to highlight in the image.
      *
-     * @param logger
+     * @param logger - logger
      * @param fileName - file name of the saved image
      * @param color - color to set on the graphics that is added on the image
      * @param image - Image to append.
@@ -42,7 +42,7 @@ public class DebugImage {
      * Append a new image into the debugimage. A new image will be appended below the previous one. You can specify a
      * text to write on the image as well as dimensions for a box to highlight in the image.
      *
-     * @param logger
+     * @param logger - logger
      * @param image - Image to append.
      * @param text - Descriptive text to write into image.
      * @param fileName - file name of the saved image

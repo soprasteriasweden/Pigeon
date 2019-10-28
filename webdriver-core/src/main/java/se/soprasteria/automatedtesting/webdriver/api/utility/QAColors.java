@@ -20,7 +20,7 @@ public class QAColors {
     /**
      * Get a color based on a specific state.
      *
-     * @param state
+     * @param state State (Fail, Pass, Neutral, Skip)
      * @return - AWT color for the specific state
      */
     public static Color getColor(State state) {

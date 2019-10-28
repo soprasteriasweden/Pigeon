@@ -19,8 +19,8 @@ public class SystemManagement {
     /**
      * Checks if the given path is valid.
      *
-     * @param path
-     * @return boolean
+     * @param path Path to verify
+     * @return boolean True if path is valid
      */
     public static boolean isValidPath(String path) {
         return Filesystem.isValidPath(path);
