@@ -94,7 +94,7 @@ public abstract class BaseTestCase extends BaseClass {
      *
      * @param testMethod Provided by TestNG. Provides information about the testmethod.
      * @return Array with the AutomationDriver object that is being used for the test.
-     * @throws java.lang.Exception
+     * @throws Exception If initialization conditions could not be met
      */
     @DataProvider(name = "getDriver")
     public Object[][] getDriver(Method testMethod) throws Exception {
@@ -277,7 +277,8 @@ public abstract class BaseTestCase extends BaseClass {
     /**
      * Function that you can override to perform webdriver specific actions before actually starting the test.
      *
-     * @param driver
+     * @param driver AutomationDriver to initiate
+     * @throws Exception If AutomationDriver is null
      */
     protected void initializeDriver(AutomationDriver driver) throws Exception {
         // Perform webdriver specific initialisation, eg navigate to webpage or dismiss updates in app
@@ -299,8 +300,7 @@ public abstract class BaseTestCase extends BaseClass {
 
     /**
      * Abstract method that must be implemented for initialization of the page objects.
-     *
-     * @return path to property file.
+     * @param driver AutomationDriver to init pages on
      */
     protected abstract void initPages(AutomationDriver driver);
 
@@ -320,7 +320,7 @@ public abstract class BaseTestCase extends BaseClass {
      * when starting appium.
      * Example: "--log c://projectDirectory/appium_log_MyAppiumLog.log"
      *
-     * @return
+     * @return Generate and print appium log
      */
     protected boolean printAppiumLog() {
         return false;
@@ -350,9 +350,10 @@ public abstract class BaseTestCase extends BaseClass {
     /**
      * Load mocked data based on category and data name.
      *
-     * @param driver
+     * @param driver             AutomationDriver to load mocked data to
      * @param mockedDataCategory The category of mocked data
      * @param mockedDataName     The name of the mocked data
+     * @throws Exception         If failed to load mocked data
      */
     protected void loadMockedData(AutomationDriver driver, String mockedDataCategory, String mockedDataName) throws Exception {
         performBeforeLoadingMockedData(driver);
@@ -364,7 +365,7 @@ public abstract class BaseTestCase extends BaseClass {
      * Runs before loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed before loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver to perform actions before loading mocked data
      */
     protected void performBeforeLoadingMockedData(AutomationDriver driver) {
     }
@@ -373,7 +374,7 @@ public abstract class BaseTestCase extends BaseClass {
      * Runs after loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed after loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver to perform actions after loading the mocked data
      */
     protected void performAfterLoadingMockedData(AutomationDriver driver) {
     }
@@ -445,4 +446,5 @@ public abstract class BaseTestCase extends BaseClass {
             }
         }
     }
+
 }
