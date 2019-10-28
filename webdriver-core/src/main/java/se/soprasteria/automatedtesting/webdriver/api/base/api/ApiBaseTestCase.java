@@ -176,7 +176,8 @@ public abstract class ApiBaseTestCase extends BaseClass {
     /**
      * Function that you can override to perform webdriver specific actions before actually starting the test.
      *
-     * @param driver
+     * @param driver AutomationDriver to initialize
+     * @throws Exception If AutomationDriver failed to initialize
      */
     protected void initializeDriver(AutomationDriver driver) throws Exception {
         // Perform webdriver specific initialisation, eg navigate to webpage or dismiss updates in app
@@ -199,7 +200,7 @@ public abstract class ApiBaseTestCase extends BaseClass {
     /**
      * Abstract method that must be implemented for initialization of the page objects.
      *
-     * @return path to property file.
+     * @param driver AutomationDriver to initialize page objects
      */
     protected abstract void initPages(AutomationDriver driver);
 
@@ -222,9 +223,10 @@ public abstract class ApiBaseTestCase extends BaseClass {
     /**
      * Load mocked data based on category and data name.
      *
-     * @param driver
+     * @param driver             AutomationDriver to load mocked data
      * @param mockedDataCategory The category of mocked data
      * @param mockedDataName     The name of the mocked data
+     * @throws Exception         If AutomationDriver failed
      */
     protected void loadMockedData(AutomationDriver driver, String mockedDataCategory, String mockedDataName) throws Exception {
         performBeforeLoadingMockedData(driver);
@@ -236,7 +238,7 @@ public abstract class ApiBaseTestCase extends BaseClass {
      * Runs before loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed before loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver used to perform actions before loading mocked data
      */
     protected void performBeforeLoadingMockedData(AutomationDriver driver) {
     }
@@ -245,7 +247,7 @@ public abstract class ApiBaseTestCase extends BaseClass {
      * Runs after loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed after loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver used to perform actions after loading mocked data
      */
     protected void performAfterLoadingMockedData(AutomationDriver driver) {
     }
