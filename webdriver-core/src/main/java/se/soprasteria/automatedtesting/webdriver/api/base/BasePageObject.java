@@ -55,7 +55,7 @@ public abstract class BasePageObject extends BaseClass {
      * The windows application elementlocator has to be called within the pageobject (read about pagefactories for more info) before
      * interacting with any of the elements on the page.
      *
-     * @param driver
+     * @param driver AutomationDriver to use as default windows driver element locator
      */
     protected void defaultWindowsDriverElementLocator(AutomationDriver driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver.getWindowsDriver(), Duration.ZERO), this);
@@ -65,7 +65,7 @@ public abstract class BasePageObject extends BaseClass {
      * The webdriver elementlocator has to be called within the pageobject (read about pagefactories for more info) before
      * interacting with any of the elements on the page.
      *
-     * @param driver
+     * @param driver AutomationDriver to use as default webpage element locator
      */
     protected void defaultWebpageElementLocator(AutomationDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver.getWebDriver(), 0), this);
@@ -75,7 +75,7 @@ public abstract class BasePageObject extends BaseClass {
      * The webdriver elementlocator has to be called within the pageobject (read about pagefactories for more info) before
      * interacting with any of the elements on the page.
      *
-     * @param driver
+     * @param driver AutomationDriver to use as default Android element locator
      */
     protected void defaultAndroidElementLocator(AutomationDriver driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver.getAndroidDriver(), Duration.ZERO), this);
@@ -85,7 +85,7 @@ public abstract class BasePageObject extends BaseClass {
      * The webdriver elementlocator has to be called within the pageobject (read about pagefactories for more info) before
      * interacting with any of the elements on the page.
      *
-     * @param driver
+     * @param driver AutomationDriver to use as default iOS element locator
      */
     protected void defaultIOSElementLocator(AutomationDriver driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver.getIOSDriver(), Duration.ZERO), this);
