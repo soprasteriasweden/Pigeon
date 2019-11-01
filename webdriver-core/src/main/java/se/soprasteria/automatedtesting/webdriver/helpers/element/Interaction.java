@@ -6,7 +6,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver
 import se.soprasteria.automatedtesting.webdriver.helpers.utility.PigeonIMEHelper;
 
 
-public class Interaction extends BaseClass {
+public class Interaction extends PigeonIMEHelper {
 
 
     private final AutomationDriver driver;
@@ -19,7 +19,7 @@ public class Interaction extends BaseClass {
     public void sendKeysWithControlledSpeed(WebElement element, String searchString, int millisBetweenKeypress) {
         if (driver.isAndroid()) {
             element.click();
-            PigeonIMEHelper.sendKeysAndroidWithControlledSpeed(driver.getCapability("deviceName"), searchString, millisBetweenKeypress);
+            sendKeysAndroidWithControlledSpeed(driver.getCapability("deviceName"), searchString, millisBetweenKeypress);
         } else {
             for (char c : searchString.toCharArray()) {
                 element.sendKeys(String.valueOf(c));
