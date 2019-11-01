@@ -282,10 +282,6 @@ public class ElementHelper {
         interaction.sendKeysWithControlledSpeed(element, searchString, millisBetweenKeypress);
     }
 
-    public void sendKeysWithControlledSpeed2(WebElement element, String searchString, int millisBetweenKeypress) {
-        interaction.sendKeysWithControlledSpeed2(element, searchString, millisBetweenKeypress);
-    }
-
     /**
      * Check if the element is clickable within the time frame. Clickable means the element is enabled, visible on
      * screen and that it's not covered by any other object.
