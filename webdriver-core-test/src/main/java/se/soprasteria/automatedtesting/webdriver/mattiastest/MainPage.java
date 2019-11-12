@@ -25,7 +25,7 @@ public class MainPage extends BasePageObject {
     }
 
     public void enterText(String text) {
-        elementHelper.sendKeysWithControlledSpeed2(textInput, text, 100);
+        elementHelper.sendKeysWithControlledSpeed(textInput, text, 100);
     }
 
     public String getText(){
@@ -38,7 +38,7 @@ public class MainPage extends BasePageObject {
     }
 
     public void enterPassword(String password) {
-        elementHelper.sendKeysWithControlledSpeed2(passwordInput, password, 400);
+        elementHelper.sendKeysWithControlledSpeed(passwordInput, password, 400);
     }
 
 

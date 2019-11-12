@@ -8,12 +8,12 @@ public class NativeBaseTest extends BaseTestCase {
 
     @Override
     protected String getDriverConfigId() {
-        return "android_pixel3_textapp";
+        return "android_Oneplus6_textapp_native";
     }
 
     @Override
     protected String getConfigFile() {
-        return "config_test.xml";
+        return "config.xml";
     }
 
     @Override

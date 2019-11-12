@@ -7,7 +7,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver
 import static se.soprasteria.automatedtesting.webdriver.api.datastructures.WebDriverType.*;
 import static se.soprasteria.automatedtesting.webdriver.web.datastructure.Page.MAIN_PAGE;
 
-public class DriverHelperAPI extends WebBaseTestCase {
+public class DriverHelperTest extends WebBaseTestCase {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     public void getCapabilityTest(AutomationDriver driver) {

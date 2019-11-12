@@ -1,11 +1,11 @@
-package se.soprasteria.automatedtesting.mattiastest;
+package se.soprasteria.automatedtesting.webdriver.mobile.android;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 import se.soprasteria.automatedtesting.webdriver.mattiastest.NativeBaseTest;
 
-public class TextTest extends NativeBaseTest {
+public class AndroidNativTest extends NativeBaseTest {
 
     final String NUMBERS = "0123   456789";
     final String LOWERCASE_LETTERS = "abcdefghijklmnopqrstuvxyzåäö";
@@ -14,15 +14,15 @@ public class TextTest extends NativeBaseTest {
     final String APOSTROPHE_CHARACTERS = "áéâêüàè";
 
 
-    @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestNumbers(AutomationDriver driver) {
         Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
         mainPage.enterText(NUMBERS);
         Assert.assertEquals(mainPage.getText(), NUMBERS);
-        sleep(1000);
+        sleep(5000);
     }
 
-    @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestLowerCaseLetters(AutomationDriver driver) {
         Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
         mainPage.enterText(LOWERCASE_LETTERS);
@@ -30,7 +30,7 @@ public class TextTest extends NativeBaseTest {
         sleep(1000);
     }
 
-    @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestUpperCaseLetters(AutomationDriver driver) {
         Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
         mainPage.enterText(UPPERCASE_LETTERS);
@@ -38,7 +38,7 @@ public class TextTest extends NativeBaseTest {
         sleep(1000);
     }
 
-    @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestSpecialCharacters(AutomationDriver driver) {
         Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
         mainPage.enterText(SPECIAL_CHARACTERS);
@@ -61,7 +61,7 @@ public class TextTest extends NativeBaseTest {
         Assert.assertEquals("abcdefg", mainPage.getText());
     }
 
-    @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestApostropheCaseLetters(AutomationDriver driver) {
         Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
         mainPage.enterText(APOSTROPHE_CHARACTERS);

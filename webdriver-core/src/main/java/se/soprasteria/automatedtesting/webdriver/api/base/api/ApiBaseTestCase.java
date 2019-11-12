@@ -226,7 +226,7 @@ public abstract class ApiBaseTestCase extends BaseClass {
      * @param driver             AutomationDriver to load mocked data
      * @param mockedDataCategory The category of mocked data
      * @param mockedDataName     The name of the mocked data
-     * @throws Exception         If AutomationDriver failed
+     * @throws Exception If AutomationDriver failed
      */
     protected void loadMockedData(AutomationDriver driver, String mockedDataCategory, String mockedDataName) throws Exception {
         performBeforeLoadingMockedData(driver);

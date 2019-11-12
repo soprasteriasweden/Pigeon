@@ -7,6 +7,6 @@ public class APITestClass extends APITestCase {
     @Test(groups = {"api"})
     public void isPageLoaded() {
         apiTestURL.isPageLoaded().assertThat().statusCode(200);
-
     }
 }
+

@@ -16,7 +16,7 @@ public class MainPage extends WebBasePageObject {
     protected final String JS_FUNCTION_SHOW =  "showAfterTimeout";
     protected final String JS_FUNCTION_SHOW_BY_CLASS =  "showAfterTimeoutByClass";
     protected final String JS_FUNCTION_INSERT_TEXT = "insertTextAfterTimeout";
-    protected final String EXAMPLE_STRING = "Sopra Steria Sweden AB";
+    protected final String EXAMPLE_STRING = "Sopra Steria Sweden AB ÄÖÅäöå";
     @FindBy(css = "h1[class='page-header']")
     protected WebElement pageTitleHeader;
     @FindBy(css = "button[id='showelementaftertime']")

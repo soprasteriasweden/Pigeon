@@ -25,6 +25,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.utility.session.Session
 import se.soprasteria.automatedtesting.webdriver.helpers.video.VideoRecording;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -112,10 +113,10 @@ public abstract class BaseTestCase extends BaseClass {
         }
 
         data = BTCHelper.getData(logger);
-
         for (Object[] objects : dataToProvide) {
             try {
                 driver = ((AutomationDriver) objects[0]);
+                installPigeonIME(driver);
                 initializeDriver(driver);
                 initPages(driver);
                 goToPageURL(driver);
@@ -126,6 +127,27 @@ public abstract class BaseTestCase extends BaseClass {
             }
         }
         return dataToProvide;
+    }
+
+    private void installPigeonIME(AutomationDriver driver) {
+        if (driver.isAndroid()) {
+            try {
+                if (!driver.getAndroidDriver().isAppInstalled("se.soprasteria.pigeonime")) {
+                    logger.info("Try to install PigeonIMe App");
+                    driver.getAndroidDriver().installApp("resources/PigeonIME.apk");
+                }
+                String deviceName = driver.getCapability("deviceName");
+                String pigeonIME = "se.soprasteria.pigeonime/.PigeonIME";
+                List<String> sendKeysAndroidScript = Arrays.asList(
+                        "adb", "-s", deviceName, "shell", "ime", "set " + pigeonIME
+                );
+                ProcessBuilder builder = new ProcessBuilder(sendKeysAndroidScript);
+                builder.redirectErrorStream(true);
+                Process setIME = builder.start();
+            } catch (Exception e) {
+                logger.trace("Failed to execute ADB command" + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -210,6 +232,7 @@ public abstract class BaseTestCase extends BaseClass {
         if (BaseTestConfig.getInstance().getConfig().users != null) this.credentials = new Credentials();
         DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
         Session.setCurrentConfigurationId(this.configurationId);
+
         if (!this.configurationId.equalsIgnoreCase("api")) {
             startAppium();
         }
@@ -300,6 +323,7 @@ public abstract class BaseTestCase extends BaseClass {
 
     /**
      * Abstract method that must be implemented for initialization of the page objects.
+     *
      * @param driver AutomationDriver to init pages on
      */
     protected abstract void initPages(AutomationDriver driver);
@@ -353,7 +377,7 @@ public abstract class BaseTestCase extends BaseClass {
      * @param driver             AutomationDriver to load mocked data to
      * @param mockedDataCategory The category of mocked data
      * @param mockedDataName     The name of the mocked data
-     * @throws Exception         If failed to load mocked data
+     * @throws Exception If failed to load mocked data
      */
     protected void loadMockedData(AutomationDriver driver, String mockedDataCategory, String mockedDataName) throws Exception {
         performBeforeLoadingMockedData(driver);
@@ -416,6 +440,7 @@ public abstract class BaseTestCase extends BaseClass {
                 throw e;
             }
             AppiumHelper.startAppium(logger, port);
+
         }
     }
 

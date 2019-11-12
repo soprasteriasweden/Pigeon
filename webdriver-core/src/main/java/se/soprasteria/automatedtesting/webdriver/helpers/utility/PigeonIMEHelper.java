@@ -43,6 +43,7 @@ public class PigeonIMEHelper extends BaseClass {
 
     /**
      * Function that initializes PigeonIME on the Android device
+     *
      * @param deviceName
      */
     private void initPigeonIME(String deviceName) throws IOException {
@@ -59,6 +60,7 @@ public class PigeonIMEHelper extends BaseClass {
 
     /**
      * ADB command that installs PigeonIME on the Android device
+     *
      * @param deviceName ADB name of the device to install PigeonIME on
      */
     private void installPigeonIME(String deviceName) throws IOException {
@@ -99,6 +101,7 @@ public class PigeonIMEHelper extends BaseClass {
 
     /**
      * ADB command that sets PigeonIME as the default keyboard the Android device
+     *
      * @param deviceName ADB name of the device to set PigeonIME ad keyboard on
      */
     private void setPigeonImeAsKeyboard(String deviceName) throws IOException {
@@ -123,8 +126,8 @@ public class PigeonIMEHelper extends BaseClass {
      * Method that executes an ADB script that checks if PigeonIME is installed
      * on the Android device.
      *
-     * @return Returns true if PigeonIME is installed on the device
      * @param deviceName ADB name of the device to check if PigeonIME is installed
+     * @return Returns true if PigeonIME is installed on the device
      */
     private boolean isPigeonIMEInstalled(String deviceName) throws IOException {
         List<String> isPigeonIMEInstalledScript = Arrays.asList(
