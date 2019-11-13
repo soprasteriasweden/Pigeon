@@ -74,19 +74,19 @@ public class WebBaseTestCase extends BaseTestCase {
         switch(page){
             case MAIN_PAGE:
                 mainPage.initWeb(driver);
-                Assert.assertTrue(mainPage.isPageLoaded(), "Page did not load correctly");
+                Assert.assertTrue(mainPage.isLoaded(), "Page did not load correctly");
                 break;
             case SCROLL_PAGE:
                 scrollPage.initWeb(driver);
-                Assert.assertTrue(scrollPage.isPageLoaded(), "Page did not load correctly");
+                Assert.assertTrue(scrollPage.isLoaded(), "Page did not load correctly");
                 break;
             case ABSOLUTE_ELEMENT_PAGE:
                 absoluteElementPage.initWeb(driver);
-                Assert.assertTrue(absoluteElementPage.isPageLoaded(), "Page did not load correctly");
+                Assert.assertTrue(absoluteElementPage.isLoaded(), "Page did not load correctly");
                 break;
             case ELEMENT_SCREENSHOT_PAGE:
                 elementScreenshotPage.initWeb(driver);
-                Assert.assertTrue(elementScreenshotPage.isPageLoaded(), "Page did not load correctly");
+                Assert.assertTrue(elementScreenshotPage.isLoaded(), "Page did not load correctly");
                 break;
         }
     }

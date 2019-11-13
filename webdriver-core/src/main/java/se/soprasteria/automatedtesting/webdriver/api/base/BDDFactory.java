@@ -178,7 +178,7 @@ public class BDDFactory extends BaseTestCase {
     /**
      * Needed when running inside intellij, not to be used in production
      *
-     * @return
+     * @return path of default folder containing feature files
      */
     protected String getDefaultFolderContainingFeatureFiles() {
         return "";

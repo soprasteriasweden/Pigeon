@@ -42,11 +42,11 @@ public class Credentials {
     /**
      * Add a user into the current pool of users. This user will only be added to the runtime users, not the user XML.
      *
-     * @param id
-     * @param role
-     * @param username
-     * @param pw
-     * @param pin
+     * @param id       ID
+     * @param role     Role
+     * @param username Username
+     * @param pw       Password
+     * @param pin      Pin
      */
     public void addUser(String id, String role, String username, String pw, String pin) {
         userList.add(UserHelper.getUser(id, role, username, pw, pin));
@@ -73,8 +73,8 @@ public class Credentials {
     /**
      * Get the role of the user based on userid.
      *
-     * @param userId
-     * @return
+     * @param userId User ID
+     * @return Role of user with matched userid
      */
     public String getRole(String userId) {
         return UserHelper.getRole(UserHelper.getUserById(userList, userId));
@@ -93,7 +93,7 @@ public class Credentials {
     /**
      * Get the username of this user based on userId.
      *
-     * @param userId
+     * @param userId User ID
      * @return username of user with matching userID.
      */
     public String getUsername(String userId) {
@@ -112,7 +112,7 @@ public class Credentials {
     /**
      * Get the password of the user based on userid.
      *
-     * @param userId
+     * @param userId User ID
      * @return password of user with matching userID.
      */
     public String getPassword(String userId) {
@@ -131,7 +131,7 @@ public class Credentials {
     /**
      * Get the pin for this user based on userid.
      *
-     * @param userId
+     * @param userId User ID
      * @return pin of the user with the matching userID.
      */
     public String getPin(String userId) {

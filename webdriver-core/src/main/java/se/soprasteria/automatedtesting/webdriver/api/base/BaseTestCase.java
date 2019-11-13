@@ -25,6 +25,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.utility.session.Session
 import se.soprasteria.automatedtesting.webdriver.helpers.video.VideoRecording;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -94,9 +95,9 @@ public abstract class BaseTestCase extends BaseClass {
      *
      * @param testMethod Provided by TestNG. Provides information about the testmethod.
      * @return Array with the AutomationDriver object that is being used for the test.
-     * @throws java.lang.Exception
+     * @throws Exception If initialization conditions could not be met
      */
-    @DataProvider(name="getDriver")
+    @DataProvider(name = "getDriver")
     public Object[][] getDriver(Method testMethod) throws Exception {
         driverConfigs = BTCHelper.getDriverConfigurations(logger, configurationId);
         Object[][] dataToProvide =
@@ -112,20 +113,41 @@ public abstract class BaseTestCase extends BaseClass {
         }
 
         data = BTCHelper.getData(logger);
-
         for (Object[] objects : dataToProvide) {
             try {
                 driver = ((AutomationDriver) objects[0]);
+                installPigeonIME(driver);
                 initializeDriver(driver);
                 initPages(driver);
                 goToPageURL(driver);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 logger.debug("Conditions for test initialization could not be met. Please verify that the pre-steps are correctly executed. Closing WebDriver and skipping test.");
                 ((AutomationDriver) objects[0]).quit();
                 throw e;
             }
         }
         return dataToProvide;
+    }
+
+    private void installPigeonIME(AutomationDriver driver) {
+        if (driver.isAndroid()) {
+            try {
+                if (!driver.getAndroidDriver().isAppInstalled("se.soprasteria.pigeonime")) {
+                    logger.info("Try to install PigeonIMe App");
+                    driver.getAndroidDriver().installApp("resources/PigeonIME.apk");
+                }
+                String deviceName = driver.getCapability("deviceName");
+                String pigeonIME = "se.soprasteria.pigeonime/.PigeonIME";
+                List<String> sendKeysAndroidScript = Arrays.asList(
+                        "adb", "-s", deviceName, "shell", "ime", "set " + pigeonIME
+                );
+                ProcessBuilder builder = new ProcessBuilder(sendKeysAndroidScript);
+                builder.redirectErrorStream(true);
+                Process setIME = builder.start();
+            } catch (Exception e) {
+                logger.trace("Failed to execute ADB command" + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -159,17 +181,19 @@ public abstract class BaseTestCase extends BaseClass {
     protected void initSuite(final ITestContext testContext,
                              @Optional("") String propertiesFile,
                              @Optional("") String configurationId) {
-        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
-        BaseTestSuite.initializeRuntimeEnvironment(
-                BTCHelper.getDriverConfigurations(
-                        logger,Data.ifEmptyOverride(logger, configurationId, getDriverConfigId())));
-        setConfigurationOptions();
-        MockedData.initServerPorts(logger);
+        this.config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()), testContext);
+        String configId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
+        if (!configId.equalsIgnoreCase("api")) {
+            BaseTestSuite.initializeRuntimeEnvironment(
+                    BTCHelper.getDriverConfigurations(logger, configId));
+            setConfigurationOptions();
+            MockedData.initServerPorts(logger);
+        }
     }
 
     public boolean isTestTargetMobileApp() {
-        if(driverConfigs.get(0).capabilities != null) {
-            for (DriverConfig.Capability capability: driverConfigs.get(0).capabilities) {
+        if (driverConfigs.get(0).capabilities != null) {
+            for (DriverConfig.Capability capability : driverConfigs.get(0).capabilities) {
                 if (capability.name.contentEquals("app")) {
                     return true;
                 }
@@ -201,13 +225,17 @@ public abstract class BaseTestCase extends BaseClass {
                                  @Optional("") String configurationId,
                                  @Optional("") String debugLevel) {
         logger.info("INIT CLASS: " + this.getClass().getSimpleName());
-        config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()));
+        this.config = BaseTestConfig.getInstance(Data.ifEmptyOverride(logger, propertiesFile, getConfigFile()));
         this.configurationId = Data.ifEmptyOverride(logger, configurationId, getDriverConfigId());
+
         this.testSuiteName = testContext.getName();
         if (BaseTestConfig.getInstance().getConfig().users != null) this.credentials = new Credentials();
         DebugLevel.set(Data.ifEmptyOverride(logger, debugLevel, getDebugLevel()));
         Session.setCurrentConfigurationId(this.configurationId);
-        startAppium();
+
+        if (!this.configurationId.equalsIgnoreCase("api")) {
+            startAppium();
+        }
     }
 
     /**
@@ -220,11 +248,13 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @BeforeMethod(alwaysRun = true)
     public void beforeMethod(ITestContext context, XmlTest xml, Method method, Object[] providerData) {
-        if (!driver.isMobile()) driver.manage().window().maximize();
-        startVideoRecording();
-        testname = method.getName();
-        WebDriverLog.printLogFile(logger);
-        getDriverWithoutDataProvider(method);
+        if (driver != null) {
+            if (!driver.isMobile()) driver.manage().window().maximize();
+            startVideoRecording();
+            testname = method.getName();
+            WebDriverLog.printLogFile(logger);
+            getDriverWithoutDataProvider(method);
+        }
     }
 
     public void startVideoRecording() {
@@ -238,22 +268,24 @@ public abstract class BaseTestCase extends BaseClass {
      */
     @AfterMethod(alwaysRun = true)
     protected void closeWebDriver(ITestResult testResult) {
-        AutomationDriver driver = this.driver;
-        if (testResult.getParameters().length > 0) {
-            driver = (AutomationDriver) testResult.getParameters()[0];
-        } else if(driver == null) {
-            throw new WebDriverException("Could not find a WebDriver to close!");
+        if (this.driver != null) {
+            AutomationDriver driver = this.driver;
+            if (testResult.getParameters().length > 0) {
+                driver = (AutomationDriver) testResult.getParameters()[0];
+            } else if (driver == null) {
+                throw new WebDriverException("Could not find a WebDriver to close!");
+            }
+            closeWebDriversOpenedByID();
+            logger.info("CLOSING " + driver.getWebDriverName().toUpperCase() + ": " + testResult.getName());
+            driver.quit();
+            if (driver.isMobile() || driver.isWindowsDriver()) {
+                sleep(2000);
+                AppiumLog.printAppiumLogForCurrentTest(testResult, logger);
+            }
+            WebDriverLog.printLogFile(logger);
+            MockedData.releasePort(testname);
+            WebDriverLog.clearWebDriverLog(logger);
         }
-        closeWebDriversOpenedByID();
-        logger.info("CLOSING " + driver.getWebDriverName().toUpperCase() + ": " + testResult.getName());
-        driver.quit();
-        if(driver.isMobile() || driver.isWindowsDriver()){
-            sleep(2000);
-            AppiumLog.printAppiumLogForCurrentTest(testResult, logger);
-        }
-        WebDriverLog.printLogFile(logger);
-        MockedData.releasePort(testname);
-        WebDriverLog.clearWebDriverLog(logger);
     }
 
     /**
@@ -268,7 +300,8 @@ public abstract class BaseTestCase extends BaseClass {
     /**
      * Function that you can override to perform webdriver specific actions before actually starting the test.
      *
-     * @param driver
+     * @param driver AutomationDriver to initiate
+     * @throws Exception If AutomationDriver is null
      */
     protected void initializeDriver(AutomationDriver driver) throws Exception {
         // Perform webdriver specific initialisation, eg navigate to webpage or dismiss updates in app
@@ -276,20 +309,22 @@ public abstract class BaseTestCase extends BaseClass {
 
     /**
      * Abstract method that must always be implemented to specify what webdriver that should be used.
+     *
      * @return driver config id.
      */
     protected abstract String getDriverConfigId();
 
     /**
      * Abstract method that must be implemented to specify the path to the config xml file.
+     *
      * @return path to property file.
      */
     protected abstract String getConfigFile();
 
-
     /**
      * Abstract method that must be implemented for initialization of the page objects.
-     * @return path to property file.
+     *
+     * @param driver AutomationDriver to init pages on
      */
     protected abstract void initPages(AutomationDriver driver);
 
@@ -309,7 +344,7 @@ public abstract class BaseTestCase extends BaseClass {
      * when starting appium.
      * Example: "--log c://projectDirectory/appium_log_MyAppiumLog.log"
      *
-     * @return
+     * @return Generate and print appium log
      */
     protected boolean printAppiumLog() {
         return false;
@@ -339,9 +374,10 @@ public abstract class BaseTestCase extends BaseClass {
     /**
      * Load mocked data based on category and data name.
      *
-     * @param driver
+     * @param driver             AutomationDriver to load mocked data to
      * @param mockedDataCategory The category of mocked data
      * @param mockedDataName     The name of the mocked data
+     * @throws Exception If failed to load mocked data
      */
     protected void loadMockedData(AutomationDriver driver, String mockedDataCategory, String mockedDataName) throws Exception {
         performBeforeLoadingMockedData(driver);
@@ -353,7 +389,7 @@ public abstract class BaseTestCase extends BaseClass {
      * Runs before loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed before loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver to perform actions before loading mocked data
      */
     protected void performBeforeLoadingMockedData(AutomationDriver driver) {
     }
@@ -362,7 +398,7 @@ public abstract class BaseTestCase extends BaseClass {
      * Runs after loading the mocked data. This method can be overloaded if actions related to mocked data
      * is needed after loading the mocked data.
      *
-     * @param driver
+     * @param driver AutomationDriver to perform actions after loading the mocked data
      */
     protected void performAfterLoadingMockedData(AutomationDriver driver) {
     }
@@ -393,10 +429,10 @@ public abstract class BaseTestCase extends BaseClass {
 
     private void startAppium() {
         if (Boolean.valueOf(BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_AUTOMATIC)) &&
-                BTCHelper.doesConfigurationTypeSupportAppium(logger, this.configurationId)) {
+                BTCHelper.doesConfigurationTypeSupportAppium(this.configurationId)) {
             String port;
             try {
-                port = BTCHelper.getConfigurationUrlPort(logger, this.configurationId);
+                port = BTCHelper.getConfigurationUrlPort(this.configurationId);
             } catch (RuntimeException e) {
                 logger.trace("Failed to extract port from configuration id " + this.configurationId
                         + " when starting Appium, choose a " +
@@ -404,6 +440,7 @@ public abstract class BaseTestCase extends BaseClass {
                 throw e;
             }
             AppiumHelper.startAppium(logger, port);
+
         }
     }
 
@@ -434,4 +471,5 @@ public abstract class BaseTestCase extends BaseClass {
             }
         }
     }
+
 }

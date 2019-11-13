@@ -17,9 +17,10 @@ public class Data {
     /**
      * Remove a list from another list using streams.
      *
-     * @param from
-     * @param what
-     * @return
+     * @param from From
+     * @param what What
+     * @param <T> &lt;T&gt;
+     * @return New list
      */
     public static <T> List<T> listsExclude(List<T> from, List<T> what) {
         return Streams.exclude(from, what);
@@ -29,7 +30,7 @@ public class Data {
      * Is the string a match to the supplied regular expression.
      *
      * @param string see if this string is a match.
-     * @param regex
+     * @param regex regex
      * @return boolean with success of search.
      */
     public static boolean stringMatches(String string, String regex) {
@@ -40,7 +41,7 @@ public class Data {
      * Does the string contain supplied regular expression.
      *
      * @param string search this string for matches.
-     * @param regex
+     * @param regex regex
      * @return boolean with success of search.
      */
     public static boolean stringContains(String string, String regex) {
@@ -51,7 +52,7 @@ public class Data {
      * Returns the groups found using supplied regular expression.
      *
      * @param string search this string for groups.
-     * @param regex
+     * @param regex regex
      * @return List of strings containing all found groups.
      */
     public static List<String> stringGetGroups(String string, String regex) {
@@ -61,7 +62,7 @@ public class Data {
     /**
      * Does the string supplied contain a valid time.
      *
-     * @param string
+     * @param string String to verify
      * @return true if string contains valid time, false if not.
      */
     public static boolean stringContainsVerbalTime(String string) {
@@ -71,8 +72,8 @@ public class Data {
     /**
      * Remove the regex part from the supplied string.
      *
-     * @param string
-     * @param regex
+     * @param string Input string
+     * @param regex regex
      * @return The resulted disected string.
      */
     public static String stringRemoveRegex(String string, String regex) {

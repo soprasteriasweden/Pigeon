@@ -36,20 +36,17 @@ import se.soprasteria.automatedtesting.webdriver.api.datastructures.Configuratio
 import se.soprasteria.automatedtesting.webdriver.helpers.base.baseconfig.config.DriverConfig;
 import se.soprasteria.automatedtesting.webdriver.helpers.base.baseconfig.config.DriverConfig.Capability;
 import se.soprasteria.automatedtesting.webdriver.helpers.utility.IOSUtils;
+import se.soprasteria.automatedtesting.webdriver.helpers.utility.PigeonIMEHelper;
 import se.soprasteria.automatedtesting.webdriver.helpers.utility.session.SessionCapabilities;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
- *
  * This will initialize the webdriver using a configuration from the JSON in the resources directory.
  */
 public class Setup {
@@ -94,27 +91,38 @@ public class Setup {
         logger.info("Initializing " + driverConfiguration.type);
         switch (driverConfiguration.type) {
             case "FirefoxDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeFirefoxDriver()), driverConfiguration, logger); break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeFirefoxDriver()), driverConfiguration, logger);
+                break;
             case "ChromeDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeChromeDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeChromeDriver()), driverConfiguration, logger);
+                break;
             case "InternetExplorerDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeIEDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeIEDriver()), driverConfiguration, logger);
+                break;
             case "EdgeDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeEdgeDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeEdgeDriver()), driverConfiguration, logger);
+                break;
             case "SafariDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeSafariDriver()), driverConfiguration, logger); break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeSafariDriver()), driverConfiguration, logger);
+                break;
             case "OperaDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeOperaDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeOperaDriver()), driverConfiguration, logger);
+                break;
             case "RemoteWebDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeRemoteWebDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeRemoteWebDriver()), driverConfiguration, logger);
+                break;
             case "HtmlUnitDriver":
-                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeHTMLUnitDriver()), driverConfiguration, logger); break;
+                this.driver = new AutomationDriver(initializeEventFiringWebDriver(initializeHTMLUnitDriver()), driverConfiguration, logger);
+                break;
             case "AndroidDriver":
-                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeAndroidDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeAndroidDriver()), driverConfiguration, logger);
+                break;
             case "IOSDriver":
-                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeIosDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeIosDriver()), driverConfiguration, logger);
+                break;
             case "WindowsDriver":
-                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeWindowsDriver()), driverConfiguration, logger);break;
+                this.driver = new AutomationDriver(initializeAppiumEventFiringWebDriver(initializeWindowsDriver()), driverConfiguration, logger);
+                break;
             default:
                 logger.error("Invalid webdriver specified in configuration");
                 throw new RuntimeException("Specified invalid type for webdriver configuration");
@@ -156,7 +164,8 @@ public class Setup {
         if (currentPlatform.is(Platform.WINDOWS)) {
             return new EdgeDriver(getEdgeOptions());
         }
-        throw new RuntimeException("Failed to initialize EdgeDriver because you appear not to be using Windows."); }
+        throw new RuntimeException("Failed to initialize EdgeDriver because you appear not to be using Windows.");
+    }
 
     private SafariDriver initializeSafariDriver() {
         if (currentPlatform.is(Platform.MAC)) {
@@ -190,10 +199,13 @@ public class Setup {
     private AndroidDriver initializeAndroidDriver() {
         DesiredCapabilities desiredCapabilities = getMobileCapabilities();
         try {
+            new PigeonIMEHelper((String) desiredCapabilities.getCapability("deviceName"));
             return new AndroidDriver(new URL(driverConfiguration.url), desiredCapabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed to initialize AndroidWebDriver with malformed URL:" +
                     driverConfiguration.url);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to initialize PigeonIME on device: " + e.getMessage());
         }
     }
 
@@ -217,7 +229,7 @@ public class Setup {
         }
     }
 
-    private DesiredCapabilities getWindowsDriverCapabilities(){
+    private DesiredCapabilities getWindowsDriverCapabilities() {
         DesiredCapabilities desiredCapabilities = getDesiredCapabilities(new DesiredCapabilities());
         desiredCapabilities.setCapability(CapabilityType.LOGGING_PREFS, getLoggingPrefs());
         return desiredCapabilities;
@@ -283,19 +295,19 @@ public class Setup {
                 logger.debug(String.format("Setting Chrome option %s to %b", option.name, value));
 
                 switch (option.name) {
-                    case "runHeadless" :
+                    case "runHeadless":
                         chromeOptions.setHeadless(value);
                         break;
-                    case "acceptInsecureCerts" :
+                    case "acceptInsecureCerts":
                         chromeOptions.setAcceptInsecureCerts(value);
                         break;
-                    case "verboseLogging" :
-                        if(value && !isDriverLoggingEnabled()) {
+                    case "verboseLogging":
+                        if (value && !isDriverLoggingEnabled()) {
                             logger.info("Chrome verbose logging set but not enabled, Debug Level needs to be " +
                                     "set to a DriverLog option");
                             break;
                         }
-                        if(value) System.setProperty("webdriver.chrome.verboseLogging", "true");
+                        if (value) System.setProperty("webdriver.chrome.verboseLogging", "true");
                         break;
                     default:
                         logger.error(String.format("Chrome Option: %s set but has not been defined!", option.name));
@@ -347,7 +359,7 @@ public class Setup {
         } catch (NullPointerException e) {
             //TODO Add what action to take if NullPointerException
         }
-        if(!operaBinaryPathSet) {
+        if (!operaBinaryPathSet) {
             throw new RuntimeException("The OperaDriver option 'operaBinaryPath' has not be set, a path " +
                     "to the Opera browser binary is needed to automate Opera.");
         }
@@ -358,7 +370,7 @@ public class Setup {
         InternetExplorerOptions internetExplorerOptions = new InternetExplorerOptions();
         internetExplorerOptions.merge(getIECapabilities());
 
-        if(driverConfiguration.options == null) return internetExplorerOptions;
+        if (driverConfiguration.options == null) return internetExplorerOptions;
         for (DriverConfig.Option option : driverConfiguration.options) {
             boolean value = false;
             if (option.value.contentEquals("true")) value = true;
@@ -366,13 +378,13 @@ public class Setup {
 
             switch (option.name) {
                 case "requireWindowFocus":
-                    if(value) internetExplorerOptions.requireWindowFocus();
+                    if (value) internetExplorerOptions.requireWindowFocus();
                     break;
                 case "enableNativeEvents":
-                    if(value) internetExplorerOptions.enableNativeEvents();
+                    if (value) internetExplorerOptions.enableNativeEvents();
                     break;
                 case "ignoreZoomSettings":
-                    if(value) internetExplorerOptions.ignoreZoomSettings();
+                    if (value) internetExplorerOptions.ignoreZoomSettings();
                     break;
                 default:
                     logger.error(String.format("InternetExplorer Option: %s set but has not been defined!", option.name));
@@ -426,13 +438,13 @@ public class Setup {
         firefoxOptions.addPreference("browser.formfill.enable", false);
         firefoxOptions.addPreference("browser.download.manager.scanWhenDone", false);
         firefoxOptions.addPreference("browser.bookmarks.max_backups", 0);
-        firefoxOptions.addPreference("reader.parse-on-load.enabled",false);
+        firefoxOptions.addPreference("reader.parse-on-load.enabled", false);
 
         firefoxOptions.merge(getDesiredCapabilities(DesiredCapabilities.firefox()));
         firefoxOptions.setCapability(CapabilityType.LOGGING_PREFS, getLoggingPrefs());
         firefoxOptions.setLogLevel(FirefoxDriverLogLevel.TRACE);
 
-        if(driverConfiguration.options == null) return firefoxOptions;
+        if (driverConfiguration.options == null) return firefoxOptions;
         for (DriverConfig.Option option : driverConfiguration.options) {
             boolean value = false;
             if (option.value.contentEquals("true")) value = true;
@@ -442,7 +454,7 @@ public class Setup {
                 case "runHeadless":
                     firefoxOptions.setHeadless(value);
                     break;
-                case "acceptInsecureCerts" :
+                case "acceptInsecureCerts":
                     firefoxOptions.setAcceptInsecureCerts(value);
                     break;
                 default:
@@ -454,7 +466,7 @@ public class Setup {
 
     private DesiredCapabilities getDesiredCapabilities(DesiredCapabilities desiredCapabilities) {
         if (driverConfiguration.capabilities != null) {
-            for (Capability capability: driverConfiguration.capabilities) {
+            for (Capability capability : driverConfiguration.capabilities) {
                 setCapability(desiredCapabilities, capability);
             }
         }
@@ -462,9 +474,9 @@ public class Setup {
     }
 
     private void setCapability(DesiredCapabilities desiredCapabilities, String name, String value) {
-        if(!IGNORED_UNSUPPORTED_CAPABILITIES.contains(name)){
+        if (!IGNORED_UNSUPPORTED_CAPABILITIES.contains(name)) {
             logger.info("Setting capability: " + name + "   value: " + value);
-            if(value.toLowerCase().equals("true") || value.toLowerCase().equals("false")) {
+            if (value.toLowerCase().equals("true") || value.toLowerCase().equals("false")) {
                 desiredCapabilities.setCapability(name, Boolean.valueOf(value));
             } else {
                 desiredCapabilities.setCapability(name, value);
@@ -501,13 +513,12 @@ public class Setup {
         try (ApkFile apkFile = new ApkFile(new File(appPath))) {
             ApkMeta metaData = apkFile.getApkMeta();
             logger.info(String.format("\n----- ANDROID PACKAGE INFORMATION ------\n"
-                + " Package Label: %s\n"
-                + " Version Name: %s\n"
-                + " Version Code: %s\n"
-                + "----------------------------------------"
-                ,metaData.getLabel(), metaData.getVersionName(), metaData.getVersionCode()));
-        }
-        catch (IOException ioe) {
+                            + " Package Label: %s\n"
+                            + " Version Name: %s\n"
+                            + " Version Code: %s\n"
+                            + "----------------------------------------"
+                    , metaData.getLabel(), metaData.getVersionName(), metaData.getVersionCode()));
+        } catch (IOException ioe) {
             logger.error(String.format("Detected android package but couldn't read .apk file\n%s", ioe.getMessage()));
         }
     }
@@ -519,7 +530,7 @@ public class Setup {
                         + " Package Label: %s\n"
                         + " Version Name: %s.%s\n"
                         + "---------------------------------------"
-                ,ipaInfo.get("CFBundleName"), ipaInfo.get("CFBundleShortVersionString"), ipaInfo.get("CFBundleVersion")));
+                , ipaInfo.get("CFBundleName"), ipaInfo.get("CFBundleShortVersionString"), ipaInfo.get("CFBundleVersion")));
     }
 
     private void windowsAppFound(DesiredCapabilities desiredCapabilities, Capability capability) {
@@ -528,20 +539,20 @@ public class Setup {
 
     private void checkLogFilePath() {
         File surefireReportsDir = new File("target/surefire-reports");
-        if(!surefireReportsDir.exists()) {
+        if (!surefireReportsDir.exists()) {
             surefireReportsDir.mkdir();
         }
     }
 
     private void chromeDriverLogging() {
-        if(isDriverLoggingEnabled()) {
+        if (isDriverLoggingEnabled()) {
             checkLogFilePath();
             System.setProperty("webdriver.chrome.logfile", "target/surefire-reports/chromedriver.log");
         }
     }
 
     private void internetExplorerDriverLogging() {
-        if(isDriverLoggingEnabled()) {
+        if (isDriverLoggingEnabled()) {
             checkLogFilePath();
             System.setProperty("webdriver.ie.driver.loglevel", "DEBUG");
             System.setProperty("webdriver.ie.driver.logfile", "target/surefire-reports/iedriver.log");
@@ -549,11 +560,11 @@ public class Setup {
     }
 
     private void firefoxDriverLogging() {
-        if(isDriverLoggingEnabled()) {
+        if (isDriverLoggingEnabled()) {
             checkLogFilePath();
             System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "target/surefire-reports/firefoxdriver.log");
         } else {
-            System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE,"/dev/null");
+            System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
         }
     }
 
@@ -565,8 +576,8 @@ public class Setup {
         ArrayList<String> ignoredUnsupportedCapabilities = new ArrayList<>(Arrays.asList(
                 BaseTestConfig.getConfigurationOption(ConfigurationOption.APPIUM_UNSUPPORTED_CAPABILITIES).split(",[ ]*")
         ));
-        if(!ignoredUnsupportedCapabilities.isEmpty() && ignoredUnsupportedCapabilities.get(0).length() > 0) {
-            for(String capability : ignoredUnsupportedCapabilities) {
+        if (!ignoredUnsupportedCapabilities.isEmpty() && ignoredUnsupportedCapabilities.get(0).length() > 0) {
+            for (String capability : ignoredUnsupportedCapabilities) {
                 IGNORED_UNSUPPORTED_CAPABILITIES.add(capability);
             }
         }

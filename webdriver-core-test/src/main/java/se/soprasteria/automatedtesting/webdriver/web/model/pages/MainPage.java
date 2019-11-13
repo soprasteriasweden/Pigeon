@@ -16,7 +16,7 @@ public class MainPage extends WebBasePageObject {
     protected final String JS_FUNCTION_SHOW =  "showAfterTimeout";
     protected final String JS_FUNCTION_SHOW_BY_CLASS =  "showAfterTimeoutByClass";
     protected final String JS_FUNCTION_INSERT_TEXT = "insertTextAfterTimeout";
-    protected final String EXAMPLE_STRING = "Sopra Steria Sweden AB";
+    protected final String EXAMPLE_STRING = "Sopra Steria Sweden AB ÄÖÅäöå";
     @FindBy(css = "h1[class='page-header']")
     protected WebElement pageTitleHeader;
     @FindBy(css = "button[id='showelementaftertime']")
@@ -127,7 +127,7 @@ public class MainPage extends WebBasePageObject {
     }
     
     @Override
-    public boolean isPageLoaded() {
+    public boolean isLoaded() {
         logger.info("Verifying that the mainpage is visible by seeing if the header is currently shown.");
         if (elementHelper.isElementPresentAndDisplayedWithinTime(pageTitleHeader, 10000)) {
             logger.info("Page-header is displayed");
@@ -148,7 +148,7 @@ public class MainPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(mainPageLink, 2000);
-        if(!isPageLoaded()) {
+        if(!isLoaded()) {
             throw new RuntimeException("Main page did not load correctly, cannot continue test.");
         }
     }

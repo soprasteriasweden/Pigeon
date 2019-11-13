@@ -11,7 +11,7 @@ public class Image {
     /**
      * Compare two images and returns the similarity percentage
      *
-     * @param logger
+     * @param logger - logger
      * @param image1PixelData - The control image pixel data.
      * @param image2PixelData - The image pixel data to compare with.
      * @param width - width of the image to compare

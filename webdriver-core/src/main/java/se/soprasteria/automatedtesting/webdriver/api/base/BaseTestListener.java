@@ -61,7 +61,7 @@ public class BaseTestListener extends BaseClass implements ITestListener {
             EventFiringWebDriver eventFiringWebDriver = (EventFiringWebDriver) params[0];
             driver = eventFiringWebDriver.getWrappedDriver();
         } else driver = (AutomationDriver) params[0];
-        return  (AutomationDriver) driver;
+        return (AutomationDriver) driver;
     }
 
     private boolean isScreenshotOnFailEnabled() {
@@ -103,8 +103,8 @@ public class BaseTestListener extends BaseClass implements ITestListener {
                 }
             }
             BTLHelper.savePageSource(logger, result);
+            stopVideoRecording(result.getName(), false, result);
         }
-        stopVideoRecording(result.getName(), false, result);
         logger.warn("TEST FAILED: " + testmethod + "\n");
     }
 
@@ -129,8 +129,8 @@ public class BaseTestListener extends BaseClass implements ITestListener {
                     logger.error("Failed to capture screenshot on test pass");
                 }
             }
+            stopVideoRecording(result.getName(), true, result);
         }
-        stopVideoRecording(result.getName(), true, result);
         logger.info("TEST PASSED: " + testmethod + "\n");
     }
 

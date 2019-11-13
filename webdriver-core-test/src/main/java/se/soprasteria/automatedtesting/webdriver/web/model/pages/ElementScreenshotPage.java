@@ -41,7 +41,7 @@ public class ElementScreenshotPage extends WebBasePageObject {
     }
 
     @Override
-    public boolean isPageLoaded() {
+    public boolean isLoaded() {
         logger.info("Verifying that the striped div is visible");
         if (elementHelper.isElementPresentAndDisplayedWithinTime(pageTitleHeader, 10000)) {
             logger.info("Striped div is displayed");
@@ -134,7 +134,7 @@ public class ElementScreenshotPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(screenshotPageLink, 2000);
-        if (!isPageLoaded()) {
+        if (!isLoaded()) {
             throw new RuntimeException("Element Screenshot page did not load correctly, cannot continue test.");
         }
     }

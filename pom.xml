@@ -7,7 +7,7 @@
     <groupId>se.soprasteria</groupId>
     <artifactId>pigeon</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <modules>
         <module>webdriver-core</module>
         <module>webdriver-core-test</module>

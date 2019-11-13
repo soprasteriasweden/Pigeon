@@ -7,19 +7,16 @@
     <method-selectors>
         <method-selector>
             <script language="beanshell"><![CDATA[
-            groups.containsKey("chrome") ||
-                    groups.containsKey("browser")
+            groups.containsKey("api")
                  ]]></script>
         </method-selector>
     </method-selectors>
 
-    <test name='API tests for chrome'>
-        <parameter name='configurationId' value='chromedriver'></parameter>
+    <test name='API tests'>
+        <parameter name='configurationId' value='api'></parameter>
         <parameter name='propertiesFile' value='config.xml'></parameter>
-        <parameter name="debugLevel" value="IMAGES_FAIL"/>
-
         <packages>
-            <package name="se.soprasteria.automatedtesting.webdriver.web.*"/>
+            <package name="se.soprasteria.automatedtesting.webdriver.api.*"/>
         </packages>
 
     </test>

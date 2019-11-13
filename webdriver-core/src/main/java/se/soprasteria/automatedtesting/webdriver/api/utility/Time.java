@@ -15,8 +15,8 @@ public class Time {
      * Returns the true offset in minutes between the two objects. For instance an offset between time1=0:10 and time2=0:00
      * would return 1430 (minutes in day 1440).
      *
-     * @param time1
-     * @param time2
+     * @param time1 Start time
+     * @param time2 End time
      * @return The true offset in minutes between the two objects
      */
     public static long getMinutesOffset(String time1, String time2) {
@@ -27,8 +27,8 @@ public class Time {
      * Returns minutes between the two objects. For instance minutes between time1=0:10 and time2=0:00 would return
      * a value of -10
      *
-     * @param time1
-     * @param time2
+     * @param time1 Start time
+     * @param time2 End time
      * @return Minutes between the two objects
      */
     public static long getMinutesBetween(String time1, String time2) {
@@ -47,7 +47,7 @@ public class Time {
     /**
      * Verifies that the string can be parsed into a LocalTime object.
      *
-     * @param time
+     * @param time Input time string to verify
      * @return true i the string can be parsed into a LocalTime object, false if not.
      */
     public static boolean isValidTime(String time) {
@@ -57,7 +57,7 @@ public class Time {
     /**
      * Verifies that the string can be parsed into a LocalDate object
      *
-     * @param date
+     * @param date Input date string to verify
      * @return true if the string can be parsed into a LocalDate object, false if not.
      */
     public static boolean isValidDate(String date) {

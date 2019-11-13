@@ -10,7 +10,7 @@ import static se.soprasteria.automatedtesting.webdriver.web.datastructure.Page.*
 import static se.soprasteria.automatedtesting.webdriver.web.datastructure.ElementState.*;
 import static se.soprasteria.automatedtesting.webdriver.web.datastructure.ScreenshotElement.*;
 
-public class ElementHelperAPI extends WebBaseTestCase {
+public class ElementHelperTest extends WebBaseTestCase {
 
     //TIMEOUTS in browser currently set to 1000s
     private final int TIME_WAIT_LONG = 20000;

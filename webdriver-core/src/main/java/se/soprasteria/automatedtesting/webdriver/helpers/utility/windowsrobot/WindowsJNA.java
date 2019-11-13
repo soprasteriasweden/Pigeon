@@ -71,7 +71,7 @@ public class WindowsJNA {
 
     /**
      * Return true if the window message queue is idle, false if timeout
-     * @param timeout_ms
+     * @param timeout_ms Timeout in ms
      * @return boolean
      */
     public boolean waitForInputIdle(int timeout_ms) {
@@ -240,7 +240,7 @@ public class WindowsJNA {
      * Runs a program and returns the process
      * @param cmdline - list of strings that should be sent as command
      * @return Process of the executed command
-     * @throws IOException
+     * @throws IOException If ProcessBuilder fails
      */
     public static Process runCommand(List<String> cmdline) throws IOException {
         ProcessBuilder builder = new ProcessBuilder();
@@ -252,7 +252,7 @@ public class WindowsJNA {
      * Runs a program and returns the process
      * @param cmdline - optional number of String variables that should be sent as command
      * @return Process of the executed command
-     * @throws IOException
+     * @throws IOException If command fails
      */
     public static Process runCommand(String... cmdline) throws IOException {
         return runCommand(Arrays.asList(cmdline));
@@ -260,6 +260,11 @@ public class WindowsJNA {
 
     /**
      * Runs a program and returns the process id. Note: use runCommand instead of this.
+     *
+     * @param program Program name
+     * @param args Arguments
+     * @param currentDirectory Current directory
+     * @return Process
      */
     public static int createProcess(String program, String args, String currentDirectory) {
         STARTUPINFO startupInfo = new STARTUPINFO(); // input

@@ -3,6 +3,9 @@ package se.soprasteria.automatedtesting.webdriver.helpers.driver;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyMetastate;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.battery.BatteryInfo;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.windows.WindowsDriver;
@@ -250,6 +253,7 @@ public class AutomationDriver implements WebDriver, TakesScreenshot {
     public void toggleLocationServices() {
         getAndroidDriver().toggleLocationServices();
     }
+
 
 
     /*****************************************
@@ -672,9 +676,9 @@ public class AutomationDriver implements WebDriver, TakesScreenshot {
      * with http / https and then check if all pages / images are loaded and have a response code 200.ok
      *
      * @param driver    to use and go through log messages with.
-     * @param tagName   The method can test all <a> tags with <href> attribute,
-     *                  It can also test all <img> tags with <src> attributes.
-     * @param attribute
+     * @param tagName   The method can test all &lt;a&gt; tags with &lt;href&gt; attribute,
+     *                  It can also test all &lt;img&gt; tags with &lt;src&gt; attributes.
+     * @param attribute HTML attribute to test
      * @return Return false if all links are correct.
      */
     public boolean isAllHrefResponding(WebDriver driver, String tagName, String attribute) {
@@ -685,9 +689,9 @@ public class AutomationDriver implements WebDriver, TakesScreenshot {
      * This method can include a url website and extract text between tags.
      *
      * @param webDriver to use and get the current url.
-     * @param tagName   The method can test all <a> and <li> tags.
+     * @param tagName   The method can test all &lt;a&gt; and &lt;li&gt; tags.
      * @return return false if can find a list and its not empty.
-     * @throws IOException
+     * @throws IOException If WebDriver error
      */
     public boolean isListTagNameValue(WebDriver webDriver, String tagName) throws IOException {
         return driverActions.isListTagNameValue(webDriver, tagName);
@@ -709,8 +713,8 @@ public class AutomationDriver implements WebDriver, TakesScreenshot {
      * takes url from website and change it to string.
      *
      * @param requestURL url from the website that is inserted.
-     * @return
-     * @throws IOException
+     * @return URL as string
+     * @throws IOException If error reading URL to string
      */
     public String readStringFromURL(String requestURL) throws IOException {
         return driverActions.readStringFromURL(requestURL);

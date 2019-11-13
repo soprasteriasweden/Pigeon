@@ -1,4 +1,4 @@
-package se.soprasteria.automatedtesting.webdriver.mobile;
+package se.soprasteria.automatedtesting.webdriver.mobile.android;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import se.soprasteria.automatedtesting.webdriver.android.AndroidBaseTestCase;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
-public class MobileHelperAPI extends AndroidBaseTestCase {
+public class MobileHelperTest extends AndroidBaseTestCase {
 
     @Test(timeOut = 180000, dataProvider="getDriver", groups = {"mobile"})
     protected void swipeTest(AutomationDriver driver) {

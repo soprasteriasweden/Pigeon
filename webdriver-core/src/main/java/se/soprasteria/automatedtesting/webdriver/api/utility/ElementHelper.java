@@ -10,6 +10,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.element.Interaction;
 import se.soprasteria.automatedtesting.webdriver.helpers.element.Presence;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -49,7 +50,7 @@ public class ElementHelper {
      * @param timeoutMillis timeout before throwing the assertionerrors. Set to -1 to use current implicit timeoutMillis value.
      * @param errorMessage  message to show if the element isn't clicked in time
      *
-     * @throws AssertionError
+     * @throws AssertionError If element is not clickable
      */
     public void clickWithinTime(WebElement webElement, int timeoutMillis, String errorMessage) throws AssertionError {
         if (isElementClickableWithinTime(webElement, timeoutMillis)) {

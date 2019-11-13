@@ -72,9 +72,7 @@ public class BTCHelper {
         return driverConfigurations;
     }
 
-    public static String getConfigurationUrlPort(Logger logger, String webdriverConfigId) {
-        List<DriverConfig> driverConfigurations = new ArrayList<>();
-
+    public static String getConfigurationUrlPort(String webdriverConfigId) {
         String[] configs = webdriverConfigId.split("\\s+");
         List<DriverConfig> driverConfigs =
                 BaseTestConfig.getInstance().getConfig().webdriverConfigurations;
@@ -96,10 +94,8 @@ public class BTCHelper {
                         fixes));
     }
 
-    public static boolean doesConfigurationTypeSupportAppium(Logger logger, String webdriverConfigId) {
-        List<DriverConfig> driverConfigurations = new ArrayList<>();
-
-        String[] configs = webdriverConfigId.split("\\s+");
+    public static boolean doesConfigurationTypeSupportAppium(String webdriverConfigId) {
+       String[] configs = webdriverConfigId.split("\\s+");
         List<DriverConfig> driverConfigs =
                 BaseTestConfig.getInstance().getConfig().webdriverConfigurations;
 
