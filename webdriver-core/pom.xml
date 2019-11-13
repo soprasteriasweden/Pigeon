@@ -10,7 +10,7 @@
     <groupId>se.soprasteria</groupId>
     <artifactId>pigeon</artifactId>
     <packaging>jar</packaging>
-    <version>@release.version@</version>
+    <version>1.0.2</version>
     <name>Pigeon - WebDriver Core</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
