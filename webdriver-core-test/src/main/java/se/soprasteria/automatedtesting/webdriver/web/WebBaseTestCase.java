@@ -49,10 +49,10 @@ public class WebBaseTestCase extends BaseTestCase {
         scrollPage = new ScrollPage(driver);
         elementScreenshotPage = new ElementScreenshotPage(driver);
         initTestMethods(driver);
+
     }
 
-
-    private void initTestMethods(AutomationDriver driver){
+    private void initTestMethods(AutomationDriver driver) {
         driverMethods = new DriverMethods(driver);
         waitForElementMethods = new WaitForElementMethods(driver);
         isElementMethods = new IsElementMethods(driver);
@@ -70,8 +70,8 @@ public class WebBaseTestCase extends BaseTestCase {
         }
     }
 
-    public void initialize(Page page){
-        switch(page){
+    public void initialize(Page page) {
+        switch (page) {
             case MAIN_PAGE:
                 mainPage.initWeb(driver);
                 Assert.assertTrue(mainPage.isLoaded(), "Page did not load correctly");

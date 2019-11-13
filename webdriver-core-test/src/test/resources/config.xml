@@ -3,33 +3,38 @@
 
     <properties>
         <property name="url.mainpage" value="https://pigeon-apitest.github.io/pages/index.html"/>
-        <property name="url.absolutepositionpage" value="https://pigeon-apitest.github.io/pages/absoluteposition.html" />
-        <property name="url.elementscreenshotpage" value="https://pigeon-apitest.github.io/pages/elementscreenshot.html" />
-        <property name="url.scrollpage" value="https://pigeon-apitest.github.io/pages/scroll.html" />
-        <property name="config.appium.automated" value="true" />
-        <property name="config.appium.keep-alive" value="true" />
+        <property name="url.absolutepositionpage" value="https://pigeon-apitest.github.io/pages/absoluteposition.html"/>
+        <property name="url.elementscreenshotpage"
+                  value="https://pigeon-apitest.github.io/pages/elementscreenshot.html"/>
+        <property name="url.scrollpage" value="https://pigeon-apitest.github.io/pages/scroll.html"/>
+        <property name="config.appium.automated" value="true"/>
+        <property name="config.appium.keep-alive" value="true"/>
         <property name="config.video.record" value="true"/>
     </properties>
 
     <drivers>
-        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" id="firefox_grid" runtimeEnvironment="seleniumgrid">
-            <capability name="deviceName" value="deprecated" />
-            <capability name="browserName" value="firefox" />
-            <capability name="version" value="" />
+        <driver type="RemoteWebDriver" url="http://192.168.1.173:4445/wd/hub" id="firefox_grid"
+                runtimeEnvironment="seleniumgrid">
+            <capability name="deviceName" value="deprecated"/>
+            <capability name="browserName" value="firefox"/>
+            <capability name="version" value=""/>
         </driver>
         <!-- Driver for WEB -->
         <driver id="chromedriver" type="ChromeDriver"/>
         <driver id="chromedriver_headless" type="ChromeDriver">
-            <option name="runHeadless" value="true" />
+            <option name="runHeadless" value="true"/>
         </driver>
-        <driver id="internetexplorerdriver" type="InternetExplorerDriver" version="3.9.0" />
-        <driver id="marionettedriver" type="MarionetteDriver" version="0.14.0" />
-        <driver id="safaridriver" type="SafariDriver" >
+        <driver id="internetexplorerdriver" type="InternetExplorerDriver" version="3.9.0"/>
+        <driver id="marionettedriver" type="MarionetteDriver" version="0.14.0"/>
+        <driver id="safaridriver" type="SafariDriver">
             <option name="useTechnologyPreview" value="false"/>
         </driver>
-        <driver id="operadriver" type="OperaDriver"/>
-        <driver id="edgedriver" type="EdgeDriver" version="4.15063"/>
-        <driver id="firefoxdriver" type="FirefoxDriver" />
+        <!-- For OperaDriver you should navigate the binary_location to opera.exe and not launcher.exe -->
+        <driver id="operadriver" type="OperaDriver">
+            <option name="operaBinaryPath" value="" />
+        </driver>
+        <driver id="edgedriver" type="EdgeDriver" version=""/>
+        <driver id="firefoxdriver" type="FirefoxDriver"/>
 
         <!-- Driver for API -->
         <driver id="api"/>
@@ -42,9 +47,9 @@
         </driver>
 
         <driver id="android_Oneplus6_textapp_native" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
-            <capability name="deviceType" value="phone" />
-            <capability name="platformName" value="Android" />
-            <capability name="deviceName" value="748c80a3" />
+            <capability name="deviceType" value="phone"/>
+            <capability name="platformName" value="Android"/>
+            <capability name="deviceName" value="748c80a3"/>
             <capability name="automationName" value="uiautomator2"/>
             <capability name="autoGrantPermissions" value="true"/>
             <capability name="app" type="resource" value="TextInput-test.apk"/>
@@ -52,9 +57,9 @@
         </driver>
 
         <driver id="android_Oneplus6_textapp_web" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
-            <capability name="deviceType" value="phone" />
-            <capability name="platformName" value="Android" />
-            <capability name="deviceName" value="748c80a3" />
+            <capability name="deviceType" value="phone"/>
+            <capability name="platformName" value="Android"/>
+            <capability name="deviceName" value="748c80a3"/>
             <capability name="browserName" value="Chrome"/>
             <capability name="automationName" value="uiautomator2"/>
             <capability name="autoGrantPermissions" value="true"/>
@@ -62,12 +67,21 @@
 
         <!-- Driver for IOS -->
         <driver id="ios_simulator_web" type="IOSDriver" url="http://127.0.0.1:4725/wd/hub">
+            <capability name="platformName" value="iOS"/>
             <capability name="deviceType" value="phone"/>
             <capability name="deviceName" value="iPhone 8 Plus"/>
-            <capability name="platformVersion" value="12.2"/>
-            <capability name="udid" value="E20FD67C-32B0-4D90-9677-C6EB81F62DAD"/>
+            <capability name="platformVersion" value="12.1"/>
+            <capability name="udid" value="8A237853-8B61-492A-948E-34C5767F7B4B"/>
             <capability name="browserName" value="safari"/>
             <capability name="automationName" value="XCUITest"/>
+        </driver>
+
+        <driver id="iPhone8_Plus_web" type="IOSDriver" url="http://127.0.0.1:4449/wd/hub">
+            <capability name="platformName" value="iOS"/>
+            <capability name="platformVersion" value="13.2"/>
+            <capability name="deviceName" value="iPhone 8 Plus"/>
+            <capability name="udid" value="40822A47-CD3C-4B3A-A9E4-39D51923E8BF"/>
+            <capability name="browserName" value="safari"/>
         </driver>
 
     </drivers>
