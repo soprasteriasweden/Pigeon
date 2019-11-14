@@ -36,7 +36,7 @@ public class ButtonPageObject extends BasePageObject {
     }
 
     @Override
-    public boolean isLoaded() {
+    public boolean isPageLoaded() {
         return elementHelper.isElementDisplayedWithinTime(buttonResetAllElements, 60000);
     }
 

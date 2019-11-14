@@ -105,7 +105,9 @@ public abstract class BasePageObject extends BaseClass {
      *
      * @return Specifies whether or not the page is loaded currently.
      */
-    public abstract boolean isLoaded();
+    public abstract boolean isPageLoaded();
+
+    public boolean isLoaded(){return false;}
 
     public void acceptAndroidPermissionPopups() {
         waitForAndroidPermissionPopupAndClickPast("com.android.packageinstaller:id/permission_allow_button", "allow");

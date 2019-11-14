@@ -24,7 +24,7 @@ public class SwipePageObject extends BasePageObject {
     }
 
     @Override
-    public boolean isLoaded() {
+    public boolean isPageLoaded() {
         return elementHelper.isElementDisplayedWithinTime(buttonSwitchToButtonsScreen, 5000) &&
                 elementHelper.isElementGoneWithinTime(textSwipedUp, 1000) &&
                 elementHelper.isElementGoneWithinTime(textSwipedDown, 1000) &&

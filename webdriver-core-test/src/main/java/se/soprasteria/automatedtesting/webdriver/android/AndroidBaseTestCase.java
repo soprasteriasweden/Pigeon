@@ -31,7 +31,7 @@ public class AndroidBaseTestCase extends BaseTestCase {
         if (driver.isAndroid()) {
             buttonPageObject = new ButtonPageObject(driver);
             swipePage = new SwipePageObject(driver);
-            if(!buttonPageObject.isLoaded()) throw new RuntimeException("Page not loaded");
+            if(!buttonPageObject.isPageLoaded()) throw new RuntimeException("Page not loaded");
         }
     }
 

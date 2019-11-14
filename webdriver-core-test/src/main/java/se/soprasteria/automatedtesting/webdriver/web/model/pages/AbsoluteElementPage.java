@@ -23,7 +23,7 @@ public class AbsoluteElementPage extends WebBasePageObject {
     }
 
     @Override
-    public boolean isLoaded() {
+    public boolean isPageLoaded() {
         logger.info("Verifying that the mainpage is visible by seeing if the header is currently shown.");
         if (elementHelper.isElementPresentAndDisplayedWithinTime(pageTitleHeader, 10000)) {
             logger.info("Page-header is displayed");
@@ -56,7 +56,7 @@ public class AbsoluteElementPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(absolutePositionPageLink, 2000);
-        if(!isLoaded()) throw new RuntimeException("Absolute Element page did not load correctly, cannot continue test.");
+        if(!isPageLoaded()) throw new RuntimeException("Absolute Element page did not load correctly, cannot continue test.");
     }
 
 }

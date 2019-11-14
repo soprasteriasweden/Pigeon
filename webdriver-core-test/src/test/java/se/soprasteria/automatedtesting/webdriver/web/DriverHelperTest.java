@@ -35,7 +35,7 @@ public class DriverHelperTest extends WebBaseTestCase {
     public void didScreenChangeDuringIntervalTest(AutomationDriver driver) {
         initialize(MAIN_PAGE);
         obviateMouse();
-        Assert.assertTrue(mainPage.isLoaded(), "Page was not loaded correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "Page was not loaded correctly");
         if (driver.isAndroid()) sleep(2000); //Sleep to give android scroll bar time to fade out
         Assert.assertFalse(driverMethods.didScreenChange(), "Screen changed when it shouldn't have");
         clickElementMethods.clickTimerShowButton();

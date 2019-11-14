@@ -10,7 +10,7 @@
     <groupId>se.soprasteria</groupId>
     <artifactId>pigeon</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.2</version>
+    <version>@release.version@</version>
     <name>Pigeon - WebDriver Core</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,32 +23,66 @@
         </license>
     </licenses>
 
+    <distributionManagement>
+        <repository>
+            <id>soprasteria-pigeon-releases</id>
+            <url>s3://soprasteria-pigeon-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>soprasteria-pigeon-snapshots</id>
+            <url>s3://soprasteria-pigeon-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <!-- Plugins related to the build -->
     <build>
         <plugins>
-            <!-- Surefire plugin for reporting -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>visual-dependencies</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>visual-core</includeArtifactIds>
+                            <includes>**/*.png,**/*.PNG</includes>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>webdriver-dependencies</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeArtifactIds>webdriver-core</includeArtifactIds>
+                            <includes>*</includes>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-            <!-- Compiler plugin needed because we use java 1.8 which is not default -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
-            <!-- Release plugin needed to specify where to deploy -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-            </plugin>
         </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
     </build>
 
     <!-- Plugins related to reporting -->

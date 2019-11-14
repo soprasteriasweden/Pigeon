@@ -16,7 +16,7 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestNumbers(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText(NUMBERS);
         Assert.assertEquals(mainPage.getText(), NUMBERS);
         sleep(5000);
@@ -24,7 +24,7 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestLowerCaseLetters(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText(LOWERCASE_LETTERS);
         Assert.assertEquals(mainPage.getText(), LOWERCASE_LETTERS);
         sleep(1000);
@@ -32,7 +32,7 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestUpperCaseLetters(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText(UPPERCASE_LETTERS);
         Assert.assertEquals(mainPage.getText(), UPPERCASE_LETTERS);
         sleep(1000);
@@ -40,7 +40,7 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestSpecialCharacters(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText(SPECIAL_CHARACTERS);
         Assert.assertEquals(mainPage.getText(), SPECIAL_CHARACTERS);
         sleep(1000);
@@ -48,13 +48,13 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void enterPasswordTest(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterPassword(LOWERCASE_LETTERS);
     }
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void clearTest(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText("123456");
         mainPage.clearText();
         mainPage.enterText("abcdefg");
@@ -63,7 +63,7 @@ public class AndroidNativTest extends NativeBaseTest {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     protected void textTestApostropheCaseLetters(AutomationDriver driver) {
-        Assert.assertTrue(mainPage.isLoaded(), "App did not load correctly");
+        Assert.assertTrue(mainPage.isPageLoaded(), "App did not load correctly");
         mainPage.enterText(APOSTROPHE_CHARACTERS);
         Assert.assertEquals(mainPage.getText(), APOSTROPHE_CHARACTERS);
         sleep(1000);

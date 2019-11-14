@@ -20,7 +20,7 @@ public class MainPage extends BasePageObject {
     }
 
     @Override
-    public boolean isLoaded() {
+    public boolean isPageLoaded() {
         return elementHelper.isElementDisplayedWithinTime(textInput, 10000);
     }
 
