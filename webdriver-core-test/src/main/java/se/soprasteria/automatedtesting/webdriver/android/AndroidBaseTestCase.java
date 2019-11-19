@@ -1,19 +1,21 @@
 package se.soprasteria.automatedtesting.webdriver.android;
 
-import org.openqa.selenium.WebDriver;
-import se.soprasteria.automatedtesting.webdriver.android.model.pages.ButtonPageObject;
-import se.soprasteria.automatedtesting.webdriver.android.model.pages.SwipePageObject;
+import se.soprasteria.automatedtesting.webdriver.android.model.BottomNavigation;
+import se.soprasteria.automatedtesting.webdriver.android.model.pages.ElementPage;
+import se.soprasteria.automatedtesting.webdriver.android.model.pages.SwipePage;
+import se.soprasteria.automatedtesting.webdriver.android.model.pages.TextPage;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestCase;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 
 public class AndroidBaseTestCase extends BaseTestCase {
-
-    protected ButtonPageObject buttonPageObject;
-    protected SwipePageObject swipePage;
+    protected ElementPage elementPage;
+    protected SwipePage swipePage;
+    protected TextPage textPage;
+    protected BottomNavigation bottomNavigation;
 
     @Override
     protected String getDriverConfigId() {
-        return "android";
+        return "android_Pixel3_emulator";
     }
 
     @Override
@@ -23,16 +25,11 @@ public class AndroidBaseTestCase extends BaseTestCase {
 
     @Override
     protected void initPages(AutomationDriver driver) {
-
-    }
-
-    @Override
-    protected void initializeDriver(AutomationDriver driver) {
-        if (driver.isAndroid()) {
-            buttonPageObject = new ButtonPageObject(driver);
-            swipePage = new SwipePageObject(driver);
-            if(!buttonPageObject.isPageLoaded()) throw new RuntimeException("Page not loaded");
+        if(driver.isAndroid()) {
+            elementPage = new ElementPage(driver);
+            swipePage = new SwipePage(driver);
+            textPage = new TextPage(driver);
+            bottomNavigation = new BottomNavigation(driver);
         }
     }
-
 }

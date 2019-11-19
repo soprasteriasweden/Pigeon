@@ -40,19 +40,13 @@
         <driver id="api"/>
 
         <!-- Driver for ANDROID -->
-        <driver id="android_real_Device" type="AndroidDriver" url="http://127.0.0.1:4725/wd/hub">
-            <capability name="deviceName" value="Android Phone"/>
-            <capability name="automationName" value="uiautomator2"/>
-            <capability name="app" type="resource" value="API-test.apk"/>
-        </driver>
-
-        <driver id="android_Oneplus6_textapp_native" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
+        <driver id="android_Pixel3_emulator" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
             <capability name="deviceType" value="phone"/>
             <capability name="platformName" value="Android"/>
-            <capability name="deviceName" value="748c80a3"/>
+            <capability name="deviceName" value="emulator-5554"/>
             <capability name="automationName" value="uiautomator2"/>
             <capability name="autoGrantPermissions" value="true"/>
-            <capability name="app" type="resource" value="TextInput-test.apk"/>
+            <capability name="appPackage" value="se.soprasteria.pigeontest"/>
             <capability name="appActivity" value=".MainActivity"/>
         </driver>
 
