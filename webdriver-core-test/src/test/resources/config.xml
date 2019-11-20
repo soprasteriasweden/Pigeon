@@ -46,8 +46,7 @@
             <capability name="deviceName" value="emulator-5554"/>
             <capability name="automationName" value="uiautomator2"/>
             <capability name="autoGrantPermissions" value="true"/>
-            <capability name="appPackage" value="se.soprasteria.pigeontest"/>
-            <capability name="appActivity" value=".MainActivity"/>
+            <capability name="app" type="resource" value="Pigeon-test.apk"/>
         </driver>
 
         <driver id="android_Oneplus6_textapp_web" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
