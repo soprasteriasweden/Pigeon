@@ -1,6 +1,7 @@
 package se.soprasteria.automatedtesting.webdriver.web.model.pages;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestConfig;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
@@ -11,10 +12,10 @@ import java.util.List;
 
 public class MainPage extends WebBasePageObject {
 
-    protected final String JS_FUNCTION_REMOVE =  "removeAfterTimeout";
-    protected final String JS_FUNCTION_HIDE =  "hideAfterTimeout";
-    protected final String JS_FUNCTION_SHOW =  "showAfterTimeout";
-    protected final String JS_FUNCTION_SHOW_BY_CLASS =  "showAfterTimeoutByClass";
+    protected final String JS_FUNCTION_REMOVE = "removeAfterTimeout";
+    protected final String JS_FUNCTION_HIDE = "hideAfterTimeout";
+    protected final String JS_FUNCTION_SHOW = "showAfterTimeout";
+    protected final String JS_FUNCTION_SHOW_BY_CLASS = "showAfterTimeoutByClass";
     protected final String JS_FUNCTION_INSERT_TEXT = "insertTextAfterTimeout";
     protected final String EXAMPLE_STRING = "Sopra Steria Sweden AB ÄÖÅäöå";
     @FindBy(css = "h1[class='page-header']")
@@ -60,27 +61,27 @@ public class MainPage extends WebBasePageObject {
     @FindBy(id = "notifications-header")
     protected WebElement notificationHeader;
     protected By googleLogoBy = new By.ById("hplogo");
-    @FindBy(css ="img[id='hplogo']")
+    @FindBy(css = "img[id='hplogo']")
     protected WebElement googleLogo;
     @FindBy(css = "a[id='gotoanotherpage']")
     protected WebElement goToAnotherPageButton;
     @FindBy(css = "a[id='displaygotoanotherpagebutton']")
     protected WebElement goToAnotherPageTimerButton;
-    @FindBy(css="a[id='hiddengotopagebutton']")
+    @FindBy(css = "a[id='hiddengotopagebutton']")
     protected WebElement hiddenGoToPageButton;
     @FindBy(id = "start-rotation-button")
     protected WebElement startRotationButton;
-    @FindBy(id="inputelement")
+    @FindBy(id = "inputelement")
     protected WebElement inputElement;
-    @FindBy(id="display-and-enable-element-button")
+    @FindBy(id = "display-and-enable-element-button")
     protected WebElement displayAndEnableElementButton;
-    @FindBy(id="change-attr-value-button")
+    @FindBy(id = "change-attr-value-button")
     protected WebElement changeValueButton;
-    @FindBy(id="hidden-disabled-button")
+    @FindBy(id = "hidden-disabled-button")
     protected WebElement hiddenDisabledButton;
-    @FindBy(id="showchildren")
+    @FindBy(id = "showchildren")
     protected WebElement showChildrenButton;
-    @FindBy(xpath="//ul[@id='parent-ul']")
+    @FindBy(xpath = "//ul[@id='parent-ul']")
     protected WebElement parentElement;
     @FindBy(css = "a[href='buttons.html']")
     protected WebElement sideMenuOptionButtons;
@@ -104,18 +105,18 @@ public class MainPage extends WebBasePageObject {
     protected WebElement elementNine;
     @FindBy(id = "element-ten")
     protected WebElement elementTen;
-    protected List<WebElement> listOfElements = new ArrayList<WebElement>(){{
-            add(elementOne);
-            add(elementTwo);
-            add(elementThree);
-            add(elementFour);
-            add(elementFive);
-            add(elementSix);
-            add(elementSeven);
-            add(elementEight);
-            add(elementNine);
-            add(elementTen);
-        }};
+    protected List<WebElement> listOfElements = new ArrayList<WebElement>() {{
+        add(elementOne);
+        add(elementTwo);
+        add(elementThree);
+        add(elementFour);
+        add(elementFive);
+        add(elementSix);
+        add(elementSeven);
+        add(elementEight);
+        add(elementNine);
+        add(elementTen);
+    }};
     //Must be set manually to number of displayed elements in list that is set in the browser
     protected final int NUMBER_OF_DISPLAYED_ELEMENTS = 6;
     //Must be set manually to number of hidden elements in list that is set in the browser
@@ -125,7 +126,7 @@ public class MainPage extends WebBasePageObject {
     public MainPage(AutomationDriver driver) {
         super(driver);
     }
-    
+
     @Override
     public boolean isPageLoaded() {
         logger.info("Verifying that the mainpage is visible by seeing if the header is currently shown.");
@@ -148,7 +149,7 @@ public class MainPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(mainPageLink, 2000);
-        if(!isPageLoaded()) {
+        if (!isPageLoaded()) {
             throw new RuntimeException("Main page did not load correctly, cannot continue test.");
         }
     }

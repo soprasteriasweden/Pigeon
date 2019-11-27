@@ -22,7 +22,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
     <!-- Plugins related to the build -->
     <build>
         <plugins>
