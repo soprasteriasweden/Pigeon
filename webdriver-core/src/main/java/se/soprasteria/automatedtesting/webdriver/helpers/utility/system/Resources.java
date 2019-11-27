@@ -41,7 +41,7 @@ public class Resources {
         }
         File file = new File(url.getFile());
         file.setExecutable(true);
-        return (file.getAbsolutePath()).replace("%20", " ");
+        return file.getAbsolutePath();
     }
 
 
