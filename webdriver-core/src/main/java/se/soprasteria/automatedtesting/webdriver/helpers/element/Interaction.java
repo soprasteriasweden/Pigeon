@@ -19,7 +19,7 @@ public class Interaction extends PigeonIMEHelper {
     public void sendKeysWithControlledSpeed(WebElement element, String searchString, int millisBetweenKeypress) {
         if (driver.isAndroid()) {
             element.click();
-            sendKeysAndroidWithControlledSpeed(driver.getCapability("deviceName"), searchString, millisBetweenKeypress);
+            sendKeysAndroidWithControlledSpeed(driver.getCapability("udid"), searchString, millisBetweenKeypress);
         } else {
             for (char c : searchString.toCharArray()) {
                 element.sendKeys(String.valueOf(c));
