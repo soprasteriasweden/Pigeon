@@ -12,10 +12,10 @@ public class DriverHelperTest extends WebBaseTestCase {
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
     public void getCapabilityTest(AutomationDriver driver) {
         initialize(MAIN_PAGE);
-        String capability = "deviceName";
+        String capability = "udid";
         String capabilityValue = driverMethods.getCapability(capability);
-        Assert.assertFalse(driverMethods.isStringNullOrEmpty(capabilityValue), "Capability " + capability + " was not present");
-        logger.debug("The capability \"" + capability + "\" was present with the value \"" + capabilityValue + "\"");
+        Assert.assertFalse(driverMethods.isStringNullOrEmpty(capabilityValue), "udid " + capability + " was not present");
+        logger.debug("The udid \"" + capability + "\" was present with the value \"" + capabilityValue + "\"");
     }
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"browser", "mobile"})
