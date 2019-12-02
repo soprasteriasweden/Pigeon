@@ -199,7 +199,7 @@ public class Setup {
     private AndroidDriver initializeAndroidDriver() {
         DesiredCapabilities desiredCapabilities = getMobileCapabilities();
         try {
-            new PigeonIMEHelper((String) desiredCapabilities.getCapability("deviceName"));
+            new PigeonIMEHelper((String) desiredCapabilities.getCapability("udid"));
             return new AndroidDriver(new URL(driverConfiguration.url), desiredCapabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed to initialize AndroidWebDriver with malformed URL:" +

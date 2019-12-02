@@ -27,13 +27,13 @@ public class PigeonIMEHelper extends BaseClass {
     /**
      * Initialize the PigeonIME keyboard on android device
      *
-     * @param deviceName ADB name of the device to initialize PigeonIME on
+     * @param udid Unique device identifier of the connected physical device to initialize PigeonIME on
      */
-    public PigeonIMEHelper(String deviceName) throws IOException {
-        if (deviceName != null) {
-            initPigeonIME(deviceName);
+    public PigeonIMEHelper(String udid) throws IOException {
+        if (udid != null) {
+            initPigeonIME(udid);
         } else {
-            throw new IOException("deviceName not found in desired capabilities");
+            throw new IOException("udid not found in desired capabilities");
         }
     }
 
@@ -44,29 +44,29 @@ public class PigeonIMEHelper extends BaseClass {
     /**
      * Function that initializes PigeonIME on the Android device
      *
-     * @param deviceName
+     * @param udid Unique device identifier of the connected physical device
      */
-    private void initPigeonIME(String deviceName) throws IOException {
-        if (!isPigeonIMEInstalled(deviceName)) {
+    private void initPigeonIME(String udid) throws IOException {
+        if (!isPigeonIMEInstalled(udid)) {
             if (!new File(PIGEON_IME_APK_DOWNLOAD_PATH).exists()) {
                 downloadPigeonAPK();
             }
-            installPigeonIME(deviceName);
+            installPigeonIME(udid);
             Execution.sleep(1000, logger, null); //Wait for APK to initialize on device
         }
-        setPigeonImeAsKeyboard(deviceName);
+        setPigeonImeAsKeyboard(udid);
     }
 
 
     /**
      * ADB command that installs PigeonIME on the Android device
      *
-     * @param deviceName ADB name of the device to install PigeonIME on
+     * @param udid Unique device identifier of the connected physical device
      */
-    private void installPigeonIME(String deviceName) throws IOException {
+    private void installPigeonIME(String udid) throws IOException {
         logger.info("Installing PigeonIME on device");
         List<String> installAPKScript = Arrays.asList(
-                "adb", "-s", deviceName, "install", PIGEON_IME_APK_DOWNLOAD_PATH
+                "adb", "-s", udid, "install", PIGEON_IME_APK_DOWNLOAD_PATH
         );
         ProcessBuilder builder = new ProcessBuilder(installAPKScript);
         builder.redirectErrorStream(true);
@@ -102,12 +102,12 @@ public class PigeonIMEHelper extends BaseClass {
     /**
      * ADB command that sets PigeonIME as the default keyboard the Android device
      *
-     * @param deviceName ADB name of the device to set PigeonIME ad keyboard on
+     * @param udid Unique device identifier of the connected physical device
      */
-    private void setPigeonImeAsKeyboard(String deviceName) throws IOException {
+    private void setPigeonImeAsKeyboard(String udid) throws IOException {
         logger.info("Setting PigeonIME as default keyboard");
         List<String> setPigeonImeAsKeyboardScript = Arrays.asList(
-                "adb", "-s", deviceName, "shell", "ime", "set", PIGEON_IME_PACKAGE_NAME + "/." + PIGEON_IME_MAIN_ACTIVITY
+                "adb", "-s", udid, "shell", "ime", "set", PIGEON_IME_PACKAGE_NAME + "/." + PIGEON_IME_MAIN_ACTIVITY
         );
         ProcessBuilder builder = new ProcessBuilder(setPigeonImeAsKeyboardScript);
         builder.redirectErrorStream(true);
@@ -126,12 +126,12 @@ public class PigeonIMEHelper extends BaseClass {
      * Method that executes an ADB script that checks if PigeonIME is installed
      * on the Android device.
      *
-     * @param deviceName ADB name of the device to check if PigeonIME is installed
+     * @param udid Unique device identifier of the connected physical device to verify if PigeonIME is installed
      * @return Returns true if PigeonIME is installed on the device
      */
-    private boolean isPigeonIMEInstalled(String deviceName) throws IOException {
+    private boolean isPigeonIMEInstalled(String udid) throws IOException {
         List<String> isPigeonIMEInstalledScript = Arrays.asList(
-                "adb", "-s", deviceName, "shell", "pm", "list", "package " + PIGEON_IME_PACKAGE_NAME
+                "adb", "-s", udid, "shell", "pm", "list", "package " + PIGEON_IME_PACKAGE_NAME
         );
         ProcessBuilder builder = new ProcessBuilder(isPigeonIMEInstalledScript);
         builder.redirectErrorStream(true);
@@ -179,13 +179,13 @@ public class PigeonIMEHelper extends BaseClass {
      * Send a broadcast command to PigeonIME installed on an Android device using ADB shell command
      * to simulate keystrokes.
      *
-     * @param deviceName            name of Android device to send command to
+     * @param udid                  unique device identifier of the connected physical device
      * @param searchString          text to be written by the keyboard
      * @param millisBetweenKeypress time in ms between each simulated keypress
      */
-    public void sendKeysAndroidWithControlledSpeed(String deviceName, String searchString, int millisBetweenKeypress) {
+    public void sendKeysAndroidWithControlledSpeed(String udid, String searchString, int millisBetweenKeypress) {
         List<String> sendKeysAndroidScript = Arrays.asList(
-                "adb", "-s", deviceName, "shell", "am broadcast", "-a " + ADB_TEXT_COMMAND,
+                "adb", "-s", udid, "shell", "am broadcast", "-a " + ADB_TEXT_COMMAND,
                 "--es", "msg " + "'" + searchString + "'",
                 "--ei", "dt " + millisBetweenKeypress
         );
