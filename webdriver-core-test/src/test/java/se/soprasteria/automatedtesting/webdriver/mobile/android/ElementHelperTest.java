@@ -8,7 +8,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver
 public class ElementHelperTest extends AndroidBaseTestCase {
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
-    protected void buttonInteractionText(AutomationDriver driver) {
+    protected void buttonInteractionTest(AutomationDriver driver) {
         Assert.assertTrue(elementPage.isPageLoaded(), "App failed to load correctly");
         Assert.assertTrue(elementPage.showElement(), "Element did not show");
         Assert.assertTrue(elementPage.showElementDelay(), "Element did not show after delay");
