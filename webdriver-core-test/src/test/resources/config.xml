@@ -10,6 +10,7 @@
         <property name="config.appium.automated" value="true"/>
         <property name="config.appium.keep-alive" value="true"/>
         <property name="config.video.record" value="true"/>
+        <property name="config.android.virtual-keyboard" value="true"/>
     </properties>
 
     <drivers>
@@ -45,6 +46,18 @@
             <capability name="platformName" value="Android"/>
             <capability name="deviceName" value="Pixel 3 Emulator"/>
             <capability name="udid" value="emulator-5554"/>
+            <capability name="automationName" value="uiautomator2"/>
+<!--            <capability name="inputMethod" value ="pigeon"/>-->
+            <capability name="autoGrantPermissions" value="true"/>
+            <capability name="app" type="resource" value="Pigeon-test.apk"/>
+
+        </driver>
+
+        <driver id="android_Pixel3_emulator_2" type="AndroidDriver" url="http://127.0.0.1:4723/wd/hub">
+            <capability name="deviceType" value="phone"/>
+            <capability name="platformName" value="Android"/>
+            <capability name="deviceName" value="emulator-5554"/>
+            <capability name="udid" value="RF8M20CMDRW"/>
             <capability name="automationName" value="uiautomator2"/>
             <capability name="autoGrantPermissions" value="true"/>
             <capability name="app" type="resource" value="Pigeon-test.apk"/>

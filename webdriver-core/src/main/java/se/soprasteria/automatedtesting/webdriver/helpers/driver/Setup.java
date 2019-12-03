@@ -46,6 +46,8 @@ import java.net.URL;
 import java.util.*;
 import java.util.logging.Level;
 
+import static se.soprasteria.automatedtesting.webdriver.api.datastructures.ConfigurationOption.ANDROID_VIRTUAL_KEYBOARD;
+
 /**
  * This will initialize the webdriver using a configuration from the JSON in the resources directory.
  */
@@ -198,8 +200,11 @@ public class Setup {
 
     private AndroidDriver initializeAndroidDriver() {
         DesiredCapabilities desiredCapabilities = getMobileCapabilities();
+        boolean androidVirtualKeyboard = Boolean.valueOf(BaseTestConfig.getConfigurationOption(ANDROID_VIRTUAL_KEYBOARD));
         try {
-            new PigeonIMEHelper((String) desiredCapabilities.getCapability("udid"));
+            if (androidVirtualKeyboard) {
+                new PigeonIMEHelper((String) desiredCapabilities.getCapability("udid"));
+            }
             return new AndroidDriver(new URL(driverConfiguration.url), desiredCapabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException("Failed to initialize AndroidWebDriver with malformed URL:" +

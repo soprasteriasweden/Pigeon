@@ -116,7 +116,6 @@ public abstract class BaseTestCase extends BaseClass {
         for (Object[] objects : dataToProvide) {
             try {
                 driver = ((AutomationDriver) objects[0]);
-                installPigeonIME(driver);
                 initializeDriver(driver);
                 initPages(driver);
                 goToPageURL(driver);
@@ -127,27 +126,6 @@ public abstract class BaseTestCase extends BaseClass {
             }
         }
         return dataToProvide;
-    }
-
-    private void installPigeonIME(AutomationDriver driver) {
-        if (driver.isAndroid()) {
-            try {
-                if (!driver.getAndroidDriver().isAppInstalled("se.soprasteria.pigeonime")) {
-                    logger.info("Try to install PigeonIMe App");
-                    driver.getAndroidDriver().installApp("resources/PigeonIME.apk");
-                }
-                String deviceName = driver.getCapability("deviceName");
-                String pigeonIME = "se.soprasteria.pigeonime/.PigeonIME";
-                List<String> sendKeysAndroidScript = Arrays.asList(
-                        "adb", "-s", deviceName, "shell", "ime", "set " + pigeonIME
-                );
-                ProcessBuilder builder = new ProcessBuilder(sendKeysAndroidScript);
-                builder.redirectErrorStream(true);
-                Process setIME = builder.start();
-            } catch (Exception e) {
-                logger.trace("Failed to execute ADB command" + e.getMessage());
-            }
-        }
     }
 
     /**
