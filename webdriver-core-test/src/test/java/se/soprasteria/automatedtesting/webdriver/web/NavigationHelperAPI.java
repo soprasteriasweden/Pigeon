@@ -18,5 +18,4 @@ public class NavigationHelperAPI extends WebBaseTestCase {
         Assert.assertFalse(scrollPage.isElementVisibleWithinViewport(), "Element should not be visible in the viewport");
         sleep(1000);
     }
-
 }

@@ -270,18 +270,13 @@ public class ElementHelperTest extends WebBaseTestCase {
     public void didElementChangeDuringInterval_definedSimilarity(AutomationDriver driver) {
         initialize(ELEMENT_SCREENSHOT_PAGE);
         elementScreenshotPage.clickStartRotationButton();
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(ROTATION_ELEMENT, ROTATION_ELEMENT_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + ROTATION_ELEMENT_MAX_THRESHOLD + "% after the interval");
-        elementScreenshotPage.reloadPage(driver);
-        elementScreenshotPage.clickStartRotationButton();
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(ROTATION_ELEMENT, ROTATION_ELEMENT_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + ROTATION_ELEMENT_MIN_THRESHOLD + "%");
     }
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"browser"})
-    public void didElementChangeDuringInterval(AutomationDriver driver) throws IOException {
+    public void didElementChangeDuringInterval(AutomationDriver driver) {
         initialize(ELEMENT_SCREENSHOT_PAGE);
         elementScreenshotPage.clickStartRotationButton();
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(), "Element did change during interval");
-        elementScreenshotPage.reloadPage(driver);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(), "Element did not change during interval");
     }
 
@@ -301,14 +296,9 @@ public class ElementHelperTest extends WebBaseTestCase {
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"browser"})
     public void elementScreenshot_BlackRect(AutomationDriver driver) throws IOException {
         initialize(ELEMENT_SCREENSHOT_PAGE);
-        elementScreenshotPage.clickRectButton2_3();
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(BLACK_RECT_ELEMENT, BLACK_RECT_ELEMENT2_3_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + BLACK_RECT_ELEMENT2_3_MAX_THRESHOLD + "% after the interval");
         elementScreenshotPage.clickRectButton3_3();
         elementScreenshotPage.clickRectButton2_3();
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(BLACK_RECT_ELEMENT, BLACK_RECT_ELEMENT2_3_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + BLACK_RECT_ELEMENT2_3_MIN_THRESHOLD + "%");
-        elementScreenshotPage.clickRectButton3_3();
-        elementScreenshotPage.clickRectButton1_3();
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(BLACK_RECT_ELEMENT, BLACK_RECT_ELEMENT1_3_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + BLACK_RECT_ELEMENT1_3_MAX_THRESHOLD + "% after the interval");
         elementScreenshotPage.clickRectButton3_3();
         elementScreenshotPage.clickRectButton1_3();
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(BLACK_RECT_ELEMENT, BLACK_RECT_ELEMENT1_3_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + BLACK_RECT_ELEMENT1_3_MIN_THRESHOLD + "%");
@@ -321,31 +311,16 @@ public class ElementHelperTest extends WebBaseTestCase {
     public void elementScreenshot_Colors(AutomationDriver driver) throws IOException {
         initialize(ELEMENT_SCREENSHOT_PAGE);
         elementScreenshotPage.clickColorButton(COLORED_ELEMENT_1);
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_1, COLORED_ELEMENT1_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + COLORED_ELEMENT1_MAX_THRESHOLD + "% after the interval");
-        elementScreenshotPage.clickResetColors();
-        elementScreenshotPage.clickColorButton(COLORED_ELEMENT_1);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_1, COLORED_ELEMENT1_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + COLORED_ELEMENT1_MIN_THRESHOLD + "%");
-        elementScreenshotPage.clickResetColors();
-        elementScreenshotPage.clickColorButton(COLORED_ELEMENT_2);
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_2, COLORED_ELEMENT2_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + COLORED_ELEMENT2_MAX_THRESHOLD + "% after the interval");
         elementScreenshotPage.clickResetColors();
         elementScreenshotPage.clickColorButton(COLORED_ELEMENT_2);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_2, COLORED_ELEMENT2_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + COLORED_ELEMENT2_MIN_THRESHOLD + "%");
         elementScreenshotPage.clickResetColors();
         elementScreenshotPage.clickColorButton(COLORED_ELEMENT_3);
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_3, COLORED_ELEMENT3_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + COLORED_ELEMENT3_MAX_THRESHOLD + "% after the interval");
-        elementScreenshotPage.clickResetColors();
-        elementScreenshotPage.clickColorButton(COLORED_ELEMENT_3);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_3, COLORED_ELEMENT3_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + COLORED_ELEMENT3_MIN_THRESHOLD + "%");
         elementScreenshotPage.clickResetColors();
         elementScreenshotPage.clickColorButton(COLORED_ELEMENT_4);
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_4, COLORED_ELEMENT4_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + COLORED_ELEMENT4_MAX_THRESHOLD + "% after the interval");
-        elementScreenshotPage.clickResetColors();
-        elementScreenshotPage.clickColorButton(COLORED_ELEMENT_4);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_4, COLORED_ELEMENT4_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + COLORED_ELEMENT4_MIN_THRESHOLD + "%");
-        elementScreenshotPage.clickResetColors();
-        elementScreenshotPage.clickColorButton(COLORED_ELEMENT_5);
-        Assert.assertTrue(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_5, COLORED_ELEMENT5_MAX_THRESHOLD), "The element had a similarity percentage above the threshold of " + COLORED_ELEMENT5_MAX_THRESHOLD + "% after the interval");
         elementScreenshotPage.clickResetColors();
         elementScreenshotPage.clickColorButton(COLORED_ELEMENT_5);
         Assert.assertFalse(elementScreenshotPage.didElementChangeDuringInterval(COLORED_ELEMENT_5, COLORED_ELEMENT5_MIN_THRESHOLD), "The element changed during the interval and had a similarity percentage below the threshold of " + COLORED_ELEMENT5_MIN_THRESHOLD + "%");

@@ -107,14 +107,13 @@ public class ElementScreenshotPage extends WebBasePageObject {
     }
 
     public boolean didElementChangeDuringInterval() {
-        navigationHelper.scrollToElement(rotationDiv);
         return elementHelper.didElementChangeDuringInterval(rotationDiv, 2000);
     }
 
     public boolean didElementChangeDuringInterval(ScreenshotElement element, float threshold) {
         switch (element) {
             case ROTATION_ELEMENT:
-                return elementHelper.didElementChangeDuringInterval(rotationDiv, threshold, 2000);
+                return elementHelper.didElementChangeDuringInterval(rotationDiv, threshold, 5000);
             case BLACK_RECT_ELEMENT:
                 return elementHelper.didElementChangeDuringInterval(imageRect, threshold, 2000);
             case COLORED_ELEMENT_1:
