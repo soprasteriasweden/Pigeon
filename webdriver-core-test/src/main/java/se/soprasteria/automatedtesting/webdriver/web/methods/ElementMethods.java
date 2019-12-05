@@ -1,11 +1,9 @@
 package se.soprasteria.automatedtesting.webdriver.web.methods;
 
 import com.google.common.base.Stopwatch;
-import org.openqa.selenium.WebDriver;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 import se.soprasteria.automatedtesting.webdriver.web.model.pages.MainPage;
 
-import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -40,14 +38,15 @@ public class ElementMethods extends MainPage {
         logger.info("INDIVIDUAL KEY PRESS EXECUTION TIME: " + individualKeyPressExecutionTime);
         String textFromInputField = textInput.getAttribute("value");
 
-        if(textFromInputField.equalsIgnoreCase(textToSend)
-                && executionTotalMillis < ACCEPTED_EXECUTION_TIME){
+        if (textFromInputField.equalsIgnoreCase(textToSend)
+                && executionTotalMillis < ACCEPTED_EXECUTION_TIME) {
             return true;
         }
         return false;
     }
+
     public boolean doesAttributeValueContainWithinTime(String value) {
-        return elementHelper.doesAttributeValueContainWithinTime(inputElement,"type",value,2000);
+        return elementHelper.doesAttributeValueContainWithinTime(inputElement, "type", value, 2000);
     }
 
 }

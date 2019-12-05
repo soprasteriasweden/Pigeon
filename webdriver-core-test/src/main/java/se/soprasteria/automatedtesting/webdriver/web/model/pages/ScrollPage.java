@@ -48,7 +48,7 @@ public class ScrollPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(scrollPageLink, 2000);
-        if(!isPageLoaded()) {
+        if (!isPageLoaded()) {
             throw new RuntimeException("Scroll page did not load correctly, cannot continue test.");
         }
     }

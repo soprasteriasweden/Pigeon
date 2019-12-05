@@ -7,7 +7,7 @@ import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver
 
 public class SwipeHelperTest extends AndroidBaseTestCase {
 
-    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"android"})
     protected void swipeTest(AutomationDriver driver) {
         Assert.assertTrue(elementPage.isPageLoaded(), "App failed to load correctly");
         bottomNavigation.navigateSwipePage();

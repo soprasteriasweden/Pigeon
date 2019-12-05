@@ -25,7 +25,6 @@ public class WebBaseTestCase extends BaseTestCase {
     protected ScrollPage scrollPage;
     protected ElementScreenshotPage elementScreenshotPage;
 
-
     @Override
     protected String getDebugLevel() {
         return "IMAGES_FAIL";
@@ -49,7 +48,6 @@ public class WebBaseTestCase extends BaseTestCase {
         scrollPage = new ScrollPage(driver);
         elementScreenshotPage = new ElementScreenshotPage(driver);
         initTestMethods(driver);
-
     }
 
     private void initTestMethods(AutomationDriver driver) {

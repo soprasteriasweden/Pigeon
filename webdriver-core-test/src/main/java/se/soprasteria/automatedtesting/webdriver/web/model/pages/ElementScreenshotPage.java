@@ -61,72 +61,72 @@ public class ElementScreenshotPage extends WebBasePageObject {
         logger.info("We should now be navigating to the Element screenshot page");
     }
 
-    public void clickImageRect(){
+    public void clickImageRect() {
         elementHelper.clickWithinTime(imageRect, 2000);
     }
 
-    public void clickRectButton0_3(){
+    public void clickRectButton0_3() {
         elementHelper.clickWithinTime(fillRectButton0_3, 2000);
     }
 
-    public void clickRectButton1_3(){
+    public void clickRectButton1_3() {
         elementHelper.clickWithinTime(fillRectButton1_3, 2000);
     }
 
-    public void clickRectButton2_3(){
+    public void clickRectButton2_3() {
         elementHelper.clickWithinTime(fillRectButton2_3, 2000);
     }
 
-    public void clickRectButton3_3(){
+    public void clickRectButton3_3() {
         elementHelper.clickWithinTime(fillRectButton3_3, 2000);
     }
 
-    public void clickResetColors(){
-        elementHelper.clickWithinTime(resetColorsButton,2000);
+    public void clickResetColors() {
+        elementHelper.clickWithinTime(resetColorsButton, 2000);
     }
 
-    public boolean clickColorButton(ScreenshotElement element){
-        switch(element){
+    public boolean clickColorButton(ScreenshotElement element) {
+        switch (element) {
             case COLORED_ELEMENT_1:
-                return elementHelper.clickWithinTime(coloredElement1,2000);
+                return elementHelper.clickWithinTime(coloredElement1, 2000);
             case COLORED_ELEMENT_2:
-                return elementHelper.clickWithinTime(coloredElement2,2000);
+                return elementHelper.clickWithinTime(coloredElement2, 2000);
             case COLORED_ELEMENT_3:
-                return elementHelper.clickWithinTime(coloredElement3,2000);
+                return elementHelper.clickWithinTime(coloredElement3, 2000);
             case COLORED_ELEMENT_4:
-                return elementHelper.clickWithinTime(coloredElement4,2000);
+                return elementHelper.clickWithinTime(coloredElement4, 2000);
             case COLORED_ELEMENT_5:
-                return elementHelper.clickWithinTime(coloredElement5,2000);
+                return elementHelper.clickWithinTime(coloredElement5, 2000);
             default:
                 return false;
         }
     }
 
-    public void clickStartRotationButton(){
-        elementHelper.clickWithinTime(rotationDiv,2000);
+    public void clickStartRotationButton() {
+        elementHelper.clickWithinTime(rotationDiv, 2000);
     }
 
-    public boolean didElementChangeDuringInterval(){
+    public boolean didElementChangeDuringInterval() {
         navigationHelper.scrollToElement(rotationDiv);
         return elementHelper.didElementChangeDuringInterval(rotationDiv, 2000);
     }
 
-    public boolean didElementChangeDuringInterval(ScreenshotElement element, float threshold){
+    public boolean didElementChangeDuringInterval(ScreenshotElement element, float threshold) {
         switch (element) {
             case ROTATION_ELEMENT:
-                return elementHelper.didElementChangeDuringInterval(rotationDiv,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(rotationDiv, threshold, 2000);
             case BLACK_RECT_ELEMENT:
-                return elementHelper.didElementChangeDuringInterval(imageRect,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(imageRect, threshold, 2000);
             case COLORED_ELEMENT_1:
-                return elementHelper.didElementChangeDuringInterval(coloredElement1,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(coloredElement1, threshold, 2000);
             case COLORED_ELEMENT_2:
-                return elementHelper.didElementChangeDuringInterval(coloredElement2,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(coloredElement2, threshold, 2000);
             case COLORED_ELEMENT_3:
-                return elementHelper.didElementChangeDuringInterval(coloredElement3,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(coloredElement3, threshold, 2000);
             case COLORED_ELEMENT_4:
-                return elementHelper.didElementChangeDuringInterval(coloredElement4,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(coloredElement4, threshold, 2000);
             case COLORED_ELEMENT_5:
-                return elementHelper.didElementChangeDuringInterval(coloredElement5,threshold,2000);
+                return elementHelper.didElementChangeDuringInterval(coloredElement5, threshold, 2000);
             default:
                 return false;
         }

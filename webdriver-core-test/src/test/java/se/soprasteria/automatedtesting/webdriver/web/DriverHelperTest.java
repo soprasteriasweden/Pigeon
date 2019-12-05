@@ -9,14 +9,6 @@ import static se.soprasteria.automatedtesting.webdriver.web.datastructure.Page.M
 
 public class DriverHelperTest extends WebBaseTestCase {
 
-    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
-    public void getCapabilityTest(AutomationDriver driver) {
-        initialize(MAIN_PAGE);
-        String capability = "udid";
-        String capabilityValue = driverMethods.getCapability(capability);
-        Assert.assertFalse(driverMethods.isStringNullOrEmpty(capabilityValue), "udid " + capability + " was not present");
-        logger.debug("The udid \"" + capability + "\" was present with the value \"" + capabilityValue + "\"");
-    }
 
     @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"browser", "mobile"})
     public void getAvailableContextsTest(AutomationDriver driver) {
@@ -280,16 +272,13 @@ public class DriverHelperTest extends WebBaseTestCase {
         Assert.assertEquals(driverMethods.getImplicitTimeout(), originalImplicitTimeout);
     }
 
-
-/*
-    public void waitForAngularRequestToFinish()
-    Wait for Angular to finish async activity using Angular default root selector "[ng-app]".
-
-    waitForAngularRequestToFinish
-    public void waitForAngularRequestToFinish(java.lang.String rootSelector)
-    Wait for Angular to finish async activity, specifying root selector to find Angular app root element. Specifying
-    the root selector is needed if the root is not equal to the default root element "[ng-app]", the selector String
-    needed is a CSS selector.
-*/
+    @Test(timeOut = 180000, dataProvider = "getDriver", groups = {"mobile"})
+    public void getCapabilityTest(AutomationDriver driver) {
+        initialize(MAIN_PAGE);
+        String capability = "udid";
+        String capabilityValue = driverMethods.getCapability(capability);
+        Assert.assertFalse(driverMethods.isStringNullOrEmpty(capabilityValue), "udid " + capability + " was not present");
+        logger.debug("The udid \"" + capability + "\" was present with the value \"" + capabilityValue + "\"");
+    }
 
 }
