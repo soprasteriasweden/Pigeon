@@ -14,7 +14,7 @@
     </method-selectors>
 
     <test name='API tests for andrid web'>
-        <parameter name='configurationId' value='android'></parameter>
+        <parameter name='configurationId' value='android_Pixel3_emulator'></parameter>
         <parameter name='propertiesFile' value='config.xml'></parameter>
         <parameter name="debugLevel" value="IMAGES_FAIL"/>
         <parameter name="config.appium.automated" value="true" />

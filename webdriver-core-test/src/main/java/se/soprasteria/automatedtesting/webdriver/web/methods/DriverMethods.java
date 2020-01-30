@@ -54,10 +54,10 @@ public class DriverMethods extends MainPage {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("target/surefire-reports/" + pageSourceFileName));
             String line;
-            while((line = bufferedReader.readLine()) != null) {
-                if(!bodyOpenerExist && line.contains("<body>")) bodyOpenerExist = true;
-                if(!bodyCloserExist && line.contains("</body>")) bodyCloserExist = true;
-                if(!sideNavBarExist && line.contains("<h1 class=\"page-header\">Main</h1>")) sideNavBarExist = true;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (!bodyOpenerExist && line.contains("<body>")) bodyOpenerExist = true;
+                if (!bodyCloserExist && line.contains("</body>")) bodyCloserExist = true;
+                if (!sideNavBarExist && line.contains("<h1 class=\"page-header\">Main</h1>")) sideNavBarExist = true;
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -110,7 +110,9 @@ public class DriverMethods extends MainPage {
         return driver.isEdge();
     }
 
-    public boolean isOpera() { return driver.isOpera(); }
+    public boolean isOpera() {
+        return driver.isOpera();
+    }
 
     public boolean isWindowsDriver() {
         return driver.isWindowsDriver();
@@ -149,11 +151,11 @@ public class DriverMethods extends MainPage {
     }
 
     public boolean correctContextsAvailable() {
-        if(driver.isMobile()) {
+        if (driver.isMobile()) {
             Set<String> availableContexts = driver.getAvailableContexts(10000);
-            for(String context : availableContexts) {
+            for (String context : availableContexts) {
                 String contextLower = context.toLowerCase();
-                if(!contextLower.contains("native") &&
+                if (!contextLower.contains("native") &&
                         !contextLower.contains("webview") &&
                         !contextLower.contains("chromium") &&
                         !contextLower.contains("safari")) {
@@ -165,7 +167,8 @@ public class DriverMethods extends MainPage {
             try {
                 driver.getAvailableContexts(10000);
                 return false;
-            } catch (Exception expected) { }
+            } catch (Exception expected) {
+            }
         }
         return true;
     }

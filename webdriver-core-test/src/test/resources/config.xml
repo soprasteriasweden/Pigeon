@@ -10,6 +10,7 @@
         <property name="config.appium.automated" value="true"/>
         <property name="config.appium.keep-alive" value="true"/>
         <property name="config.video.record" value="true"/>
+        <property name="config.android.virtual-keyboard" value="true"/>
     </properties>
 
     <drivers>
@@ -31,7 +32,7 @@
         </driver>
         <!-- For OperaDriver you should navigate the binary_location to opera.exe and not launcher.exe -->
         <driver id="operadriver" type="OperaDriver">
-            <option name="operaBinaryPath" value="" />
+            <option name="operaBinaryPath" value=""/>
         </driver>
         <driver id="edgedriver" type="EdgeDriver" version=""/>
         <driver id="firefoxdriver" type="FirefoxDriver"/>

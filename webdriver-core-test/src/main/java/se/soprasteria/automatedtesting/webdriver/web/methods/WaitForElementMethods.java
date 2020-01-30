@@ -2,7 +2,6 @@ package se.soprasteria.automatedtesting.webdriver.web.methods;
 
 import com.google.common.base.Stopwatch;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 import se.soprasteria.automatedtesting.webdriver.web.datastructure.ElementState;
@@ -24,7 +23,7 @@ public class WaitForElementMethods extends MainPage {
 
         try {
             Stopwatch stopwatch = Stopwatch.createStarted();
-            switch (state){
+            switch (state) {
                 case ELEMENT_WILL_BE_DISPLAYED:
                     message = "Method: WaitForElementToBeDisplayed() does not seem to have stopped timeout around the same time as element was clickable.";
                     errorMessage = "Element was never displayed";
@@ -48,12 +47,12 @@ public class WaitForElementMethods extends MainPage {
                 case TEXT_WILL_BE_PRESENT:
                     message = "Method: WaitForTextToBePresentInElement() does not seem to have stopped timeout around the same time as text was present in element.";
                     errorMessage = "Text was never present in element";
-                    elementHelper.waitForTextToBePresentInElement(text, EXAMPLE_STRING,timeOutMillis);
+                    elementHelper.waitForTextToBePresentInElement(text, EXAMPLE_STRING, timeOutMillis);
                     break;
                 case NESTED_ELEMENT_WILL_BE_DISPLAYED:
                     message = "Method: WaitForNestedElementToBeDisplayed() does not seem to have stopped timeout around the same time as element was displayed.";
                     errorMessage = "Element was never displayed";
-                    elementHelper.waitForNestedElementToBeDisplayed(parentElement, By.className("child-ul"),timeOutMillis);
+                    elementHelper.waitForNestedElementToBeDisplayed(parentElement, By.className("child-ul"), timeOutMillis);
                     break;
                 default:
                     break;
@@ -107,7 +106,7 @@ public class WaitForElementMethods extends MainPage {
         }
     }
 
-    public boolean waitForElementToBeDisplayedAndRefreshed( int timeOutMillis, int elementDelayTime) {
+    public boolean waitForElementToBeDisplayedAndRefreshed(int timeOutMillis, int elementDelayTime) {
         final long ACCEPTED_DIFFERENCE = 1000;
         long resultTime;
         try {

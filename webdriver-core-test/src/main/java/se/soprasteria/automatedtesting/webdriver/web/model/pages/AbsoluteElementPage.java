@@ -1,14 +1,11 @@
 package se.soprasteria.automatedtesting.webdriver.web.model.pages;
 
 import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestConfig;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
 import se.soprasteria.automatedtesting.webdriver.web.WebBasePageObject;
-
-import java.util.List;
 
 public class AbsoluteElementPage extends WebBasePageObject {
 
@@ -16,7 +13,7 @@ public class AbsoluteElementPage extends WebBasePageObject {
     protected WebElement pageTitleHeader;
     @FindBy(id = "absoluteelement")
     protected WebElement absolutelement;
-    protected Point elementsLocation,locationFromCSS;
+    protected Point elementsLocation, locationFromCSS;
 
     public AbsoluteElementPage(AutomationDriver driver) {
         super(driver);
@@ -39,11 +36,11 @@ public class AbsoluteElementPage extends WebBasePageObject {
     }
 
     public void getElementsCSSLocation() {
-        String cssXValue = absolutelement.getCssValue("left").replace("px","");
-        String cssYValue = absolutelement.getCssValue("top").replace("px","");
+        String cssXValue = absolutelement.getCssValue("left").replace("px", "");
+        String cssYValue = absolutelement.getCssValue("top").replace("px", "");
         int x = Integer.parseInt(cssXValue);
         int y = Integer.parseInt(cssYValue);
-        locationFromCSS = new Point(x,y);
+        locationFromCSS = new Point(x, y);
     }
 
     public void getElementLocationInViewPort() {
@@ -56,7 +53,8 @@ public class AbsoluteElementPage extends WebBasePageObject {
 
     public void navigateTo() {
         elementHelper.clickWithinTime(absolutePositionPageLink, 2000);
-        if(!isPageLoaded()) throw new RuntimeException("Absolute Element page did not load correctly, cannot continue test.");
+        if (!isPageLoaded())
+            throw new RuntimeException("Absolute Element page did not load correctly, cannot continue test.");
     }
 
 }

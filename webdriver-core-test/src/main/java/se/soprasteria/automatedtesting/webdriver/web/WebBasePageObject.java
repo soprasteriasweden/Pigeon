@@ -17,7 +17,7 @@ public abstract class WebBasePageObject extends BasePageObject {
     protected WebElement scrollPageLink;
     @FindBy(id = "loginlink")
     protected WebElement loginLink;
-    @FindBy(id ="loggedinmessage")
+    @FindBy(id = "loggedinmessage")
     protected WebElement loggedInIndicator;
 
     public WebBasePageObject(AutomationDriver driver) {

@@ -7,11 +7,9 @@ import io.appium.java_client.ios.IOSStopScreenRecordingOptions;
 import io.appium.java_client.screenrecording.BaseStartScreenRecordingOptions;
 import io.appium.java_client.screenrecording.BaseStopScreenRecordingOptions;
 import io.appium.java_client.screenrecording.CanRecordScreen;
-import io.appium.java_client.screenrecording.ScreenRecordingUploadOptions;
 import org.monte.media.Format;
 import org.monte.media.math.Rational;
 import org.monte.screenrecorder.ScreenRecorder;
-import org.openqa.selenium.WebDriver;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseClass;
 import se.soprasteria.automatedtesting.webdriver.api.base.BaseTestConfig;
 import se.soprasteria.automatedtesting.webdriver.api.datastructures.ConfigurationOption;
@@ -27,24 +25,16 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 
-import static org.monte.media.FormatKeys.EncodingKey;
-import static org.monte.media.FormatKeys.FrameRateKey;
-import static org.monte.media.FormatKeys.KeyFrameIntervalKey;
-import static org.monte.media.FormatKeys.MIME_AVI;
-import static org.monte.media.FormatKeys.MediaTypeKey;
-import static org.monte.media.FormatKeys.MimeTypeKey;
+import static org.monte.media.FormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
-import static org.monte.media.FormatKeys.MediaType;
 
 /**
- *
  * VIDEO RECORDING FUNCTIONALITY IS A BETA FEATURE!
  * IT IS UNSTABLE AND NEED MORE TESTING.
- *
+ * <p>
  * Class with methods handling the video recording functionality.
  * If property "config.video.record" is set to value "true" in config.xml-file
  * video recording will be saved whenever a test fails.
- *
  */
 
 public class VideoRecording extends BaseClass {
@@ -61,7 +51,7 @@ public class VideoRecording extends BaseClass {
         INSTANCE = new VideoRecording();
         VIDEO_RECORDING_ENABLED = Boolean.valueOf(BaseTestConfig.getConfigurationOption(ConfigurationOption.VIDEO_RECORDING));
     }
-    
+
     public static VideoRecording getInstance() {
         return INSTANCE;
     }
@@ -69,9 +59,9 @@ public class VideoRecording extends BaseClass {
     public void startRecording(AutomationDriver driver) {
         if (VIDEO_RECORDING_ENABLED) {
             initVideoRecording();
-            if(driver.isWeb() || driver.isWindowsDriver()) {
+            if (driver.isWeb() || driver.isWindowsDriver()) {
                 startRecordingWeb();
-            } else if(driver.isMobile()) {
+            } else if (driver.isMobile()) {
                 startRecordingMobile(driver);
             }
         }
@@ -79,14 +69,14 @@ public class VideoRecording extends BaseClass {
 
     public void stopRecording(AutomationDriver driver, boolean deleteRecording, String testName) {
         if (VIDEO_RECORDING_ENABLED) {
-            if(driver.isWeb() || driver.isWindowsDriver()) {
+            if (driver.isWeb() || driver.isWindowsDriver()) {
                 stopRecordingWeb(testName);
-            } else if(driver.isMobile()) {
+            } else if (driver.isMobile()) {
                 stopRecordingMobile(driver, testName);
             }
             logger.info("Stopped video recording");
         }
-        if(deleteRecording) deleteRecording();
+        if (deleteRecording) deleteRecording();
     }
 
     private void startRecordingWeb() {
@@ -111,14 +101,13 @@ public class VideoRecording extends BaseClass {
     private void startRecordingMobile(AutomationDriver driver) {
 
         BaseStartScreenRecordingOptions options;
-        if(driver.isAndroid()) {
+        if (driver.isAndroid()) {
             options = new AndroidStartScreenRecordingOptions();
-        }
-        else {
+        } else {
             options = new IOSStartScreenRecordingOptions();
         }
         try {
-            ((CanRecordScreen)driver.getWebDriver()).startRecordingScreen(options);
+            ((CanRecordScreen) driver.getWebDriver()).startRecordingScreen(options);
         } catch (Exception e) {
             logger.warn("Could not start recording screen on mobile platform: " + e.getMessage());
         }
@@ -140,15 +129,14 @@ public class VideoRecording extends BaseClass {
 
     private void stopRecordingMobile(AutomationDriver driver, String testName) {
         BaseStopScreenRecordingOptions options;
-        if(driver.isAndroid()) {
+        if (driver.isAndroid()) {
             options = new AndroidStopScreenRecordingOptions();
-        }
-        else {
+        } else {
             options = new IOSStopScreenRecordingOptions();
         }
         byte[] decodedBytes = null;
         try {
-            decodedBytes = Base64.getDecoder().decode(((CanRecordScreen)driver.getWebDriver()).stopRecordingScreen(options));
+            decodedBytes = Base64.getDecoder().decode(((CanRecordScreen) driver.getWebDriver()).stopRecordingScreen(options));
         } catch (Exception e) {
             logger.warn("Could not stop recording screen on mobile platform: " + e.getMessage());
         }

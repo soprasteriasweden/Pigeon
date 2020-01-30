@@ -9,4 +9,6 @@ public class ConfigurationOption {
     public static final String APPIUM_LOG = "config.appium.log";
     public static final String SCREENSHOT_SIZE = "config.screenshot.size";
     public static final String SCREENSHOT_FORMAT = "config.screenshot.format";
+
+    public static final String ANDROID_VIRTUAL_KEYBOARD = "config.android.virtual-keyboard";
 }

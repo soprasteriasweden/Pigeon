@@ -1,7 +1,6 @@
 package se.soprasteria.automatedtesting.webdriver.web.methods;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import se.soprasteria.automatedtesting.webdriver.helpers.driver.AutomationDriver;
@@ -17,23 +16,23 @@ public class IsElementMethods extends MainPage {
     }
 
     public boolean isElementDisplayedAndRefreshedWithinTime(int timeOutMillis) {
-        return elementHelper.isElementDisplayedAndRefreshedWithinTime(hiddenDisabledButton,timeOutMillis);
+        return elementHelper.isElementDisplayedAndRefreshedWithinTime(hiddenDisabledButton, timeOutMillis);
     }
 
     public boolean isElementClickableAndRefreshedWithinTime(int timeOutMillis) {
-        return elementHelper.isElementClickableAndRefreshedWithinTime(hiddenDisabledButton,timeOutMillis);
+        return elementHelper.isElementClickableAndRefreshedWithinTime(hiddenDisabledButton, timeOutMillis);
     }
 
     public boolean isNestedElementDisplayedWithinTime(int timeOutMillis) {
-        return elementHelper.isNestedElementDisplayedWithinTime(parentElement, By.className("child-ul"),timeOutMillis);
+        return elementHelper.isNestedElementDisplayedWithinTime(parentElement, By.className("child-ul"), timeOutMillis);
     }
 
     public boolean isNestedElementsDisplayedWithinTime(int timeOutMillis) {
-        return elementHelper.isNestedElementDisplayedWithinTime(parentElement,By.className("child-ul"),timeOutMillis);
+        return elementHelper.isNestedElementDisplayedWithinTime(parentElement, By.className("child-ul"), timeOutMillis);
     }
 
     public boolean isAttributeValuePresentWithinTime(String value) {
-        return elementHelper.isAttributeValuePresentWithinTime(inputElement,"type",value,2000);
+        return elementHelper.isAttributeValuePresentWithinTime(inputElement, "type", value, 2000);
     }
 
     public boolean isClickableElementDisplayed() {
@@ -114,7 +113,7 @@ public class IsElementMethods extends MainPage {
 
     public boolean isDisplayedElementsListCorrect() {
         int size = elementHelper.getDisplayedElements(listOfElements).size();
-        if(size != NUMBER_OF_DISPLAYED_ELEMENTS) {
+        if (size != NUMBER_OF_DISPLAYED_ELEMENTS) {
             logger.trace("Wrong amount of elements displayed. " + size + " elements displayed, should have been + " + NUMBER_OF_DISPLAYED_ELEMENTS);
             return false;
         }
@@ -123,7 +122,7 @@ public class IsElementMethods extends MainPage {
 
     public boolean isHiddenElementsListCorrect() {
         int size = elementHelper.getHiddenElements(listOfElements).size();
-        if(size != NUMBER_OF_HIDDEN_ELEMENTS) {
+        if (size != NUMBER_OF_HIDDEN_ELEMENTS) {
             logger.trace("Wrong amount of elements hidden. " + size + " elements hidden, should have been + " + NUMBER_OF_HIDDEN_ELEMENTS);
         }
         return true;

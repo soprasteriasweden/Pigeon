@@ -25,6 +25,7 @@ public class DebugLevel extends BaseClass {
      * IMAGES        - Capture screenshots on all events, this includes edits to page, clicks, types, opening pages, test pass/fail.
      * IMAGES_CLICKS - Capture screenshots on click and higher level events, this includes clicks, open pages, test pass/fail
      * IMAGES_PAGES  - Capture screenshots on pageloads and test pass/fails
+     * IMAGES_FAIL  - Capture screenshots on pageloads and test fails
      */
     public enum Level {
         CONSOLE,
